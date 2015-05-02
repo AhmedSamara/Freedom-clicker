@@ -1,0 +1,640 @@
+L 1 "src\TFT_text.c"
+N#include "font.h"
+L 1 ".\inc\font.h" 1
+N#ifndef FONT_H
+N#define FONT_H
+N#include <stdint.h>
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999,2014 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision: 185525 $
+N * Checkin $Date: 2014-05-29 12:44:48 +0100 (Thu, 29 May 2014) $
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N#define __ARMCLIB_VERSION 5050106
+N
+N  #ifdef __INT64_TYPE__
+S    /* armclang predefines '__INT64_TYPE__' and '__INT64_C_SUFFIX__' */
+S    #define __INT64 __INT64_TYPE__
+N  #else
+N    /* armcc has builtin '__int64' which can be used in --strict mode */
+N    #define __INT64 __int64
+N    #define __INT64_C_SUFFIX__ ll
+N  #endif
+N  #define __PASTE2(x, y) x ## y
+N  #define __PASTE(x, y) __PASTE2(x, y)
+N  #define __INT64_C(x)  __ESCAPE__(__PASTE(x, __INT64_C_SUFFIX__))
+N  #define __UINT64_C(x)  __ESCAPE__(__PASTE(x ## u, __INT64_C_SUFFIX__))
+N  #if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
+X  #if 0L || (1L && !0L)
+N    /* armclang and non-strict armcc allow 'long long' in system headers */
+N    #define __LONGLONG long long
+N  #else
+S    /* strict armcc has '__int64' */
+S    #define __LONGLONG __int64
+N  #endif
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __INT64 int64_t;
+Xtypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __INT64 uint64_t;
+Xtypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __INT64 int_least64_t;
+Xtypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __INT64 uint_least64_t;
+Xtypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __INT64 int_fast64_t;
+Xtypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __INT64 uint_fast64_t;
+Xtypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+Stypedef   signed       __INT64 intptr_t;
+Stypedef unsigned       __INT64 uintptr_t;
+N#else
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N#endif
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed     __LONGLONG intmax_t;
+Xtypedef   signed     long long intmax_t;
+Ntypedef unsigned     __LONGLONG uintmax_t;
+Xtypedef unsigned     long long uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __INT64_C(~0x7fffffffffffffff) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MIN INT64_MIN
+N#else
+N#define INTPTR_MIN INT32_MIN
+N#endif
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MAX INT64_MAX
+N#else
+N#define INTPTR_MAX INT32_MAX
+N#endif
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define UINTPTR_MAX INT64_MAX
+N#else
+N#define UINTPTR_MAX INT32_MAX
+N#endif
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define PTRDIFF_MIN INT64_MIN
+S#define PTRDIFF_MAX INT64_MAX
+N#else
+N#define PTRDIFF_MIN INT32_MIN
+N#define PTRDIFF_MAX INT32_MAX
+N#endif
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define SIZE_MAX UINT64_MAX
+N#else
+N#define SIZE_MAX UINT32_MAX
+N#endif
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X#if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __INT64_C(x)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __UINT64_C(x)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif
+N  #endif /* __cplusplus */
+N
+N#undef __INT64
+N#undef __LONGLONG
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+L 4 ".\inc\font.h" 2
+N
+Ntypedef struct {
+N	uint8_t FontID;
+N	uint8_t Orientation;
+N	uint16_t FirstChar;
+N	uint16_t LastChar;
+N	uint8_t Height;
+N	uint8_t Reserved;
+N} FONT_HEADER_T;
+N
+Ntypedef struct {
+N	uint32_t Width:8; // pixels
+N	uint32_t Offset:24; // Offset from start of table
+N} GLYPH_INDEX_T;
+N
+Nextern const uint8_t Lucida_Console8x13[];
+Nextern const uint8_t Lucida_Console12x19[];
+Nextern const uint8_t Lucida_Console20x31[];
+N
+N#define CHAR_WIDTH G_TFT_char_width 
+N#define CHAR_HEIGHT G_TFT_char_height 
+N
+N#define ROW_TO_Y(r) ((r)*G_TFT_char_height)
+N#define COL_TO_X(c) ((c)*G_TFT_char_width)
+N
+N#define TFT_MAX_COLS (TFT_WIDTH/G_TFT_char_width)
+N#define TFT_MAX_ROWS (TFT_HEIGHT/G_TFT_char_height)
+N
+N
+N#endif // #ifndef FONT_H
+L 2 "src\TFT_text.c" 2
+N#include "TFT_LCD.h"
+L 1 ".\inc\TFT_LCD.h" 1
+N#ifndef TFT_LCD_H
+N#define TFT_LCD_H
+N
+N#include <stdint.h>
+N
+N#define TFT_WIDTH (240)
+N#define TFT_HEIGHT (320)
+N
+N// TFT LCD Hardware Interface
+N// signals -- all on port C
+N#define TFT_DB8_POS (3)
+N#define TFT_DB15_POS (10)
+N#define TFT_D_NC_POS (12)
+N#define TFT_NWR_POS (13)
+N#define TFT_NRD_POS (16)
+N#define TFT_NRST_POS (17)
+N#define TFT_DATA_MASK (((unsigned )0x0ff) << TFT_DB8_POS)
+N
+N// Backlight
+N#define TFT_BL_TPM (TPM1)
+N#define TFT_BL_TPM_CHANNEL (0)
+N#define TFT_BL_TPM_FREQ (20000)
+N#define TFT_BL_PERIOD ((SystemCoreClock)/(2*(TFT_BL_TPM_FREQ)))
+N
+N// Touchscreen Hardware Interface
+N#define TFT_TS_YD_CHANNEL (0)
+N#define TFT_TS_YU_CHANNEL (3)
+N#define TFT_TS_XL_CHANNEL (4) 
+N#define TFT_TS_XR_CHANNEL (7)
+N
+N#define TFT_TS_YD_BIT (20)
+N#define TFT_TS_XL_BIT (21)
+N#define TFT_TS_YU_BIT (22)
+N#define TFT_TS_XR_BIT (23)
+N
+N// Touchscreen Configuration
+N#define TS_DELAY (1)
+N#define TS_CALIB_SAMPLES (10)
+N
+N/**************************************************************/
+N#define	GPIO_ResetBit(pos)	(FPTC->PCOR = MASK(pos))
+N#define	GPIO_SetBit(pos) 		(FPTC->PSOR = MASK(pos))
+N#define GPIO_Write(cmd) 		FPTC->PDOR &= ~TFT_DATA_MASK; \
+N														FPTC->PDOR |= (cmd & 0xff) << TFT_DB8_POS;
+X#define GPIO_Write(cmd) 		FPTC->PDOR &= ~TFT_DATA_MASK; 														FPTC->PDOR |= (cmd & 0xff) << TFT_DB8_POS;
+N/**************************************************************/
+N
+N#define MIN(a,b) ((a)<(b)? a : b)
+N#define MAX(a,b) ((a)>(b)? a : b)
+N
+Ntypedef struct {
+N	uint32_t X, Y;
+N} PT_T;
+N
+Ntypedef struct {
+N	uint8_t R, G, B; // note: using 5-6-5 color mode for LCD. 
+N									 // Values are left aligned here
+N} COLOR_T;
+N
+N
+N void TFT_Init(void);
+N void TFT_Fill_Buffer(COLOR_T * color);
+N void TFT_Fill_Rectangle(PT_T * p1, PT_T * p2, COLOR_T * color);
+N uint32_t TFT_Start_Rectangle(PT_T * p1, PT_T * p2);
+N void TFT_Write_Rectangle_Pixel(COLOR_T * color, unsigned int count);
+N
+N
+N void TFT_Plot_Pixel(PT_T * pos, COLOR_T * color);
+N void TFT_Set_BL(uint8_t on);
+N void TFT_Set_Brightness(uint8_t brightness);
+N void TFT_Set_Backlight_Brightness(uint16_t brightness_percent);
+N void TFT_Set_Colors(COLOR_T * foreground, COLOR_T * background);
+N
+N void TFT_Erase(void);
+N void TFT_Text_Init(uint8_t font_num);
+N void TFT_Text_PrintChar(PT_T * pos, char ch);
+N void TFT_Text_PrintStr(PT_T * pos, char * str);
+N void TFT_Text_PrintStr_RC( uint8_t  row, uint8_t col, char *  str);
+N
+N void Graphics_Test(void);
+N void TFT_Draw_Line(PT_T * p1, PT_T * p2, COLOR_T * color);
+N
+N
+N void TFT_TS_Init(void);
+N uint32_t TFT_TS_Read(PT_T * position);
+N void TFT_TS_Test(void);
+N void TFT_TS_Calibrate(void);
+N
+N extern uint8_t G_TFT_char_width, G_TFT_char_height;
+N
+N
+N  
+N
+N#endif
+L 3 "src\TFT_text.c" 2
+N
+Nconst uint8_t * font;
+NFONT_HEADER_T * font_header;
+NGLYPH_INDEX_T * glyph_index; 
+N
+NCOLOR_T fg, bg;
+N
+Nuint8_t G_TFT_char_width, G_TFT_char_height;
+N
+Nconst uint8_t * fonts[] = {Lucida_Console8x13, Lucida_Console12x19}; // Lucida_Console20x31};
+Nconst uint8_t char_widths[] = {8, 12, 20};
+Nconst uint8_t char_heights[] = {13, 19, 31};
+N
+Nvoid TFT_Text_Set_Colors(COLOR_T * foreground, COLOR_T * background) {
+N	fg.R = foreground->R;
+N	fg.G = foreground->G;
+N	fg.B = foreground->B;
+N	bg.R = background->R;
+N	bg.G = background->G;
+N	bg.B = background->B;
+N}
+N
+Nvoid TFT_Erase(void) {
+N	TFT_Fill_Buffer(&bg);
+N}
+N
+Nvoid TFT_Text_Init(uint8_t font_num) {
+N	
+N#if 0  // Code for multiple fonts not working yet
+S	font = fonts[font_num];
+S	G_TFT_char_width = char_widths[font_num];
+S	G_TFT_char_height = char_heights[font_num];
+N#else // This code is working
+N	font = Lucida_Console12x19;
+N	G_TFT_char_width = 12;
+N	G_TFT_char_height = 19;
+N#endif
+N	
+N	font_header = (FONT_HEADER_T *) font;
+N	glyph_index = (GLYPH_INDEX_T *) (font + sizeof(FONT_HEADER_T));
+N	
+N	// Set default FG and BG colors
+N	fg.R = 255;
+N	fg.G = 255;
+N	fg.B = 0;
+N
+N	bg.R = 0;
+N	bg.G = 0;
+N	bg.B = 0;
+N}
+N
+Nvoid TFT_Text_PrintChar(PT_T * pos, char ch) {
+N	uint8_t glyph_index_entry;
+N	const uint8_t * glyph_data; // start of the data
+N	PT_T end_pos;
+N	COLOR_T * pixel_color;
+N	uint8_t bitmap_byte;
+N	uint8_t glyph_width, x_bm;
+N	uint32_t offset;
+N	uint32_t row, col, num_pixels;
+N	
+N	glyph_index_entry = ch - font_header->FirstChar;
+N	glyph_width = glyph_index[glyph_index_entry].Width;
+N	offset = glyph_index[glyph_index_entry].Offset;
+N	glyph_data = &(font[offset]);
+N	
+N	end_pos.X = pos->X+CHAR_WIDTH-1;
+X	end_pos.X = pos->X+G_TFT_char_width-1;
+N	end_pos.Y = pos->Y+CHAR_HEIGHT-1;
+X	end_pos.Y = pos->Y+G_TFT_char_height-1;
+N	TFT_Start_Rectangle(pos, &end_pos); 
+N	
+N	for (row = 0; row < CHAR_HEIGHT; row++) {
+X	for (row = 0; row < G_TFT_char_height; row++) {
+N		x_bm = 0;
+N		do {
+N			bitmap_byte = *glyph_data;
+N			if (bitmap_byte == 0x00) {
+N				num_pixels = MIN(8,glyph_width - x_bm);
+X				num_pixels = ((8)<(glyph_width - x_bm)? 8 : glyph_width - x_bm);
+N				TFT_Write_Rectangle_Pixel(&bg, num_pixels);
+N				x_bm += num_pixels;	
+N			} else if (bitmap_byte == 0xff) {
+N				num_pixels = MIN(8,glyph_width - x_bm);
+X				num_pixels = ((8)<(glyph_width - x_bm)? 8 : glyph_width - x_bm);
+N				TFT_Write_Rectangle_Pixel(&fg, num_pixels);
+N				x_bm += num_pixels;	
+N			} else {
+N				col = 0;
+N				num_pixels = 0;
+N				if ((bitmap_byte & 0x7f) == 0) {
+N					num_pixels = MIN(7,glyph_width - x_bm);
+X					num_pixels = ((7)<(glyph_width - x_bm)? 7 : glyph_width - x_bm);
+N					TFT_Write_Rectangle_Pixel(&bg, num_pixels);
+N				} else if ((bitmap_byte & 0x7f) == 0x7f) {
+N					num_pixels = MIN(7,glyph_width - x_bm);
+X					num_pixels = ((7)<(glyph_width - x_bm)? 7 : glyph_width - x_bm);
+N					TFT_Write_Rectangle_Pixel(&fg, num_pixels);
+N				} else if ((bitmap_byte & 0x3f) == 0) {
+N					num_pixels = MIN(6,glyph_width - x_bm);
+X					num_pixels = ((6)<(glyph_width - x_bm)? 6 : glyph_width - x_bm);
+N					TFT_Write_Rectangle_Pixel(&bg, num_pixels);
+N				} else if ((bitmap_byte & 0x3f) == 0x3f) {
+N					num_pixels = MIN(6,glyph_width - x_bm);
+X					num_pixels = ((6)<(glyph_width - x_bm)? 6 : glyph_width - x_bm);
+N					TFT_Write_Rectangle_Pixel(&fg, num_pixels);
+N				} else if ((bitmap_byte & 0x1f) == 0) {
+N					num_pixels = MIN(5,glyph_width - x_bm);
+X					num_pixels = ((5)<(glyph_width - x_bm)? 5 : glyph_width - x_bm);
+N					TFT_Write_Rectangle_Pixel(&bg, num_pixels);
+N				} else if ((bitmap_byte & 0x1f) == 0x1f) {
+N					num_pixels = MIN(5,glyph_width - x_bm);
+X					num_pixels = ((5)<(glyph_width - x_bm)? 5 : glyph_width - x_bm);
+N					TFT_Write_Rectangle_Pixel(&fg, num_pixels);
+N				} else if ((bitmap_byte & 0x0f) == 0) {
+N					num_pixels = MIN(4,glyph_width - x_bm);
+X					num_pixels = ((4)<(glyph_width - x_bm)? 4 : glyph_width - x_bm);
+N					TFT_Write_Rectangle_Pixel(&bg, num_pixels);
+N				} else if ((bitmap_byte & 0x0f) == 0x0f) {
+N					num_pixels = MIN(4,glyph_width - x_bm);
+X					num_pixels = ((4)<(glyph_width - x_bm)? 4 : glyph_width - x_bm);
+N					TFT_Write_Rectangle_Pixel(&fg, num_pixels);
+N				}
+N				if (num_pixels > 0) {
+N					x_bm += num_pixels;	
+N					col += num_pixels;
+N					bitmap_byte >>= num_pixels;
+N				}
+N				for (; col < 8; col++) {
+N					if (bitmap_byte & 0x01) // if pixel is to be set
+N						pixel_color = &fg;
+N					else
+N						pixel_color = &bg;
+N					TFT_Write_Rectangle_Pixel(pixel_color, 1);
+N					bitmap_byte >>= 1;
+N					x_bm++;
+N					if (x_bm >= glyph_width)
+N						break;
+N				}
+N			}
+N			glyph_data++;
+N		} while (x_bm < glyph_width);
+N		if (x_bm < CHAR_WIDTH) {
+X		if (x_bm < G_TFT_char_width) {
+N			// fill in rest of cell with background color for narrow glyphs
+N			TFT_Write_Rectangle_Pixel(&bg, CHAR_WIDTH - x_bm);	
+X			TFT_Write_Rectangle_Pixel(&bg, G_TFT_char_width - x_bm);	
+N		}
+N	}
+N}
+N
+Nvoid TFT_Text_PrintStr(PT_T * pos, char * str) {
+N	while (*str) {
+N		TFT_Text_PrintChar(pos, *str);
+N		str++;
+N		pos->X += CHAR_WIDTH; // forces monospacing for fonts
+X		pos->X += G_TFT_char_width; 
+N	}
+N}
+N
+Nvoid TFT_Text_PrintStr_RC( uint8_t  row, uint8_t  col, char  *str )
+N{
+N	PT_T pos;
+N	pos.X = COL_TO_X( col );
+X	pos.X = ((col)*G_TFT_char_width);
+N	pos.Y = ROW_TO_Y( row );
+X	pos.Y = ((row)*G_TFT_char_height);
+N	while( *str )
+N	{
+N		TFT_Text_PrintChar( &pos, *str );
+N		str++;
+N		pos.X += CHAR_WIDTH;       /*     forces monospacing for fonts               */
+X		pos.X += G_TFT_char_width;        
+N	}
+N}

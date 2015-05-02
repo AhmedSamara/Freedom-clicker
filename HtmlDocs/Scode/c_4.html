@@ -1,0 +1,154 @@
+﻿<html><head><title>Source Code - i2c.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_4.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; i2c.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>i2c.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_4.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'>  1  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>MKL25Z4.H<font color='#0000FF'>&gt;</font>
+<a name='L2'>  2  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;I2C.h&quot;</font>
+<a name='L3'>  3  </a>
+<a name='L4'>  4  </a><font color='#A000A0'>//init i2c0</font>
+<a name='L5'>  5  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_4.html#OD0_3_11'>i2c_init</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L6'>  6  </a><font color='#0000FF'>{</font>
+<a name='L7'>  7  </a> <font color='#A000A0'>//clock i2c peripheral and port E</font>
+<a name='L8'>  8  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC4       <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC4_I2C0_MASK<font color='#0000FF'>;</font>
+<a name='L9'>  9  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC5       <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> SIM_SCGC5_PORTE_MASK <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L10'> 10  </a>
+<a name='L11'> 11  </a>    <font color='#A000A0'>//set pins to I2C function</font>
+<a name='L12'> 12  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> 24 <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 5 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L13'> 13  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> 25 <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 5 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L14'> 14  </a>
+<a name='L15'> 15  </a>    <font color='#A000A0'>//set to 100k baud</font>
+<a name='L16'> 16  </a>    <font color='#A000A0'>//baud = bus freq/(scl_div+mul)</font>
+<a name='L17'> 17  </a>    <font color='#A000A0'>//~400k = 24M/(64); icr=0x12 sets scl_div to 64</font>
+<a name='L18'> 18  </a>
+<a name='L19'> 19  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>F           <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> I2C_F_ICR<font color='#0000FF'>(</font> 8 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> I2C_F_MULT<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L20'> 20  </a>
+<a name='L21'> 21  </a>    <font color='#A000A0'>//enable i2c and set to master mode</font>
+<a name='L22'> 22  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>C1         <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> I2C_C1_IICEN_MASK <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L23'> 23  </a>
+<a name='L24'> 24  </a>    <font color='#A000A0'>// Select high drive mode</font>
+<a name='L25'> 25  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>C2         <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> I2C_C2_HDRS_MASK <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L26'> 26  </a><font color='#0000FF'>}</font>
+<a name='L27'> 27  </a>
+<a name='L28'> 28  </a><font color='#C6264F'>#pragma</font> no_inline 
+<a name='L29'> 29  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_4.html#OD0_3_16'>i2c_wait</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L30'> 30  </a><font color='#0000FF'>{</font>
+<a name='L31'> 31  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>S <font color='#0000FF'>&amp;</font> I2C_S_IICIF_MASK <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L32'> 32  </a>    <font color='#0000FF'>{</font>
+<a name='L33'> 33  </a>    <font color='#0000FF'>}</font>
+<a name='L34'> 34  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>S <font color='#0000FF'>|</font><font color='#0000FF'>=</font> I2C_S_IICIF_MASK<font color='#0000FF'>;</font>
+<a name='L35'> 35  </a><font color='#0000FF'>}</font>
+<a name='L36'> 36  </a>
+<a name='L37'> 37  </a>
+<a name='L38'> 38  </a><font color='#A000A0'>//send start sequence</font>
+<a name='L39'> 39  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_4.html#OD0_3_15'>i2c_start</a><font color='#0000FF'>(</font> <font color='#0000FF'>)</font>
+<a name='L40'> 40  </a><font color='#0000FF'>{</font>
+<a name='L41'> 41  </a>    I2C_TRAN<font color='#0000FF'>;</font>                                                   <font color='#A000A0'>/*  set to transmit mode                          */</font>
+<a name='L42'> 42  </a>    I2C_M_START<font color='#0000FF'>;</font>                                                <font color='#A000A0'>/*  send start                                    */</font>
+<a name='L43'> 43  </a><font color='#0000FF'>}</font>
+<a name='L44'> 44  </a>
+<a name='L45'> 45  </a><font color='#A000A0'>//send device and register addresses</font>
+<a name='L46'> 46  </a><font color='#C6264F'>#pragma</font> no_inline 
+<a name='L47'> 47  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_4.html#OD0_3_13'>i2c_read_setup</a><font color='#0000FF'>(</font> uint8_t  dev<font color='#0000FF'>,</font> uint8_t  address <font color='#0000FF'>)</font>
+<a name='L48'> 48  </a><font color='#0000FF'>{</font>
+<a name='L49'> 49  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> dev<font color='#0000FF'>;</font>                                              <font color='#A000A0'>/*  send dev address                              */</font>
+<a name='L50'> 50  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for completion                           */</font>
+<a name='L51'> 51  </a>
+<a name='L52'> 52  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> address<font color='#0000FF'>;</font>                                          <font color='#A000A0'>/*  send read address                             */</font>
+<a name='L53'> 53  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for completion                           */</font>
+<a name='L54'> 54  </a>
+<a name='L55'> 55  </a>    I2C_M_RSTART<font color='#0000FF'>;</font>                                               <font color='#A000A0'>/*  repeated start                                */</font>
+<a name='L56'> 56  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> dev <font color='#0000FF'>|</font> 0x1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                                    <font color='#A000A0'>/*  send dev address (read)                       */</font>
+<a name='L57'> 57  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for completion                           */</font>
+<a name='L58'> 58  </a>
+<a name='L59'> 59  </a>    I2C_REC<font color='#0000FF'>;</font>                                                    <font color='#A000A0'>/*  set to receive mode                           */</font>
+<a name='L60'> 60  </a>
+<a name='L61'> 61  </a><font color='#0000FF'>}</font>
+<a name='L62'> 62  </a>
+<a name='L63'> 63  </a><font color='#A000A0'>//read a byte and ack/nack as appropriate</font>
+<a name='L64'> 64  </a><font color='#A000A0'>// #pragma no_inline </font>
+<a name='L65'> 65  </a>uint8_t <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_4.html#OD0_3_14'>i2c_repeated_read</a><font color='#0000FF'>(</font> uint8_t  isLastRead <font color='#0000FF'>)</font>
+<a name='L66'> 66  </a><font color='#0000FF'>{</font>
+<a name='L67'> 67  </a>    uint8_t data<font color='#0000FF'>;</font>
+<a name='L68'> 68  </a>
+<a name='L69'> 69  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(97);' class='hnd_cls'>isLastRead</span> <font color='#0000FF'>)</font>
+<a name='L70'> 70  </a>    <font color='#0000FF'>{</font>
+<a name='L71'> 71  </a>        NACK<font color='#0000FF'>;</font>                                                   <font color='#A000A0'>/*    set NACK after read                         */</font>
+<a name='L72'> 72  </a>    <font color='#0000FF'>}</font>
+<a name='L73'> 73  </a>    <font color='#C6264F'>else</font>
+<a name='L74'> 74  </a>    <font color='#0000FF'>{</font>
+<a name='L75'> 75  </a>        ACK<font color='#0000FF'>;</font>                                                    <font color='#A000A0'>/*    ACK after read                              */</font>
+<a name='L76'> 76  </a>    <font color='#0000FF'>}</font>
+<a name='L77'> 77  </a>
+<a name='L78'> 78  </a>    <span onclick='gotosrc(98);' class='hnd_cls'>data</span> <font color='#0000FF'>=</font> I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D<font color='#0000FF'>;</font>                                             <font color='#A000A0'>/*  dummy read                                    */</font>
+<a name='L79'> 79  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for completion                           */</font>
+<a name='L80'> 80  </a>
+<a name='L81'> 81  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(97);' class='hnd_cls'>isLastRead</span> <font color='#0000FF'>)</font>
+<a name='L82'> 82  </a>    <font color='#0000FF'>{</font>
+<a name='L83'> 83  </a>        I2C_M_STOP<font color='#0000FF'>;</font>                                             <font color='#A000A0'>/*    send stop                                   */</font>
+<a name='L84'> 84  </a>    <font color='#0000FF'>}</font>
+<a name='L85'> 85  </a>    <span onclick='gotosrc(98);' class='hnd_cls'>data</span> <font color='#0000FF'>=</font> I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D<font color='#0000FF'>;</font>                                             <font color='#A000A0'>/*  read data                                     */</font>
+<a name='L86'> 86  </a>
+<a name='L87'> 87  </a>    <font color='#C6264F'>return</font> <span onclick='gotosrc(98);' class='hnd_cls'>data</span><font color='#0000FF'>;</font>
+<a name='L88'> 88  </a><font color='#0000FF'>}</font>
+<a name='L89'> 89  </a>
+<a name='L90'> 90  </a>
+<a name='L91'> 91  </a>
+<a name='L92'> 92  </a><font color='#A000A0'>//////////funcs for reading and writing a single byte</font>
+<a name='L93'> 93  </a><font color='#A000A0'>//using 7bit addressing reads a byte from dev:address</font>
+<a name='L94'> 94  </a><font color='#A000A0'>// #pragma no_inline </font>
+<a name='L95'> 95  </a>uint8_t <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_4.html#OD0_3_12'>i2c_read_byte</a><font color='#0000FF'>(</font> uint8_t  dev<font color='#0000FF'>,</font> uint8_t  address <font color='#0000FF'>)</font>
+<a name='L96'> 96  </a><font color='#0000FF'>{</font>
+<a name='L97'> 97  </a>    uint8_t data<font color='#0000FF'>;</font>
+<a name='L98'> 98  </a>
+<a name='L99'> 99  </a>    I2C_TRAN<font color='#0000FF'>;</font>                                                   <font color='#A000A0'>/*  set to transmit mode                          */</font>
+<a name='L100'>100  </a>    I2C_M_START<font color='#0000FF'>;</font>                                                <font color='#A000A0'>/*  send start                                    */</font>
+<a name='L101'>101  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> dev<font color='#0000FF'>;</font>                                              <font color='#A000A0'>/*  send dev address                              */</font>
+<a name='L102'>102  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for completion                           */</font>
+<a name='L103'>103  </a>
+<a name='L104'>104  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> address<font color='#0000FF'>;</font>                                          <font color='#A000A0'>/*  send read address                             */</font>
+<a name='L105'>105  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for completion                           */</font>
+<a name='L106'>106  </a>
+<a name='L107'>107  </a>    I2C_M_RSTART<font color='#0000FF'>;</font>                                               <font color='#A000A0'>/*  repeated start                                */</font>
+<a name='L108'>108  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> dev <font color='#0000FF'>|</font> 0x1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                                    <font color='#A000A0'>/*  send dev address (read)                       */</font>
+<a name='L109'>109  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for completion                           */</font>
+<a name='L110'>110  </a>
+<a name='L111'>111  </a>    I2C_REC<font color='#0000FF'>;</font>                                                    <font color='#A000A0'>/*  set to recieve mode                           */</font>
+<a name='L112'>112  </a>    NACK<font color='#0000FF'>;</font>                                                       <font color='#A000A0'>/*  set NACK after read                           */</font>
+<a name='L113'>113  </a>
+<a name='L114'>114  </a>    <span onclick='gotosrc(112);' class='hnd_cls'>data</span> <font color='#0000FF'>=</font> I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D<font color='#0000FF'>;</font>                                             <font color='#A000A0'>/*  dummy read                                    */</font>
+<a name='L115'>115  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for completion                           */</font>
+<a name='L116'>116  </a>
+<a name='L117'>117  </a>    I2C_M_STOP<font color='#0000FF'>;</font>                                                 <font color='#A000A0'>/*  send stop                                     */</font>
+<a name='L118'>118  </a>    <span onclick='gotosrc(112);' class='hnd_cls'>data</span> <font color='#0000FF'>=</font> I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D<font color='#0000FF'>;</font>                                             <font color='#A000A0'>/*  read data                                     */</font>
+<a name='L119'>119  </a>
+<a name='L120'>120  </a>    <font color='#C6264F'>return</font> <span onclick='gotosrc(112);' class='hnd_cls'>data</span><font color='#0000FF'>;</font>
+<a name='L121'>121  </a><font color='#0000FF'>}</font>
+<a name='L122'>122  </a>
+<a name='L123'>123  </a>
+<a name='L124'>124  </a>
+<a name='L125'>125  </a><font color='#A000A0'>//using 7bit addressing writes a byte data to dev:address</font>
+<a name='L126'>126  </a><font color='#C6264F'>#pragma</font> no_inline 
+<a name='L127'>127  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_4.html#OD0_3_17'>i2c_write_byte</a><font color='#0000FF'>(</font> uint8_t  dev<font color='#0000FF'>,</font> uint8_t  address<font color='#0000FF'>,</font> uint8_t  data <font color='#0000FF'>)</font>
+<a name='L128'>128  </a><font color='#0000FF'>{</font>
+<a name='L129'>129  </a>
+<a name='L130'>130  </a>    I2C_TRAN<font color='#0000FF'>;</font>                                                   <font color='#A000A0'>/*  set to transmit mode                          */</font>
+<a name='L131'>131  </a>    I2C_M_START<font color='#0000FF'>;</font>                                                <font color='#A000A0'>/*  send start                                    */</font>
+<a name='L132'>132  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> dev<font color='#0000FF'>;</font>                                              <font color='#A000A0'>/*  send dev address                              */</font>
+<a name='L133'>133  </a>    I2C_WAIT                                                    <font color='#A000A0'>/*  wait for ack                                  */</font>
+<a name='L134'>134  </a>
+<a name='L135'>135  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> address<font color='#0000FF'>;</font>                                          <font color='#A000A0'>/*  send write address                            */</font>
+<a name='L136'>136  </a>    I2C_WAIT
+<a name='L137'>137  </a>
+<a name='L138'>138  </a>    I2C0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>D <font color='#0000FF'>=</font> data<font color='#0000FF'>;</font>                                             <font color='#A000A0'>/*  send data                                     */</font>
+<a name='L139'>139  </a>    I2C_WAIT
+<a name='L140'>140  </a>    I2C_M_STOP<font color='#0000FF'>;</font>
+<a name='L141'>141  </a>
+<a name='L142'>142  </a><font color='#0000FF'>}</font>
+<a name='L143'>143  </a>
+<a name='L144'>144  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

@@ -1,0 +1,642 @@
+﻿<html><head><title>Crystal FLOW for C Documentation  - timers.c</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script></head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("<a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">Documentation </a> &nbsp; >> &nbsp; <a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">All Files</a> &nbsp; >> timers.c");file_doc_starter(true);'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><script language='javascript'>
+var   vstr='visible';
+var   dly=220;
+var     mitms=new Array(2);
+mitms[0] = {'dn':'MoreArea0', 'sl':'LMore0', 'toid':0 };
+mitms[1] = {'dn':'MoreArea1', 'sl':'LMore1', 'toid':0 };
+function lcrto()
+{
+   clearTimeout(mitms[0].toid);
+   clearTimeout(mitms[1].toid);
+}
+</script>
+<div id='SCUT' style='visibility:hidden; position:absolute;'>
+<table border=1 bgcolor='#f0f0f0' cellspacing=0 cellpadding=0 width='230' id='MORE_TAB'><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr><td width=10><td>
+<table border=0 cellspacing=0 cellpadding=4 width='100%'>
+<tr><td height=1 width=20><td height=1 width=20><td height=1 width=210><tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#INCAREA'>Included Files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_FUN_DEFs' >Functions Defined</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_VAR_DEFs' >Globals Defined</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_VAR_PROTOs' >Externs Variables</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_FUNs' >Functions from .H files</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_VARs' >Globals from .H files</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_STRs' >structs/unions from .H files</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_MACs' >#defines from .H files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_STRs' >structs/unions from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_ENUMCONSTs' >Enum Constants from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_MACs' >#defines from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_TYPs' >Typedefs from Library</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#DTLFUNDEFS'>Functions - Detailed</a>
+<tr><td height=5></table></table></table></div>
+<h3><a name='TTOP'></a><u>timers.c</u></h3><p class='DOC_DFLTTXT'>No documentation available</p><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td height=1 width=40><td height=1 width=20><td height=1 width=450>
+<tr><td class='INCTBL_HDNGTXT' colspan=3><a name='FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a target='_sgv_cc_brws_tree' href='../graphs/f19_fl_rpt.html' class='DOC_DFLTLNK'>File Report Tree</a><tr><td colspan=3 height=10>
+</table><br><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td class='INCTBL_HDNGTXT' colspan=5><a name='INCAREA'>Included Files</a><tr><td colspan=5 height=10><tr><td width=160>timers.h
+<td width=160>MKL25Z4.H
+<td width=160>region.h
+<td width=160>profile.h
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_FUN_DEFs'>Functions defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_87'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_87'>PIT_IRQHandler</a>( )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_94'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_94'>PIT_Init</a>( unsigned int  period)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_95'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_95'>PIT_Start</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_118'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_118'>PIT_Stop</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_83'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_83'>Init_PWM</a>( TPM_Type *  TPM, 
+                 uint8_t  channel_num, 
+                 uint16_t  period, 
+                 uint16_t  duty)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_67'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_67'>Old_Init_PWM</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_115'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_115'>PWM_Set_Value</a>( TPM_Type *  TPM, 
+                      uint8_t  channel_num, 
+                      uint16_t  value)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_109'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_109'>TPM0_Init</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_97'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_97'>Configure_TPM0_for_DMA</a>( uint32_t  period_us)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_120'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_120'>TPM0_Start</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_119'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_119'>TPM0_IRQHandler</a>( )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_VAR_DEFs'>Globals Defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_82'></a>volatile unsigned int   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>PIT_interrupt_counter</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_78'></a>volatile unsigned int   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>LCD_update_requested</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_79'></a>unsigned int   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>PC_val</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_VAR_PROTOs'>External Variable Declared</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_42'></a>
+ <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>profile_ticks</span><td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_43'></a>
+ <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>profiling_enabled</span><td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_40'></a>
+ <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>adx_lost</span><td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_41'></a>
+ <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>num_lost</span><td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_FUNs'>Functions from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_3_84'></a><span class='NOS_NL_OBJNMTXT'>NVIC_ClearPendingIRQ</span><td width=300><a name='OS0_3_86'></a><span class='NOS_NL_OBJNMTXT'>NVIC_SetPriority</span><td width=300><a name='OS0_3_85'></a><span class='NOS_NL_OBJNMTXT'>NVIC_EnableIRQ</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_VARs'>Globals from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_36'></a><a class='NOS_OBJNMTXT' href='../Files/fd_12.html#OS0_2_36'>NumProfileRegions</a><td width=300><a name='OS0_2_38'></a><a class='NOS_OBJNMTXT' href='../Files/fd_12.html#OS0_2_38'>RegionTable</a><td width=300><a name='OS0_2_37'></a><a class='NOS_OBJNMTXT' href='../Files/fd_12.html#OS0_2_37'>RegionCount</a></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_STRs'>structs/unions from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_0_8'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct1</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_MACs'>Macros  #defines from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_148'></a><span class='NOS_NL_OBJNMTXT'>CUR_FRAME_SIZE</span><td width=300><a name='OS0_4_157'></a><span class='NOS_NL_OBJNMTXT'>RET_ADX_OFFSET</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_STRs'>structs/unions from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_0_15'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct23</span><td width=300><a name='OS0_0_16'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct24</span><td width=300><a name='OS0_0_2'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct30</span>
+<tr><td width=300><a name='OS0_0_12'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct33</span><td width=300><a name='OS0_0_0'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct26</span><td width=300><a name='OS0_0_17'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct34</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_ENUMCONSTs'>Enum Constants from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_80'></a><span class='NOS_NL_OBJNMTXT'>PIT_IRQn</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_MACs'>Macros #defines from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_149'></a><span class='NOS_NL_OBJNMTXT'>PIT</span><td width=300><a name='OS0_4_156'></a><span class='NOS_NL_OBJNMTXT'>PIT_TFLG_TIF_MASK</span><td width=300><a name='OS0_4_7'></a><span class='NOS_NL_OBJNMTXT'>SIM</span>
+<tr><td width=300><a name='OS0_4_158'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC6_PIT_MASK</span><td width=300><a name='OS0_4_152'></a><span class='NOS_NL_OBJNMTXT'>PIT_MCR_MDIS_MASK</span><td width=300><a name='OS0_4_151'></a><span class='NOS_NL_OBJNMTXT'>PIT_MCR_FRZ_MASK</span>
+<tr><td width=300><a name='OS0_4_150'></a><span class='NOS_NL_OBJNMTXT'>PIT_LDVAL_TSV</span><td width=300><a name='OS0_4_153'></a><span class='NOS_NL_OBJNMTXT'>PIT_TCTRL_CHN_MASK</span><td width=300><a name='OS0_4_155'></a><span class='NOS_NL_OBJNMTXT'>PIT_TCTRL_TIE_MASK</span>
+<tr><td width=300><a name='OS0_4_154'></a><span class='NOS_NL_OBJNMTXT'>PIT_TCTRL_TEN_MASK</span><td width=300><a name='OS0_4_164'></a><span class='NOS_NL_OBJNMTXT'>TPM0</span><td width=300><a name='OS0_4_159'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC6_TPM0_MASK</span>
+<tr><td width=300><a name='OS0_4_165'></a><span class='NOS_NL_OBJNMTXT'>TPM1</span><td width=300><a name='OS0_4_160'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC6_TPM1_MASK</span><td width=300><a name='OS0_4_166'></a><span class='NOS_NL_OBJNMTXT'>TPM2</span>
+<tr><td width=300><a name='OS0_4_161'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC6_TPM2_MASK</span><td width=300><a name='OS0_4_163'></a><span class='NOS_NL_OBJNMTXT'>SIM_SOPT2_TPMSRC</span><td width=300><a name='OS0_4_162'></a><span class='NOS_NL_OBJNMTXT'>SIM_SOPT2_PLLFLLSEL_MASK</span>
+<tr><td width=300><a name='OS0_4_106'></a><span class='NOS_NL_OBJNMTXT'>PORTA</span><td width=300><a name='OS0_4_35'></a><span class='NOS_NL_OBJNMTXT'>PORT_PCR_MUX_MASK</span><td width=300><a name='OS0_4_6'></a><span class='NOS_NL_OBJNMTXT'>PORT_PCR_MUX</span>
+<tr><td width=300><a name='OS0_4_169'></a><span class='NOS_NL_OBJNMTXT'>TPM_CnSC_MSB_MASK</span><td width=300><a name='OS0_4_168'></a><span class='NOS_NL_OBJNMTXT'>TPM_CnSC_ELSB_MASK</span><td width=300><a name='OS0_4_171'></a><span class='NOS_NL_OBJNMTXT'>TPM_SC_CPWMS_MASK</span>
+<tr><td width=300><a name='OS0_4_170'></a><span class='NOS_NL_OBJNMTXT'>TPM_SC_CMOD</span><td width=300><a name='OS0_4_172'></a><span class='NOS_NL_OBJNMTXT'>TPM_SC_PS</span><td width=300><a name='OS0_4_167'></a><span class='NOS_NL_OBJNMTXT'>TPM_CONF_TRGSEL</span>
+<tr><td width=300><a name='OS0_4_191'></a><span class='NOS_NL_OBJNMTXT'>TPM_MOD_MOD</span><td width=300><a name='OS0_4_192'></a><span class='NOS_NL_OBJNMTXT'>TPM_SC_DMA_MASK</span><td width=300><a name='OS0_4_193'></a><span class='NOS_NL_OBJNMTXT'>TPM_SC_TOF_MASK</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_TYPs'>Types from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_81'></a><span class='NOS_NL_OBJNMTXT'>PIT_Type</span><td width=300><a name='OS0_2_6'></a><span class='NOS_NL_OBJNMTXT'>SIM_Type</span><td width=300><a name='OS0_2_10'></a><span class='NOS_NL_OBJNMTXT'>uint32_t</span>
+<tr><td width=300><a name='OS0_2_63'></a><span class='NOS_NL_OBJNMTXT'>TPM_Type</span><td width=300><a name='OS0_2_11'></a><span class='NOS_NL_OBJNMTXT'>uint8_t</span><td width=300><a name='OS0_2_20'></a><span class='NOS_NL_OBJNMTXT'>uint16_t</span>
+<tr><td width=300><a name='OS0_2_4'></a><span class='NOS_NL_OBJNMTXT'>PORT_Type</span></table><br><br><br><br><a name='DTLFUNDEFS'></a><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><table border=1 bordercolor='#cf0000' cellspacing=0 cellpadding=6 width='700'><tr><td bgcolor='#f0f0ff' class='DDC_HDNGTXT'>Functions - Detailed Documentation</table>
+<td width=100 align=right>
+<tr><td height=10></table><br>
+<table class='DDC_DFLTTXT' border=0 cellspacing=0 cellpadding=8 width=100%>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_87'>PIT_IRQHandler</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td width=40><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_94'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  PIT_IRQHandler( )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_87_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_87_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+PIT_IRQHandler
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>__current_sp</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>NVIC_ClearPendingIRQ</span></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>e<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>i<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>s<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>__current_sp</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NVIC_ClearPendingIRQ</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>CUR_FRAME_SIZE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT_TFLG_TIF_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>RET_ADX_OFFSET</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_11.html#OS0_2_40'>adx_lost</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_11.html#OS0_2_41'>num_lost</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_12.html#OS0_2_36'>NumProfileRegions</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_19.html#OS0_2_79'>PC_val</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_11.html#OS0_2_42'>profile_ticks</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_11.html#OS0_2_43'>profiling_enabled</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_12.html#OS0_2_37'>RegionCount</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_12.html#OS0_2_38'>RegionTable</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Enums used<tr><td height=2>
+<tr><td><td><td class='DDC_LCLOBJTXT'>PIT_IRQn<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;16<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_94'>PIT_Init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_87'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_95'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  PIT_Init( unsigned int  period)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_94_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_94_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_11.html#OD0_3_23' class='FUNC_HIERARCHY_DFLTLNK'>Init_Profiling</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+PIT_Init
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>NVIC_ClearPendingIRQ</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>NVIC_EnableIRQ</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>NVIC_SetPriority</span></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>period<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NVIC_ClearPendingIRQ</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NVIC_EnableIRQ</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NVIC_SetPriority</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_11.html#OD0_3_23'>Init_Profiling</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT_LDVAL_TSV</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT_MCR_FRZ_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT_MCR_MDIS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT_TCTRL_CHN_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT_TCTRL_TIE_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC6_PIT_MASK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Enums used<tr><td height=2>
+<tr><td><td><td class='DDC_LCLOBJTXT'>PIT_IRQn<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>profile.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;28<tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;65<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_95'>PIT_Start</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_94'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_118'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  PIT_Start( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_95_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_95_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_11.html#OD0_3_23' class='FUNC_HIERARCHY_DFLTLNK'>Init_Profiling</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+PIT_Start
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_11.html#OD0_3_23'>Init_Profiling</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT_TCTRL_TEN_MASK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>profile.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;29<tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;90<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_118'>PIT_Stop</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_95'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_83'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  PIT_Stop( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_118_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_118_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PIT_TCTRL_TEN_MASK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;96<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_83'>Init_PWM</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_118'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_67'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Init_PWM( TPM_Type *  TPM, 
+                 uint8_t  channel_num, 
+                 uint16_t  period, 
+                 uint16_t  duty)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_83_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_83_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>TPM_Type *  <td class='DDC_LCLOBJTXT'>TPM<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>channel_num<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>period<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>duty<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORTA</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC6_TPM0_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC6_TPM1_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC6_TPM2_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SOPT2_PLLFLLSEL_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SOPT2_TPMSRC</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM1</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM2</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_CnSC_ELSB_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_CnSC_MSB_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_CONF_TRGSEL</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_CMOD</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_CPWMS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_PS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;102<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_67'>Old_Init_PWM</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_83'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_115'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Old_Init_PWM( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_67_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_67_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_74' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Init_Backlight</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Old_Init_PWM
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_74'>TFT_Init_Backlight</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORTA</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC6_TPM1_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SOPT2_PLLFLLSEL_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SOPT2_TPMSRC</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM1</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_CnSC_ELSB_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_CnSC_MSB_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_CONF_TRGSEL</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_CMOD</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_CPWMS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_PS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#00a000'>Declared</span>&nbsp;&nbsp;66<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;71<tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;145<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_115'>PWM_Set_Value</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_67'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_109'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  PWM_Set_Value( TPM_Type *  TPM, 
+                      uint8_t  channel_num, 
+                      uint16_t  value)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_115_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_115_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_76' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Set_Backlight_Brightness</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+PWM_Set_Value
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>TPM_Type *  <td class='DDC_LCLOBJTXT'>TPM<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>channel_num<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>value<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_76'>TFT_Set_Backlight_Brightness</a><tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;79<tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;172<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_109'>TPM0_Init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_115'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_97'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TPM0_Init( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_109_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_109_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_93' class='FUNC_HIERARCHY_DFLTLNK'>Sound_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TPM0_Init
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_93'>Sound_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC6_TPM0_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SOPT2_PLLFLLSEL_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SOPT2_TPMSRC</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;79<tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;178<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_97'>Configure_TPM0_for_DMA</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_109'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_120'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Configure_TPM0_for_DMA( uint32_t  period_us)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_97_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_97_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_102' class='FUNC_HIERARCHY_DFLTLNK'>Play_Tone_with_DMA</a></NOBR></td></tr></table>
+<td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  ><td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  >
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_93' class='FUNC_HIERARCHY_DFLTLNK'>Sound_Init</a></NOBR></td></tr></table>
+<td valign=top><img src='../fn_a_b.gif' ALIGN=top  ><td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  >
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Configure_TPM0_for_DMA
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>NVIC_ClearPendingIRQ</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>NVIC_EnableIRQ</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>NVIC_SetPriority</span></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>period_us<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_102'>Play_Tone_with_DMA</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_93'>Sound_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_MOD_MOD</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_DMA_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_PS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;80, &nbsp;146<tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;187<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_120'>TPM0_Start</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_97'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_119'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TPM0_Start( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_120_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_120_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_CMOD</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;211<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_119'>TPM0_IRQHandler</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_120'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TPM0_IRQHandler( )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_119_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_119_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TPM0_IRQHandler
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>NVIC_ClearPendingIRQ</span></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NVIC_ClearPendingIRQ</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TPM_SC_TOF_MASK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Enums used<tr><td height=2>
+<tr><td><td><td class='DDC_LCLOBJTXT'>TPM0_IRQn<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>timers.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;219<br></table><br></blockquote><p>&nbsp;</table><br>
+<br><br><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

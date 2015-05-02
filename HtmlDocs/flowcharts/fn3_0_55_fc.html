@@ -1,0 +1,81 @@
+﻿<html><head><title>Flowchart - Crystal FLOW for C Documentation  </title>
+<basefont size=2 color=black face=verdana><script language="javascript">
+var PreId = -1;
+function HideSymFun()
+{
+var UDIV;
+if(PreId != -1 )
+{
+UDIV =getele(document,PreId);
+UDIV.style.visibility = 'hidden';
+}
+}
+</script>
+<link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script></head>
+<body onmouseup='if(hideall!=null) hideall();if(HideSymFun!=null) HideSymFun();' onscroll='if(hideall!=null) hideall();' onload='this.focus()' >
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><script language="javascript" src="fd16_flow.js"></script>
+<script language="javascript">
+function ShowSymFun()
+{
+document.write("<div id='ALLFUNINSYM2' name='ALLFUNINSYM2' style='visibility:hidden;position:absolute;'>");
+document.write("<table border='1' bordercolor='' cellspacing=0 cellpadding=5 width=100 bgcolor='#F0F0F0'><tr><td><table cellpadding=5 cellspacing=0  border=0>");
+goflowtodoc(123,'os_itv_set',0);
+document.write("</table></table></div>")
+document.write("<div id='ALLFUNINSYM6' name='ALLFUNINSYM6' style='visibility:hidden;position:absolute;'>");
+document.write("<table border='1' bordercolor='' cellspacing=0 cellpadding=5 width=100 bgcolor='#F0F0F0'><tr><td><table cellpadding=5 cellspacing=0  border=0>");
+goflowtodoc(132,'os_itv_wait',0);
+goflowtodoc(153,'read_full_xyz',0);
+goflowtodoc(154,'convert_xyz_to_roll_pitch',0);
+goflowtodoc(155,'sprintf',0);
+document.write("</table></table></div>")
+document.write("<div id='ALLFUNINSYM7' name='ALLFUNINSYM7' style='visibility:hidden;position:absolute;'>");
+document.write("<table border='1' bordercolor='' cellspacing=0 cellpadding=5 width=100 bgcolor='#F0F0F0'><tr><td><table cellpadding=5 cellspacing=0  border=0>");
+goflowtodoc(142,'os_mut_wait',0);
+goflowtodoc(125,'TFT_Text_PrintStr_RC',0);
+goflowtodoc(145,'os_mut_release',0);
+goflowtodoc(155,'sprintf',0);
+document.write("</table></table></div>")
+document.write("<div id='ALLFUNINSYM8' name='ALLFUNINSYM8' style='visibility:hidden;position:absolute;'>");
+document.write("<table border='1' bordercolor='' cellspacing=0 cellpadding=5 width=100 bgcolor='#F0F0F0'><tr><td><table cellpadding=5 cellspacing=0  border=0>");
+goflowtodoc(125,'TFT_Text_PrintStr_RC',0);
+goflowtodoc(145,'os_mut_release',0);
+document.write("</table></table></div>")
+}
+function clksym(id,w,h,t,l)
+{
+var UDIV,UTR1,UTR2;
+UDIV =getele(document,id);
+UDIV.style.top =t+(h/2)+140;
+UDIV.style.left = l+(w/2)+16;
+ UDIV.style.visibility = 'visible';
+if(PreId != -1 && PreId != id)
+{
+UTR2 =getele(document,PreId);
+UTR2.style.visibility = 'hidden';
+}
+PreId = id;
+}
+ </script>
+<script language="javascript">
+ ShowSymFun()
+</script><table border=0 cellspacing=0 cellpadding=8 class='DOC_DFLTTXT'><tr><td height=1 width=100><td height=1 width=10><td height=1 width=50><td height=1><tr><td class='DOC_HDNGTXT' colspan=3><u>Flowchart</u><td class='DOC_SUBHDNGTXT'><b><a href='../Files/fd_16.html#OD0_3_55' target='sgv_CC_rframe'>Task_Read_Accelerometer</a></b><tr><td class='DOC_SUBHDNGTXT' align=right>Type<td>:<td colspan=2><b>Code + Comment</b><tr><td width=100 align=right class='DOC_SUBHDNGTXT'>File<td>:<td colspan=2><b><a href='../Files/fd_16.html' target='sgv_CC_rframe'>C:\Users\Alex\Documents\Teaching\ESD\2015-Spring\Expansion Board\Test Code\TFT-TS-BL-Profiler-RTX\src\tasks.c</a></b><tr><td colspan=3 height=20></table><tr><td colspan=3 height=20></table><table border=0 cellpadding=0 cellspacing=0>
+<tr><td align='left' valign='top'><IMG SRC='images/fn3_0_55_fc.bmp' BORDER=0 USEMAP='#FCMAP0x0'></td></tr>
+</table>
+<MAP NAME='FCMAP0x0'><AREA SHAPE="rect" COORDS="145,96, 212,111"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(123,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="124,80, 451,143"   HREF="#" TITLE="Show function Calls"  onclick = "clksym('ALLFUNINSYM2',328,64,80,124);return false">
+<AREA SHAPE="rect" COORDS="156,240, 229,255"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(132,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="156,288, 240,303"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(153,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="156,312, 317,327"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(154,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="156,336, 198,351"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(155,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="136,224, 439,383"   HREF="#" TITLE="Show function Calls"  onclick = "clksym('ALLFUNINSYM6',304,160,224,136);return false">
+<AREA SHAPE="rect" COORDS="169,416, 252,431"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(142,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="169,456, 312,471"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(125,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="169,480, 275,495"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(145,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="169,504, 211,519"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(155,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="169,544, 252,559"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(142,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="148,400, 427,591"   HREF="#" TITLE="Show function Calls"  onclick = "clksym('ALLFUNINSYM7',280,192,400,148);return false">
+<AREA SHAPE="rect" COORDS="156,624, 299,639"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(125,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="156,648, 262,663"   HREF="#" TITLE="go to Defination" onclick="goflowtodoc(145,-1,1);return false" >
+<AREA SHAPE="rect" COORDS="120,608, 455,703"   HREF="#" TITLE="Show function Calls"  onclick = "clksym('ALLFUNINSYM8',336,96,608,120);return false">
+</MAP><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

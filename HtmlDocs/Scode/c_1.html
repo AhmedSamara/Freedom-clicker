@@ -1,0 +1,93 @@
+﻿<html><head><title>Source Code - audio.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_1.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; audio.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>audio.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_1.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'> 1  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>stdint.h<font color='#0000FF'>&gt;</font>
+<a name='L2'> 2  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>MKL25Z4.h<font color='#0000FF'>&gt;</font>
+<a name='L3'> 3  </a>
+<a name='L4'> 4  </a>
+<a name='L5'> 5  </a><font color='#C6264F'>unsigned</font>  SineTable<font color='#0000FF'>[</font> NUM_STEPS <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L6'> 6  </a>
+<a name='L7'> 7  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_1.html#OD0_3_1'>Init_DAC</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L8'> 8  </a><font color='#0000FF'>{</font>
+<a name='L9'> 9  </a> <font color='#A000A0'>// Init DAC output</font>
+<a name='L10'>10  </a>
+<a name='L11'>11  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6            <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> 1UL<font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>SIM_SCGC6_DAC0_SHIFT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L12'>12  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC5            <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> 1UL<font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>SIM_SCGC5_PORTE_SHIFT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L13'>13  </a>
+<a name='L14'>14  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DAC_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font><font color='#0000FF'>(</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 7 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>            <font color='#A000A0'>/*   Select analog                                */</font>
+<a name='L15'>15  </a>
+<a name='L16'>16  </a>    <font color='#A000A0'>// Disable buffer mode</font>
+<a name='L17'>17  </a>    DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>C1               <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L18'>18  </a>    DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>C2               <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L19'>19  </a>
+<a name='L20'>20  </a>    <font color='#A000A0'>// Enable DAC, select VDDA as reference voltage</font>
+<a name='L21'>21  </a>    DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>C0 <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> 1<font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>DAC_C0_DACEN_SHIFT <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> 1<font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>DAC_C0_DACRFS_SHIFT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L22'>22  </a>
+<a name='L23'>23  </a><font color='#0000FF'>}</font>
+<a name='L24'>24  </a>
+<a name='L25'>25  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_1.html#OD0_3_0'>Delay_us</a><font color='#0000FF'>(</font> <font color='#C6264F'>volatile</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  time_del <font color='#0000FF'>)</font>
+<a name='L26'>26  </a><font color='#0000FF'>{</font>
+<a name='L27'>27  </a> <font color='#A000A0'>// This is a very imprecise and fragile implementation!</font>
+<a name='L28'>28  </a>    <span onclick='gotosrc(69);' class='hnd_cls'>time_del</span> <font color='#0000FF'>=</font> 9 <font color='#0000FF'>*</font> <span onclick='gotosrc(69);' class='hnd_cls'>time_del</span> <font color='#0000FF'>+</font> <span onclick='gotosrc(69);' class='hnd_cls'>time_del</span> <font color='#0000FF'>/</font> 2<font color='#0000FF'>;</font>
+<a name='L29'>29  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <span onclick='gotosrc(69);' class='hnd_cls'>time_del</span><font color='#0000FF'>-</font><font color='#0000FF'>-</font> <font color='#0000FF'>)</font>
+<a name='L30'>30  </a>    <font color='#0000FF'>{</font>
+<a name='L31'>31  </a>        <font color='#0000FF'>;</font>
+<a name='L32'>32  </a>    <font color='#0000FF'>}</font>
+<a name='L33'>33  </a><font color='#0000FF'>}</font>
+<a name='L34'>34  </a>
+<a name='L35'>35  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L36'>36  </a><font color='#A000A0'>    Code for driving DAC</font>
+<a name='L37'>37  </a><font color='#A000A0'>    period: microseconds</font>
+<a name='L38'>38  </a><font color='#A000A0'>    duration: cycles</font>
+<a name='L39'>39  </a><font color='#A000A0'>*------------------------------------------------------------------------------*-------*-------*-------*-------*--*/</font>
+<a name='L40'>40  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_1.html#OD0_3_3'>Play_Tone</a><font color='#0000FF'>(</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  period<font color='#0000FF'>,</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  num_cycles<font color='#0000FF'>,</font> <font color='#C6264F'>unsigned</font>  wave_type <font color='#0000FF'>)</font>
+<a name='L41'>41  </a><font color='#0000FF'>{</font>
+<a name='L42'>42  </a>    <font color='#C6264F'>unsigned</font>  step<font color='#0000FF'>,</font>
+<a name='L43'>43  </a>              out_data<font color='#0000FF'>;</font>
+<a name='L44'>44  </a>
+<a name='L45'>45  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <span onclick='gotosrc(77);' class='hnd_cls'>num_cycles</span> <font color='#0000FF'>&gt;</font> 0 <font color='#0000FF'>)</font>
+<a name='L46'>46  </a>    <font color='#0000FF'>{</font>
+<a name='L47'>47  </a>        <span onclick='gotosrc(77);' class='hnd_cls'>num_cycles</span><font color='#0000FF'>-</font><font color='#0000FF'>-</font><font color='#0000FF'>;</font>
+<a name='L48'>48  </a>        <font color='#C6264F'>for</font><font color='#0000FF'>(</font> <span onclick='gotosrc(79);' class='hnd_cls'>step</span> <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> <span onclick='gotosrc(79);' class='hnd_cls'>step</span> <font color='#0000FF'>&lt;</font> NUM_STEPS<font color='#0000FF'>;</font> <span onclick='gotosrc(79);' class='hnd_cls'>step</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L49'>49  </a>        <font color='#0000FF'>{</font>
+<a name='L50'>50  </a>            <font color='#C6264F'>switch</font><font color='#0000FF'>(</font> <span onclick='gotosrc(78);' class='hnd_cls'>wave_type</span> <font color='#0000FF'>)</font>
+<a name='L51'>51  </a>            <font color='#0000FF'>{</font>
+<a name='L52'>52  </a>                <font color='#C6264F'>case</font> SQUARE<font color='#0000FF'>:</font>
+<a name='L53'>53  </a>                    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(79);' class='hnd_cls'>step</span> <font color='#0000FF'>&lt;</font> NUM_STEPS <font color='#0000FF'>/</font> 2 <font color='#0000FF'>)</font>
+<a name='L54'>54  </a>                        <span onclick='gotosrc(80);' class='hnd_cls'>out_data</span> <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L55'>55  </a>                    <font color='#C6264F'>else</font>
+<a name='L56'>56  </a>                        <span onclick='gotosrc(80);' class='hnd_cls'>out_data</span> <font color='#0000FF'>=</font> MAX_DAC_CODE<font color='#0000FF'>;</font>
+<a name='L57'>57  </a>                    <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L58'>58  </a>                <font color='#C6264F'>case</font> RAMP<font color='#0000FF'>:</font>
+<a name='L59'>59  </a>                    <span onclick='gotosrc(80);' class='hnd_cls'>out_data</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(79);' class='hnd_cls'>step</span> <font color='#0000FF'>*</font> MAX_DAC_CODE <font color='#0000FF'>)</font> <font color='#0000FF'>/</font> NUM_STEPS<font color='#0000FF'>;</font>
+<a name='L60'>60  </a>                    <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L61'>61  </a>                <font color='#C6264F'>case</font> SINE<font color='#0000FF'>:</font>
+<a name='L62'>62  </a>                    <span onclick='gotosrc(80);' class='hnd_cls'>out_data</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(28);' class='hnd_cls'>SineTable</span><font color='#0000FF'>[</font> <span onclick='gotosrc(79);' class='hnd_cls'>step</span> <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L63'>63  </a>                    <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L64'>64  </a>                <font color='#C6264F'>default</font><font color='#0000FF'>:</font>
+<a name='L65'>65  </a>                    <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L66'>66  </a>            <font color='#0000FF'>}</font>
+<a name='L67'>67  </a>            DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>DAT<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.DATH <font color='#0000FF'>=</font> DAC_DATH_DATA1<font color='#0000FF'>(</font> <span onclick='gotosrc(80);' class='hnd_cls'>out_data</span> <font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font> 8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L68'>68  </a>            DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>DAT<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.DATL <font color='#0000FF'>=</font> DAC_DATL_DATA0<font color='#0000FF'>(</font> <span onclick='gotosrc(80);' class='hnd_cls'>out_data</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L69'>69  </a>            <span onclick='gotosrc(68);' class='hnd_cls'>Delay_us</span><font color='#0000FF'>(</font> <span onclick='gotosrc(76);' class='hnd_cls'>period</span> <font color='#0000FF'>/</font> NUM_STEPS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L70'>70  </a>        <font color='#0000FF'>}</font>
+<a name='L71'>71  </a>    <font color='#0000FF'>}</font>
+<a name='L72'>72  </a><font color='#0000FF'>}</font>
+<a name='L73'>73  </a>
+<a name='L74'>74  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_1.html#OD0_3_2'>Init_SineTable</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L75'>75  </a><font color='#0000FF'>{</font>
+<a name='L76'>76  </a>    <font color='#C6264F'>unsigned</font>  n<font color='#0000FF'>;</font>
+<a name='L77'>77  </a>
+<a name='L78'>78  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> n <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> n <font color='#0000FF'>&lt;</font> NUM_STEPS<font color='#0000FF'>;</font> n<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L79'>79  </a>    <font color='#0000FF'>{</font>
+<a name='L80'>80  </a>        <span onclick='gotosrc(28);' class='hnd_cls'>SineTable</span><font color='#0000FF'>[</font> n <font color='#0000FF'>]</font> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> MAX_DAC_CODE <font color='#0000FF'>/</font> 2 <font color='#0000FF'>)</font> <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> 1  <font color='#0000FF'>+</font> sin<font color='#0000FF'>(</font> n <font color='#0000FF'>*</font> 2 <font color='#0000FF'>*</font> 3.1415927 <font color='#0000FF'>/</font> NUM_STEPS <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L81'>81  </a>    <font color='#0000FF'>}</font>
+<a name='L82'>82  </a><font color='#0000FF'>}</font>
+<a name='L83'>83  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

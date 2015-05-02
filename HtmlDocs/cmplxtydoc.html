@@ -1,0 +1,60 @@
+﻿<html><head><title>Crystal FLOW for C Documentation  - Expansion Board Software</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='common.js'></script></head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('');</script><h3><a name='CMPLX'></a><u>McCabe's Complexities</u></h3>
+<p><a name='CYCLO'></a><b><u><font color='#d00000'>Cyclomatic&nbsp;&nbsp;&nbsp;&nbsp;<i>v(G)</i>:</font></u></b>
+<p>The number of decision points in a function (module). In a control-flow graph,
+the number of independent paths that are available is called the cycolmatic number of any graph.  
+It is defined as
+<blockquote>    
+    <b>v(G) = e - n + 1</b><br><br>
+    (McCabe's formula adds 1 for the virtual edge from module start to end.)
+</blockquote>    
+<p>where <b>e</b> is the number of edges, and, <b>n</b> is the number of nodes. In short, we can say 
+that only structured constructs can contribute to the cyclomatic complexity of any
+module. Thus, <i>if, while, do..while, switch..case</i> can only increase or decrease the
+cyclomatic complexity of any module.
+<p>In <b>Crystal C/C++</b>, we add <b>1</b> to v(G) if we find a ternary operator <b>'? :'</b> in any expression.
+<p><a name='MODCYCLO'></a><b><u><font color='#d00000'>Modified Cyclomatic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>modified v(G)</i>:</font></u></b>
+<p>It is the normal Cyclomatic Complexity [v(G)], with case branches from switch
+not considered. Instead, the whole switch contributes 1 to the complexity.
+<blockquote>    
+    <b>modified v(G) = v(G) - Tc + Ts</b><br><br>
+    where Tc = total <i>case</i> branches and Ts = total <i>switches</i> in the module
+</blockquote>    
+This can not be greater than normal cyclomatic complexity v(G).
+<p><a name='DSGN'></a><b><u><font color='#d00000'>Design&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>iv(G)</i>:</font></u></b>
+<p>It is the cycolmatic complexity of a reduced control-flow graph. The reduction rule
+is "remove constructs which do not have any module calls inside them". 
+Suppose an <i>if</i> block has some module call, then it participates in the reduced 
+control-flow graph. Also if the <i>if</i> is contained in a <i>loop</i>, then the <i>loop</i> also 
+participates in the graph. 
+<p>Thus after the complete reduction, the resulting cycolmatic complexity 
+ is called Design Complexity iv(G). This complexity count is useful to find out
+Integration Complexity during integration testing.
+<p>Design complexity should be, <b>1 <= iv(G) <= v(G)</b>. If iv(G) = <b>1</b>, there is <b>no design complexity</b>
+at all with the module, and if it is <b>v(G)</b> then it has <b>high&nbsp;complexity</b> in terms of design
+and requires more effort during integration phase.
+<p><a name='ESSNTL'></a><b><u><font color='#d00000'>Essential&nbsp;&nbsp;&nbsp;&nbsp;<i>ev(G)</i>:</font></u></b>
+<p>It is the cycolmatic complexity of a reduced control-flow graph. The reduction rule
+is "remove constructs which do not have any jumps <i>(goto, break, continue, return)</i> inside them". 
+Suppose an <i>if</i> block has some break, then it participates in the reduced 
+control-flow graph. Also if the <i>if</i> is contained in a <i>loop</i>, then the <i>loop</i> also 
+participates in the graph. 
+<p>Thus after the complete reduction, the resulting cycolmatic complexity 
+is called Essential Complexity ev(G). Essential Complexity gives the measure of how much a module
+ is structured. 
+<p>Essential complexity should be, <b>1 <= ev(G) <= v(G)</b>. If ev(G) = <b>1</b>, the module is <b>highly structured</b>
+, and if it is <b>v(G)</b> then it is the most <b>unstructured module</b>.
+<h3><a name='DNSTS'></a><u>McCabe's Densities</u></h3>
+<p><a name='DCYCLO'></a><b><u><font color='#d00000'>Cyclomatic&nbsp;&nbsp;&nbsp;&nbsp;<i>vd(G)</i>:</font></u></b>
+<p> It is the ratio between the Cyclomatic complexity and the number of Source lines <b>(LoC)</b> in the module <b>( v(G) / LoC )</b>      
+<p><a name='DDSGN'></a><b><u><font color='#d00000'>Design&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>id(G)</i>:</font></u></b>
+<p>It is the ratio between the Design and Cyclomatic complexities. If it is <b>1</b>, then we have
+to spend more effort during the integration phase. If it is <b>0</b> but not close to <b>1</b>,
+then the module is less sensitive to integration testing.
+<p><a name='DESSNTL'></a><b><u><font color='#d00000'>Essential&nbsp;&nbsp;&nbsp;&nbsp;<i>ed(G)</i>:</font></u></b>
+<p>It is the ratio between the Essential and Cyclomatic complexities <b>(ev(G)-1)/(v(G)-1)</b> . Using Essential Density, we
+can measure the effort needed to make the module a structured one.
+<br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

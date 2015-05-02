@@ -1,0 +1,222 @@
+﻿<html><head><title>Source Code - RTX_Config.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_13.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; RTX_Config.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>RTX_Config.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_13.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'>  1  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L2'>  2  </a><font color='#A000A0'> *      RL-ARM - RTX</font>
+<a name='L3'>  3  </a><font color='#A000A0'> *----------------------------------------------------------------------------</font>
+<a name='L4'>  4  </a><font color='#A000A0'> *      Name:    RTX_CONFIG.C</font>
+<a name='L5'>  5  </a><font color='#A000A0'> *      Purpose: Configuration of RTX Kernel for Cortex-M</font>
+<a name='L6'>  6  </a><font color='#A000A0'> *      Rev.:    V4.50</font>
+<a name='L7'>  7  </a><font color='#A000A0'> *----------------------------------------------------------------------------</font>
+<a name='L8'>  8  </a><font color='#A000A0'> *      This code is part of the RealView Run-Time Library.</font>
+<a name='L9'>  9  </a><font color='#A000A0'> *      Copyright (c) 2004-2012 KEIL - An ARM Company. All rights reserved.</font>
+<a name='L10'> 10  </a><font color='#A000A0'> *---------------------------------------------------------------------------*-------*-------*-------*-------*----*/</font>
+<a name='L11'> 11  </a>
+<a name='L12'> 12  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>RTL.h<font color='#0000FF'>&gt;</font>
+<a name='L13'> 13  </a>
+<a name='L14'> 14  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L15'> 15  </a><font color='#A000A0'> *      RTX User configuration part BEGIN</font>
+<a name='L16'> 16  </a><font color='#A000A0'> *---------------------------------------------------------------------------*-------*-------*-------*-------*----*/</font>
+<a name='L17'> 17  </a>
+<a name='L18'> 18  </a><font color='#A000A0'>//-------- &lt;&lt;&lt; Use Configuration Wizard in Context Menu &gt;&gt;&gt; --------------------------------------------------------</font>
+<a name='L19'> 19  </a><font color='#A000A0'>//</font>
+<a name='L20'> 20  </a><font color='#A000A0'>// &lt;h&gt;Task Configuration</font>
+<a name='L21'> 21  </a><font color='#A000A0'>// =====================</font>
+<a name='L22'> 22  </a><font color='#A000A0'>//</font>
+<a name='L23'> 23  </a><font color='#A000A0'>//   &lt;o&gt;Number of concurrent running tasks &lt;0-250&gt;</font>
+<a name='L24'> 24  </a><font color='#A000A0'>//   &lt;i&gt; Define max. number of tasks that will run at the same time.</font>
+<a name='L25'> 25  </a><font color='#A000A0'>//   &lt;i&gt; Default: 6</font>
+<a name='L26'> 26  </a><font color='#C6264F'>#ifndef</font> OS_TASKCNT
+<a name='L27'> 27  </a><font color='#C6264F'>#define</font>     OS_TASKCNT     5
+<a name='L28'> 28  </a><font color='#C6264F'>#endif</font>
+<a name='L29'> 29  </a>
+<a name='L30'> 30  </a><font color='#A000A0'>//   &lt;o&gt;Number of tasks with user-provided stack &lt;0-250&gt;</font>
+<a name='L31'> 31  </a><font color='#A000A0'>//   &lt;i&gt; Define the number of tasks that will use a bigger stack.</font>
+<a name='L32'> 32  </a><font color='#A000A0'>//   &lt;i&gt; The memory space for the stack is provided by the user.</font>
+<a name='L33'> 33  </a><font color='#A000A0'>//   &lt;i&gt; Default: 0</font>
+<a name='L34'> 34  </a><font color='#C6264F'>#ifndef</font> OS_PRIVCNT
+<a name='L35'> 35  </a><font color='#C6264F'>#define</font>     OS_PRIVCNT     1
+<a name='L36'> 36  </a><font color='#C6264F'>#endif</font>
+<a name='L37'> 37  </a>
+<a name='L38'> 38  </a><font color='#A000A0'>//   &lt;o&gt;Task stack size [bytes] &lt;20-4096:8&gt;&lt;#/4&gt;</font>
+<a name='L39'> 39  </a><font color='#A000A0'>//   &lt;i&gt; Set the stack size for tasks which is assigned by the system.</font>
+<a name='L40'> 40  </a><font color='#A000A0'>//   &lt;i&gt; Default: 512</font>
+<a name='L41'> 41  </a><font color='#C6264F'>#ifndef</font> OS_STKSIZE
+<a name='L42'> 42  </a><font color='#C6264F'>#define</font>     OS_STKSIZE     64
+<a name='L43'> 43  </a><font color='#C6264F'>#endif</font>
+<a name='L44'> 44  </a>
+<a name='L45'> 45  </a><font color='#A000A0'>// &lt;q&gt;Check for the stack overflow</font>
+<a name='L46'> 46  </a><font color='#A000A0'>// ===============================</font>
+<a name='L47'> 47  </a><font color='#A000A0'>// &lt;i&gt; Include the stack checking code for a stack overflow.</font>
+<a name='L48'> 48  </a><font color='#A000A0'>// &lt;i&gt; Note that additional code reduces the Kernel performance.</font>
+<a name='L49'> 49  </a><font color='#C6264F'>#ifndef</font> OS_STKCHECK
+<a name='L50'> 50  </a><font color='#C6264F'>#define</font>     OS_STKCHECK     1
+<a name='L51'> 51  </a><font color='#C6264F'>#endif</font>
+<a name='L52'> 52  </a>
+<a name='L53'> 53  </a><font color='#A000A0'>// &lt;q&gt;Run in privileged mode</font>
+<a name='L54'> 54  </a><font color='#A000A0'>// =========================</font>
+<a name='L55'> 55  </a><font color='#A000A0'>// &lt;i&gt; Run all Tasks in privileged mode.</font>
+<a name='L56'> 56  </a><font color='#A000A0'>// &lt;i&gt; Default: Unprivileged</font>
+<a name='L57'> 57  </a><font color='#C6264F'>#ifndef</font> OS_RUNPRIV
+<a name='L58'> 58  </a><font color='#C6264F'>#define</font>     OS_RUNPRIV     1
+<a name='L59'> 59  </a><font color='#C6264F'>#endif</font>
+<a name='L60'> 60  </a>
+<a name='L61'> 61  </a><font color='#A000A0'>// &lt;/h&gt;</font>
+<a name='L62'> 62  </a><font color='#A000A0'>// &lt;h&gt;Tick Timer Configuration</font>
+<a name='L63'> 63  </a><font color='#A000A0'>// =============================</font>
+<a name='L64'> 64  </a><font color='#A000A0'>//   &lt;o&gt;Hardware timer &lt;0=&gt; Core SysTick &lt;1=&gt; Peripheral Timer</font>
+<a name='L65'> 65  </a><font color='#A000A0'>//   &lt;i&gt; Define the on-chip timer used as a time-base for RTX.</font>
+<a name='L66'> 66  </a><font color='#A000A0'>//   &lt;i&gt; Default: Core SysTick</font>
+<a name='L67'> 67  </a><font color='#C6264F'>#ifndef</font> OS_TIMER
+<a name='L68'> 68  </a><font color='#C6264F'>#define</font>     OS_TIMER     0
+<a name='L69'> 69  </a><font color='#C6264F'>#endif</font>
+<a name='L70'> 70  </a>
+<a name='L71'> 71  </a><font color='#A000A0'>//   &lt;o&gt;Timer clock value [Hz] &lt;1-1000000000&gt;</font>
+<a name='L72'> 72  </a><font color='#A000A0'>//   &lt;i&gt; Set the timer clock value for selected timer.</font>
+<a name='L73'> 73  </a><font color='#A000A0'>//   &lt;i&gt; Default: 6000000  (6MHz)</font>
+<a name='L74'> 74  </a><font color='#C6264F'>#ifndef</font> OS_CLOCK
+<a name='L75'> 75  </a><font color='#C6264F'>#define</font>     OS_CLOCK     48000000
+<a name='L76'> 76  </a><font color='#C6264F'>#endif</font>
+<a name='L77'> 77  </a>
+<a name='L78'> 78  </a><font color='#A000A0'>//   &lt;o&gt;Timer tick value [us] &lt;1-1000000&gt;</font>
+<a name='L79'> 79  </a><font color='#A000A0'>//   &lt;i&gt; Set the timer tick value for selected timer.</font>
+<a name='L80'> 80  </a><font color='#A000A0'>//   &lt;i&gt; Default: 10000  (10ms)</font>
+<a name='L81'> 81  </a><font color='#C6264F'>#ifndef</font> OS_TICK
+<a name='L82'> 82  </a><font color='#C6264F'>#define</font>     OS_TICK     1000
+<a name='L83'> 83  </a><font color='#C6264F'>#endif</font>
+<a name='L84'> 84  </a>
+<a name='L85'> 85  </a><font color='#A000A0'>// &lt;/h&gt;</font>
+<a name='L86'> 86  </a>
+<a name='L87'> 87  </a><font color='#A000A0'>// &lt;h&gt;System Configuration</font>
+<a name='L88'> 88  </a><font color='#A000A0'>// =======================</font>
+<a name='L89'> 89  </a><font color='#A000A0'>// &lt;e&gt;Round-Robin Task switching</font>
+<a name='L90'> 90  </a><font color='#A000A0'>// =============================</font>
+<a name='L91'> 91  </a><font color='#A000A0'>// &lt;i&gt; Enable Round-Robin Task switching.</font>
+<a name='L92'> 92  </a><font color='#C6264F'>#ifndef</font> OS_ROBIN
+<a name='L93'> 93  </a><font color='#C6264F'>#define</font>     OS_ROBIN     0
+<a name='L94'> 94  </a><font color='#C6264F'>#endif</font>
+<a name='L95'> 95  </a>
+<a name='L96'> 96  </a><font color='#A000A0'>//   &lt;o&gt;Round-Robin Timeout [ticks] &lt;1-1000&gt;</font>
+<a name='L97'> 97  </a><font color='#A000A0'>//   &lt;i&gt; Define how long a task will execute before a task switch.</font>
+<a name='L98'> 98  </a><font color='#A000A0'>//   &lt;i&gt; Default: 5</font>
+<a name='L99'> 99  </a><font color='#C6264F'>#ifndef</font> OS_ROBINTOUT
+<a name='L100'>100  </a><font color='#C6264F'>#define</font>     OS_ROBINTOUT     1000
+<a name='L101'>101  </a><font color='#C6264F'>#endif</font>
+<a name='L102'>102  </a>
+<a name='L103'>103  </a><font color='#A000A0'>// &lt;/e&gt;</font>
+<a name='L104'>104  </a>
+<a name='L105'>105  </a><font color='#A000A0'>//   &lt;o&gt;Number of user timers &lt;0-250&gt;</font>
+<a name='L106'>106  </a><font color='#A000A0'>//   &lt;i&gt; Define max. number of user timers that will run at the same time.</font>
+<a name='L107'>107  </a><font color='#A000A0'>//   &lt;i&gt; Default: 0  (User timers disabled)</font>
+<a name='L108'>108  </a><font color='#C6264F'>#ifndef</font> OS_TIMERCNT
+<a name='L109'>109  </a><font color='#C6264F'>#define</font>     OS_TIMERCNT     0
+<a name='L110'>110  </a><font color='#C6264F'>#endif</font>
+<a name='L111'>111  </a>
+<a name='L112'>112  </a><font color='#A000A0'>//   &lt;o&gt;ISR FIFO Queue size&lt;4=&gt;   4 entries  &lt;8=&gt;   8 entries</font>
+<a name='L113'>113  </a><font color='#A000A0'>//                         &lt;12=&gt; 12 entries  &lt;16=&gt; 16 entries</font>
+<a name='L114'>114  </a><font color='#A000A0'>//                         &lt;24=&gt; 24 entries  &lt;32=&gt; 32 entries</font>
+<a name='L115'>115  </a><font color='#A000A0'>//                         &lt;48=&gt; 48 entries  &lt;64=&gt; 64 entries</font>
+<a name='L116'>116  </a><font color='#A000A0'>//                         &lt;96=&gt; 96 entries</font>
+<a name='L117'>117  </a><font color='#A000A0'>//   &lt;i&gt; ISR functions store requests to this buffer,</font>
+<a name='L118'>118  </a><font color='#A000A0'>//   &lt;i&gt; when they are called from the iterrupt handler.</font>
+<a name='L119'>119  </a><font color='#A000A0'>//   &lt;i&gt; Default: 16 entries</font>
+<a name='L120'>120  </a><font color='#C6264F'>#ifndef</font> OS_FIFOSZ
+<a name='L121'>121  </a><font color='#C6264F'>#define</font>     OS_FIFOSZ     16
+<a name='L122'>122  </a><font color='#C6264F'>#endif</font>
+<a name='L123'>123  </a>
+<a name='L124'>124  </a><font color='#A000A0'>// &lt;/h&gt;</font>
+<a name='L125'>125  </a>
+<a name='L126'>126  </a><font color='#A000A0'>//------------- &lt;&lt;&lt; end of configuration section &gt;&gt;&gt; ---------------------------------------------------------------</font>
+<a name='L127'>127  </a>
+<a name='L128'>128  </a><font color='#A000A0'>// Standard library system mutexes</font>
+<a name='L129'>129  </a><font color='#A000A0'>// ===============================</font>
+<a name='L130'>130  </a><font color='#A000A0'>//  Define max. number system mutexes that are used to protect </font>
+<a name='L131'>131  </a><font color='#A000A0'>//  the arm standard runtime library. For microlib they are not used.</font>
+<a name='L132'>132  </a><font color='#C6264F'>#ifndef</font> OS_MUTEXCNT
+<a name='L133'>133  </a><font color='#C6264F'>#define</font>     OS_MUTEXCNT     8
+<a name='L134'>134  </a><font color='#C6264F'>#endif</font>
+<a name='L135'>135  </a>
+<a name='L136'>136  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L137'>137  </a><font color='#A000A0'> *      RTX User configuration part END</font>
+<a name='L138'>138  </a><font color='#A000A0'> *---------------------------------------------------------------------------*-------*-------*-------*-------*----*/</font>
+<a name='L139'>139  </a>
+<a name='L140'>140  </a><font color='#C6264F'>#define</font>     OS_TRV     <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> U32 <font color='#0000FF'>)</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <font color='#C6264F'>double</font> <font color='#0000FF'>)</font> OS_CLOCK <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> <font color='#C6264F'>double</font> <font color='#0000FF'>)</font> OS_TICK <font color='#0000FF'>)</font> <font color='#0000FF'>/</font> 1E6 <font color='#0000FF'>)</font> <font color='#0000FF'>-</font> 1 <font color='#0000FF'>)</font>
+<a name='L141'>141  </a>
+<a name='L142'>142  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L143'>143  </a><font color='#A000A0'> *      Global Functions</font>
+<a name='L144'>144  </a><font color='#A000A0'> *---------------------------------------------------------------------------*-------*-------*-------*-------*----*/</font>
+<a name='L145'>145  </a>
+<a name='L146'>146  </a><font color='#A000A0'>/*--------------------------- os_idle_demon ----------------------------------------------------------------------*/</font>
+<a name='L147'>147  </a>
+<a name='L148'>148  </a>__task  <font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_13.html#OD0_3_46'>os_idle_demon</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L149'>149  </a><font color='#0000FF'>{</font>
+<a name='L150'>150  </a> <font color='#A000A0'>/* The idle demon is a system task, running when no other task is ready */</font>
+<a name='L151'>151  </a> <font color='#A000A0'>/* to run. The 'os_xxx' function calls are not allowed from this task.  */</font>
+<a name='L152'>152  </a>
+<a name='L153'>153  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> <font color='#0000FF'>;</font> <font color='#0000FF'>;</font> <font color='#0000FF'>)</font>
+<a name='L154'>154  </a>    <font color='#0000FF'>{</font>
+<a name='L155'>155  </a>    <font color='#A000A0'>/* HERE: include optional user code to be executed when no task runs.*/</font>
+<a name='L156'>156  </a>    <font color='#0000FF'>}</font>
+<a name='L157'>157  </a><font color='#0000FF'>}</font>
+<a name='L158'>158  </a>
+<a name='L159'>159  </a><font color='#A000A0'>/*--------------------------- os_tick_init -----------------------------------------------------------------------*/</font>
+<a name='L160'>160  </a>
+<a name='L161'>161  </a><font color='#C6264F'>#if</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(38);' class='hnd_cls'>OS_TIMER</span> <font color='#0000FF'>!</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L162'>162  </a><font color='#408080'>int</font> os_tick_init<font color='#408080'>(</font> <font color='#408080'>void</font> <font color='#408080'>)</font>
+<a name='L163'>163  </a><font color='#408080'>{</font>
+<a name='L164'>164  </a> <font color='#408080'>/* Initialize hardware timer as system tick timer. */</font>
+<a name='L165'>165  </a> <font color='#408080'>/* ... */</font>
+<a name='L166'>166  </a>    <font color='#408080'>return</font> <font color='#408080'>(</font> <font color='#408080'>-</font>1 <font color='#408080'>)</font><font color='#408080'>;</font>                                              <font color='#408080'>/*   Return IRQ number of timer (0..239)          */</font>
+<a name='L167'>167  </a><font color='#408080'>}</font>
+<a name='L168'>168  </a><font color='#C6264F'>#endif</font>
+<a name='L169'>169  </a>
+<a name='L170'>170  </a><font color='#A000A0'>/*--------------------------- os_tick_irqack ---------------------------------------------------------------------*/</font>
+<a name='L171'>171  </a>
+<a name='L172'>172  </a><font color='#C6264F'>#if</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(38);' class='hnd_cls'>OS_TIMER</span> <font color='#0000FF'>!</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L173'>173  </a><font color='#408080'>void</font> os_tick_irqack<font color='#408080'>(</font> <font color='#408080'>void</font> <font color='#408080'>)</font>
+<a name='L174'>174  </a><font color='#408080'>{</font>
+<a name='L175'>175  </a> <font color='#408080'>/* Acknowledge timer interrupt. */</font>
+<a name='L176'>176  </a> <font color='#408080'>/* ... */</font>
+<a name='L177'>177  </a><font color='#408080'>}</font>
+<a name='L178'>178  </a><font color='#C6264F'>#endif</font>
+<a name='L179'>179  </a>
+<a name='L180'>180  </a><font color='#A000A0'>/*--------------------------- os_tmr_call ------------------------------------------------------------------------*/</font>
+<a name='L181'>181  </a>
+<a name='L182'>182  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_13.html#OD0_3_49'>os_tmr_call</a><font color='#0000FF'>(</font> U16  info <font color='#0000FF'>)</font>
+<a name='L183'>183  </a><font color='#0000FF'>{</font>
+<a name='L184'>184  </a> <font color='#A000A0'>/* This function is called when the user timer has expired. Parameter   */</font>
+<a name='L185'>185  </a> <font color='#A000A0'>/* 'info' holds the value, defined when the timer was created.          */</font>
+<a name='L186'>186  </a>
+<a name='L187'>187  </a> <font color='#A000A0'>/* HERE: include optional user code to be executed on timeout. */</font>
+<a name='L188'>188  </a><font color='#0000FF'>}</font>
+<a name='L189'>189  </a>
+<a name='L190'>190  </a>
+<a name='L191'>191  </a><font color='#A000A0'>/*--------------------------- os_error ---------------------------------------------------------------------------*/</font>
+<a name='L192'>192  </a>
+<a name='L193'>193  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_13.html#OD0_3_45'>os_error</a><font color='#0000FF'>(</font> U32  err_code <font color='#0000FF'>)</font>
+<a name='L194'>194  </a><font color='#0000FF'>{</font>
+<a name='L195'>195  </a> <font color='#A000A0'>/* This function is called when a runtime error is detected. Parameter */</font>
+<a name='L196'>196  </a> <font color='#A000A0'>/* 'err_code' holds the runtime error code (defined in RTL.H).         */</font>
+<a name='L197'>197  </a>
+<a name='L198'>198  </a> <font color='#A000A0'>/* HERE: include optional code to be executed on runtime error. */</font>
+<a name='L199'>199  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> <font color='#0000FF'>;</font> <font color='#0000FF'>;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L200'>200  </a><font color='#0000FF'>}</font>
+<a name='L201'>201  </a>
+<a name='L202'>202  </a>
+<a name='L203'>203  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L204'>204  </a><font color='#A000A0'> *      RTX Configuration Functions</font>
+<a name='L205'>205  </a><font color='#A000A0'> *---------------------------------------------------------------------------*-------*-------*-------*-------*----*/</font>
+<a name='L206'>206  </a>
+<a name='L207'>207  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>RTX_lib.c<font color='#0000FF'>&gt;</font>
+<a name='L208'>208  </a>
+<a name='L209'>209  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L210'>210  </a><font color='#A000A0'> * end of file</font>
+<a name='L211'>211  </a><font color='#A000A0'> *---------------------------------------------------------------------------*-------*-------*-------*-------*----*/</font>
+<a name='L212'>212  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

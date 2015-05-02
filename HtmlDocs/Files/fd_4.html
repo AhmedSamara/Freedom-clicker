@@ -1,0 +1,449 @@
+﻿<html><head><title>Crystal FLOW for C Documentation  - i2c.c</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script></head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("<a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">Documentation </a> &nbsp; >> &nbsp; <a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">All Files</a> &nbsp; >> i2c.c");file_doc_starter(true);'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><script language='javascript'>
+var   vstr='visible';
+var   dly=220;
+var     mitms=new Array(2);
+mitms[0] = {'dn':'MoreArea0', 'sl':'LMore0', 'toid':0 };
+mitms[1] = {'dn':'MoreArea1', 'sl':'LMore1', 'toid':0 };
+function lcrto()
+{
+   clearTimeout(mitms[0].toid);
+   clearTimeout(mitms[1].toid);
+}
+</script>
+<div id='SCUT' style='visibility:hidden; position:absolute;'>
+<table border=1 bgcolor='#f0f0f0' cellspacing=0 cellpadding=0 width='230' id='MORE_TAB'><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr><td width=10><td>
+<table border=0 cellspacing=0 cellpadding=4 width='100%'>
+<tr><td height=1 width=20><td height=1 width=20><td height=1 width=210><tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#INCAREA'>Included Files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_FUN_DEFs' >Functions Defined</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_MACs' >#defines from .H files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_STRs' >structs/unions from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_MACs' >#defines from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_TYPs' >Typedefs from Library</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#DTLFUNDEFS'>Functions - Detailed</a>
+<tr><td height=5></table></table></table></div>
+<h3><a name='TTOP'></a><u>i2c.c</u></h3><p class='DOC_DFLTTXT'>No documentation available</p><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td height=1 width=40><td height=1 width=20><td height=1 width=450>
+<tr><td class='INCTBL_HDNGTXT' colspan=3><a name='FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a target='_sgv_cc_brws_tree' href='../graphs/f4_fl_rpt.html' class='DOC_DFLTLNK'>File Report Tree</a><tr><td colspan=3 height=10>
+</table><br><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td class='INCTBL_HDNGTXT' colspan=5><a name='INCAREA'>Included Files</a><tr><td colspan=5 height=10><tr><td width=160>MKL25Z4.H
+<td width=160>I2C.h
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_FUN_DEFs'>Functions defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_11'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_11'>i2c_init</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_16'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_16'>i2c_wait</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_15'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_15'>i2c_start</a>( )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_13'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_13'>i2c_read_setup</a>( uint8_t  dev, 
+                       uint8_t  address)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_14'></a>uint8_t   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_14'>i2c_repeated_read</a>( uint8_t  isLastRead)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_12'></a>uint8_t   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_12'>i2c_read_byte</a>( uint8_t  dev, 
+                         uint8_t  address)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_17'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_17'>i2c_write_byte</a>( uint8_t  dev, 
+                       uint8_t  address, 
+                       uint8_t  data)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_MACs'>Macros  #defines from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_25'></a><span class='NOS_NL_OBJNMTXT'>I2C_TRAN</span><td width=300><a name='OS0_4_21'></a><span class='NOS_NL_OBJNMTXT'>I2C_M_START</span><td width=300><a name='OS0_4_26'></a><span class='NOS_NL_OBJNMTXT'>I2C_WAIT</span>
+<tr><td width=300><a name='OS0_4_20'></a><span class='NOS_NL_OBJNMTXT'>I2C_M_RSTART</span><td width=300><a name='OS0_4_23'></a><span class='NOS_NL_OBJNMTXT'>I2C_REC</span><td width=300><a name='OS0_4_27'></a><span class='NOS_NL_OBJNMTXT'>NACK</span>
+<tr><td width=300><a name='OS0_4_14'></a><span class='NOS_NL_OBJNMTXT'>ACK</span><td width=300><a name='OS0_4_22'></a><span class='NOS_NL_OBJNMTXT'>I2C_M_STOP</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_STRs'>structs/unions from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_0_2'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct30</span><td width=300><a name='OS0_0_0'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct26</span><td width=300><a name='OS0_0_6'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct13</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_MACs'>Macros #defines from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_7'></a><span class='NOS_NL_OBJNMTXT'>SIM</span><td width=300><a name='OS0_4_28'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC4_I2C0_MASK</span><td width=300><a name='OS0_4_29'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC5_PORTE_MASK</span>
+<tr><td width=300><a name='OS0_4_5'></a><span class='NOS_NL_OBJNMTXT'>PORTE</span><td width=300><a name='OS0_4_6'></a><span class='NOS_NL_OBJNMTXT'>PORT_PCR_MUX</span><td width=300><a name='OS0_4_15'></a><span class='NOS_NL_OBJNMTXT'>I2C0</span>
+<tr><td width=300><a name='OS0_4_18'></a><span class='NOS_NL_OBJNMTXT'>I2C_F_ICR</span><td width=300><a name='OS0_4_19'></a><span class='NOS_NL_OBJNMTXT'>I2C_F_MULT</span><td width=300><a name='OS0_4_16'></a><span class='NOS_NL_OBJNMTXT'>I2C_C1_IICEN_MASK</span>
+<tr><td width=300><a name='OS0_4_17'></a><span class='NOS_NL_OBJNMTXT'>I2C_C2_HDRS_MASK</span><td width=300><a name='OS0_4_24'></a><span class='NOS_NL_OBJNMTXT'>I2C_S_IICIF_MASK</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_TYPs'>Types from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_6'></a><span class='NOS_NL_OBJNMTXT'>SIM_Type</span><td width=300><a name='OS0_2_4'></a><span class='NOS_NL_OBJNMTXT'>PORT_Type</span><td width=300><a name='OS0_2_10'></a><span class='NOS_NL_OBJNMTXT'>uint32_t</span>
+<tr><td width=300><a name='OS0_2_15'></a><span class='NOS_NL_OBJNMTXT'>I2C_Type</span><td width=300><a name='OS0_2_11'></a><span class='NOS_NL_OBJNMTXT'>uint8_t</span></table><br><br><br><br><a name='DTLFUNDEFS'></a><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><table border=1 bordercolor='#cf0000' cellspacing=0 cellpadding=6 width='700'><tr><td bgcolor='#f0f0ff' class='DDC_HDNGTXT'>Functions - Detailed Documentation</table>
+<td width=100 align=right>
+<tr><td height=10></table><br>
+<table class='DDC_DFLTTXT' border=0 cellspacing=0 cellpadding=8 width=100%>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_11'>i2c_init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td width=40><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_16'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  i2c_init( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_11_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_11_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_9.html#OD0_3_32' class='FUNC_HIERARCHY_DFLTLNK'>main</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+i2c_init
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_9.html#OD0_3_32'>main</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_C1_IICEN_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_C2_HDRS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_F_ICR</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_F_MULT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORTE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC4_I2C0_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC5_PORTE_MASK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>i2c.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;5<br><tr><td><td valign=top>main.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;54</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_16'>i2c_wait</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_11'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_15'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  i2c_wait( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_16_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_16_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_4.html#OD0_3_12' class='FUNC_HIERARCHY_DFLTLNK'>i2c_read_byte</a></NOBR></td></tr></table>
+<td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  ><td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  >
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_4.html#OD0_3_13' class='FUNC_HIERARCHY_DFLTLNK'>i2c_read_setup</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_4.html#OD0_3_14' class='FUNC_HIERARCHY_DFLTLNK'>i2c_repeated_read</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_4.html#OD0_3_17' class='FUNC_HIERARCHY_DFLTLNK'>i2c_write_byte</a></NOBR></td></tr></table>
+<td valign=top><img src='../fn_a_b.gif' ALIGN=top  ><td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  >
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+i2c_wait
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_4.html#OD0_3_12'>i2c_read_byte</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_4.html#OD0_3_13'>i2c_read_setup</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_4.html#OD0_3_14'>i2c_repeated_read</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_4.html#OD0_3_17'>i2c_write_byte</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_S_IICIF_MASK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>i2c.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;29<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;50, &nbsp;53, &nbsp;57, &nbsp;79, &nbsp;102, &nbsp;105, &nbsp;109, &nbsp;115, &nbsp;133, &nbsp;136, &nbsp;139</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_15'>i2c_start</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_16'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_13'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  i2c_start( )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_15_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_15_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_10.html#OD0_3_34' class='FUNC_HIERARCHY_DFLTLNK'>read_full_xyz</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+i2c_start
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_10.html#OD0_3_34'>read_full_xyz</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_M_START</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_TRAN</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>i2c.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;39<br><tr><td><td valign=top>mma8451.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;63</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_13'>i2c_read_setup</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_15'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_14'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  i2c_read_setup( uint8_t  dev, 
+                       uint8_t  address)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_13_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_13_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_10.html#OD0_3_34' class='FUNC_HIERARCHY_DFLTLNK'>read_full_xyz</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+i2c_read_setup
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_4.html#OD0_3_16' class='FUNC_HIERARCHY_DFLTLNK'>i2c_wait</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>dev<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>address<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_10.html#OD0_3_34'>read_full_xyz</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_M_RSTART</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_REC</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_WAIT</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>i2c.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;47<br><tr><td><td valign=top>mma8451.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;64</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_14'>i2c_repeated_read</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_13'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_12'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>uint8_t  i2c_repeated_read( uint8_t  isLastRead)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_14_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_14_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_10.html#OD0_3_34' class='FUNC_HIERARCHY_DFLTLNK'>read_full_xyz</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+i2c_repeated_read
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_4.html#OD0_3_16' class='FUNC_HIERARCHY_DFLTLNK'>i2c_wait</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>isLastRead<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>data<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_10.html#OD0_3_34'>read_full_xyz</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>ACK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_M_STOP</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_WAIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NACK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>i2c.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;65<br><tr><td><td valign=top>mma8451.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;69, &nbsp;71</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_12'>i2c_read_byte</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_14'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_17'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>uint8_t  i2c_read_byte( uint8_t  dev, 
+                         uint8_t  address)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_12_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_12_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_10.html#OD0_3_31' class='FUNC_HIERARCHY_DFLTLNK'>init_mma</a></NOBR></td></tr></table>
+<td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  ><td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  >
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_10.html#OD0_3_38' class='FUNC_HIERARCHY_DFLTLNK'>read_xyz</a></NOBR></td></tr></table>
+<td valign=top><img src='../fn_a_b.gif' ALIGN=top  ><td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  >
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+i2c_read_byte
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_4.html#OD0_3_16' class='FUNC_HIERARCHY_DFLTLNK'>i2c_wait</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>dev<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>address<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>data<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_10.html#OD0_3_31'>init_mma</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_10.html#OD0_3_38'>read_xyz</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_M_RSTART</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_M_START</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_M_STOP</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_REC</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_TRAN</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_WAIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NACK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>i2c.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;95<br><tr><td><td valign=top>mma8451.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;34, &nbsp;84, &nbsp;86, &nbsp;88</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_17'>i2c_write_byte</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_12'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  i2c_write_byte( uint8_t  dev, 
+                       uint8_t  address, 
+                       uint8_t  data)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_17_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_17_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_10.html#OD0_3_31' class='FUNC_HIERARCHY_DFLTLNK'>init_mma</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+i2c_write_byte
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_4.html#OD0_3_16' class='FUNC_HIERARCHY_DFLTLNK'>i2c_wait</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>dev<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>address<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>data<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_10.html#OD0_3_31'>init_mma</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_M_START</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_M_STOP</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_TRAN</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>I2C_WAIT</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>i2c.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;127<br><tr><td><td valign=top>mma8451.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;39, &nbsp;42</table><br></blockquote><p>&nbsp;</table><br>
+<br><br><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

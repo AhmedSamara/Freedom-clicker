@@ -1,0 +1,232 @@
+﻿<html><head><title>Source Code - tasks.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_16.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; tasks.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>tasks.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_16.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'>  1  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>stdint.h<font color='#0000FF'>&gt;</font>
+<a name='L2'>  2  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>stdio.h<font color='#0000FF'>&gt;</font>
+<a name='L3'>  3  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>RTL.h<font color='#0000FF'>&gt;</font>
+<a name='L4'>  4  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>MKL25Z4.h<font color='#0000FF'>&gt;</font>
+<a name='L5'>  5  </a>
+<a name='L6'>  6  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;TFT_LCD.h&quot;</font>
+<a name='L7'>  7  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;tasks.h&quot;</font>
+<a name='L8'>  8  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;MMA8451.h&quot;</font>
+<a name='L9'>  9  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;sound.h&quot;</font>
+<a name='L10'> 10  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;DMA.h&quot;</font>
+<a name='L11'> 11  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;gpio_defs.h&quot;</font>
+<a name='L12'> 12  </a>
+<a name='L13'> 13  </a>U64 RA_Stack<font color='#0000FF'>[</font> 64 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L14'> 14  </a>
+<a name='L15'> 15  </a>OS_TID t_Read_TS<font color='#0000FF'>,</font>
+<a name='L16'> 16  </a>       t_Read_Accelerometer<font color='#0000FF'>,</font>
+<a name='L17'> 17  </a>       t_Sound<font color='#0000FF'>,</font>
+<a name='L18'> 18  </a>       t_US<font color='#0000FF'>;</font>
+<a name='L19'> 19  </a>OS_MUT LCD_mutex<font color='#0000FF'>;</font>
+<a name='L20'> 20  </a>OS_MUT TS_mutex<font color='#0000FF'>;</font>
+<a name='L21'> 21  </a>
+<a name='L22'> 22  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_16.html#OD0_3_91'>Init_Debug_Signals</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L23'> 23  </a><font color='#0000FF'>{</font>
+<a name='L24'> 24  </a> <font color='#A000A0'>// Enable clock to port B</font>
+<a name='L25'> 25  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC5                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC5_PORTB_MASK<font color='#0000FF'>;</font>
+<a name='L26'> 26  </a>
+<a name='L27'> 27  </a>    <font color='#A000A0'>// Make 3 pins GPIO</font>
+<a name='L28'> 28  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DEBUG_T0_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L29'> 29  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DEBUG_T0_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L30'> 30  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DEBUG_T1_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L31'> 31  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DEBUG_T1_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L32'> 32  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DEBUG_T2_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L33'> 33  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DEBUG_T2_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L34'> 34  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DEBUG_T3_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L35'> 35  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DEBUG_T3_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L36'> 36  </a>
+<a name='L37'> 37  </a>    <font color='#A000A0'>// Set ports to outputs</font>
+<a name='L38'> 38  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                  <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T0_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L39'> 39  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                  <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T1_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L40'> 40  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                  <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T2_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L41'> 41  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                  <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T3_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L42'> 42  </a>
+<a name='L43'> 43  </a>    <font color='#A000A0'>// Initial values are 0</font>
+<a name='L44'> 44  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR                   <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T0_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L45'> 45  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR                   <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T1_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L46'> 46  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR                   <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T2_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L47'> 47  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR                   <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T3_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L48'> 48  </a><font color='#0000FF'>}</font>
+<a name='L49'> 49  </a>
+<a name='L50'> 50  </a>__task  <font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_16.html#OD0_3_28'>Task_Init</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L51'> 51  </a><font color='#0000FF'>{</font>
+<a name='L52'> 52  </a>
+<a name='L53'> 53  </a>    os_mut_init<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(37);' class='hnd_cls'>LCD_mutex</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L54'> 54  </a>
+<a name='L55'> 55  </a>    <span onclick='gotosrc(32);' class='hnd_cls'>t_Read_TS</span>            <font color='#0000FF'>=</font> os_tsk_create<font color='#0000FF'>(</font> <span onclick='gotosrc(89);' class='hnd_cls'>Task_Read_TS</span><font color='#0000FF'>,</font> 4 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L56'> 56  </a>    <span onclick='gotosrc(33);' class='hnd_cls'>t_Read_Accelerometer</span> <font color='#0000FF'>=</font> os_tsk_create_user<font color='#0000FF'>(</font> <span onclick='gotosrc(93);' class='hnd_cls'>Task_Read_Accelerometer</span><font color='#0000FF'>,</font> 3<font color='#0000FF'>,</font> <span onclick='gotosrc(29);' class='hnd_cls'>RA_Stack</span><font color='#0000FF'>,</font> 512 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L57'> 57  </a>    <span onclick='gotosrc(34);' class='hnd_cls'>t_Sound</span>              <font color='#0000FF'>=</font> os_tsk_create<font color='#0000FF'>(</font> <span onclick='gotosrc(96);' class='hnd_cls'>Task_Sound</span><font color='#0000FF'>,</font> 2 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L58'> 58  </a>    <span onclick='gotosrc(35);' class='hnd_cls'>t_US</span>                 <font color='#0000FF'>=</font> os_tsk_create<font color='#0000FF'>(</font> <span onclick='gotosrc(98);' class='hnd_cls'>Task_Update_Screen</span><font color='#0000FF'>,</font> 5 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L59'> 59  </a>
+<a name='L60'> 60  </a>    os_tsk_delete_self<font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L61'> 61  </a><font color='#0000FF'>}</font>
+<a name='L62'> 62  </a>
+<a name='L63'> 63  </a>__task  <font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_16.html#OD0_3_56'>Task_Read_TS</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L64'> 64  </a><font color='#0000FF'>{</font>
+<a name='L65'> 65  </a>    PT_T    p<font color='#0000FF'>,</font>
+<a name='L66'> 66  </a>            pp<font color='#0000FF'>;</font>
+<a name='L67'> 67  </a>    COLOR_T c<font color='#0000FF'>;</font>
+<a name='L68'> 68  </a>
+<a name='L69'> 69  </a>    c.R <font color='#0000FF'>=</font> 150<font color='#0000FF'>;</font>
+<a name='L70'> 70  </a>    c.G <font color='#0000FF'>=</font> 200<font color='#0000FF'>;</font>
+<a name='L71'> 71  </a>    c.B <font color='#0000FF'>=</font> 255<font color='#0000FF'>;</font>
+<a name='L72'> 72  </a>
+<a name='L73'> 73  </a>    os_itv_set<font color='#0000FF'>(</font> TASK_READ_TS_PERIOD_TICKS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L74'> 74  </a>
+<a name='L75'> 75  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font>
+<a name='L76'> 76  </a>    <font color='#0000FF'>{</font>
+<a name='L77'> 77  </a>        os_itv_wait<font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L78'> 78  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T1_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L79'> 79  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(126);' class='hnd_cls'>TFT_TS_Read</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font>p <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L80'> 80  </a>        <font color='#0000FF'>{</font>
+<a name='L81'> 81  </a>        <font color='#A000A0'>// Send message indicating screen was pressed</font>
+<a name='L82'> 82  </a>            os_evt_set<font color='#0000FF'>(</font> EV_PLAYSOUND<font color='#0000FF'>,</font> <span onclick='gotosrc(34);' class='hnd_cls'>t_Sound</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L83'> 83  </a>            <font color='#A000A0'>/// Play_Waveform_with_DMA();</font>
+<a name='L84'> 84  </a>
+<a name='L85'> 85  </a>            <font color='#A000A0'>// Also draw on screen</font>
+<a name='L86'> 86  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(109);' class='hnd_cls'>pp</span>.X <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>&amp;</font> <font color='#0000FF'>(</font> pp.Y <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L87'> 87  </a>            <font color='#0000FF'>{</font>
+<a name='L88'> 88  </a>                <span onclick='gotosrc(109);' class='hnd_cls'>pp</span> <font color='#0000FF'>=</font> p<font color='#0000FF'>;</font>
+<a name='L89'> 89  </a>            <font color='#0000FF'>}</font>
+<a name='L90'> 90  </a>            os_mut_wait<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(37);' class='hnd_cls'>LCD_mutex</span><font color='#0000FF'>,</font> WAIT_FOREVER <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L91'> 91  </a>            TFT_Draw_Line<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font>p<font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font>pp<font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font>c <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L92'> 92  </a>            os_mut_release<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(37);' class='hnd_cls'>LCD_mutex</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L93'> 93  </a>            <span onclick='gotosrc(109);' class='hnd_cls'>pp</span> <font color='#0000FF'>=</font> p<font color='#0000FF'>;</font>
+<a name='L94'> 94  </a>        <font color='#0000FF'>}</font>
+<a name='L95'> 95  </a>        <font color='#C6264F'>else</font>
+<a name='L96'> 96  </a>        <font color='#0000FF'>{</font>
+<a name='L97'> 97  </a>            <span onclick='gotosrc(109);' class='hnd_cls'>pp</span>.X <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L98'> 98  </a>            <span onclick='gotosrc(109);' class='hnd_cls'>pp</span>.Y <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L99'> 99  </a>        <font color='#0000FF'>}</font>
+<a name='L100'>100  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T1_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L101'>101  </a>    <font color='#0000FF'>}</font>
+<a name='L102'>102  </a><font color='#0000FF'>}</font>
+<a name='L103'>103  </a>
+<a name='L104'>104  </a>__task  <font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_16.html#OD0_3_55'>Task_Read_Accelerometer</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L105'>105  </a><font color='#0000FF'>{</font>
+<a name='L106'>106  </a>    <font color='#C6264F'>char</font> buffer<font color='#0000FF'>[</font> 16 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L107'>107  </a>
+<a name='L108'>108  </a>    os_itv_set<font color='#0000FF'>(</font> TASK_READ_ACCELEROMETER_PERIOD_TICKS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L109'>109  </a>
+<a name='L110'>110  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font>
+<a name='L111'>111  </a>    <font color='#0000FF'>{</font>
+<a name='L112'>112  </a>        os_itv_wait<font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L113'>113  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T0_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L114'>114  </a>        <span onclick='gotosrc(143);' class='hnd_cls'>read_full_xyz</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L115'>115  </a>        <span onclick='gotosrc(144);' class='hnd_cls'>convert_xyz_to_roll_pitch</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L116'>116  </a>
+<a name='L117'>117  </a>        sprintf<font color='#0000FF'>(</font> <span onclick='gotosrc(140);' class='hnd_cls'>buffer</span><font color='#0000FF'>,</font> <font color='#008000'>&quot;Roll: %6.2f&quot;</font><font color='#0000FF'>,</font> <span onclick='gotosrc(147);' class='hnd_cls'>roll</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L118'>118  </a>        os_mut_wait<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(37);' class='hnd_cls'>LCD_mutex</span><font color='#0000FF'>,</font> WAIT_FOREVER <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L119'>119  </a>        <span onclick='gotosrc(148);' class='hnd_cls'>TFT_Text_PrintStr_RC</span><font color='#0000FF'>(</font> 2<font color='#0000FF'>,</font> 0<font color='#0000FF'>,</font> <span onclick='gotosrc(140);' class='hnd_cls'>buffer</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L120'>120  </a>        os_mut_release<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(37);' class='hnd_cls'>LCD_mutex</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L121'>121  </a>
+<a name='L122'>122  </a>        sprintf<font color='#0000FF'>(</font> <span onclick='gotosrc(140);' class='hnd_cls'>buffer</span><font color='#0000FF'>,</font> <font color='#008000'>&quot;Pitch: %6.2f&quot;</font><font color='#0000FF'>,</font> <span onclick='gotosrc(150);' class='hnd_cls'>pitch</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L123'>123  </a>        os_mut_wait<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(37);' class='hnd_cls'>LCD_mutex</span><font color='#0000FF'>,</font> WAIT_FOREVER <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L124'>124  </a>        <span onclick='gotosrc(148);' class='hnd_cls'>TFT_Text_PrintStr_RC</span><font color='#0000FF'>(</font> 3<font color='#0000FF'>,</font> 0<font color='#0000FF'>,</font> <span onclick='gotosrc(140);' class='hnd_cls'>buffer</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L125'>125  </a>        os_mut_release<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(37);' class='hnd_cls'>LCD_mutex</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L126'>126  </a>
+<a name='L127'>127  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T0_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L128'>128  </a>    <font color='#0000FF'>}</font>
+<a name='L129'>129  </a><font color='#0000FF'>}</font>
+<a name='L130'>130  </a>
+<a name='L131'>131  </a>__task  <font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_16.html#OD0_3_57'>Task_Sound</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L132'>132  </a><font color='#0000FF'>{</font>
+<a name='L133'>133  </a><font color='#A000A0'>/*</font>
+<a name='L134'>134  </a><font color='#A000A0'>    uint32_t num_cycles, phase;</font>
+<a name='L135'>135  </a><font color='#A000A0'>    uint16_t val, out_val;</font>
+<a name='L136'>136  </a><font color='#A000A0'>    uint32_t temp_val;</font>
+<a name='L137'>137  </a><font color='#A000A0'>*/</font>
+<a name='L138'>138  </a>
+<a name='L139'>139  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font>
+<a name='L140'>140  </a>    <font color='#0000FF'>{</font>
+<a name='L141'>141  </a>        os_evt_wait_and<font color='#0000FF'>(</font> EV_PLAYSOUND<font color='#0000FF'>,</font> WAIT_FOREVER <font color='#0000FF'>)</font><font color='#0000FF'>;</font>          <font color='#A000A0'>/*     wait for trigger                           */</font>
+<a name='L142'>142  </a><font color='#C6264F'>#if</font> 1
+<a name='L143'>143  </a>        <span onclick='gotosrc(156);' class='hnd_cls'>Play_Waveform_with_DMA</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L144'>144  </a><font color='#C6264F'>#else</font>
+<a name='L145'>145  </a>        <span onclick='gotosrc(157);' class='hnd_cls'>Sound_Refill_Buffer</span><font color='#408080'>(</font> 22000 <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L146'>146  </a>        <span onclick='gotosrc(156);' class='hnd_cls'>Play_Waveform_with_DMA</span><font color='#408080'>(</font> <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L147'>147  </a><font color='#C6264F'>#endif</font>
+<a name='L148'>148  </a>
+<a name='L149'>149  </a><font color='#A000A0'>//      val = MAX_DAC_CODE/2;</font>
+<a name='L150'>150  </a><font color='#A000A0'>//      out_val = 0;</font>
+<a name='L151'>151  </a><font color='#A000A0'>//      phase = 1;</font>
+<a name='L152'>152  </a><font color='#A000A0'>//      for (num_cycles = 0; num_cycles &lt; 1000; num_cycles++) {</font>
+<a name='L153'>153  </a><font color='#A000A0'>//          PTB-&gt;PSOR = MASK(DEBUG_T2_POS);</font>
+<a name='L154'>154  </a><font color='#A000A0'>//#if 0</font>
+<a name='L155'>155  </a><font color='#A000A0'>//          out_val = MAX_DAC_CODE - out_val;   </font>
+<a name='L156'>156  </a><font color='#A000A0'>//#else</font>
+<a name='L157'>157  </a><font color='#A000A0'>//          // Generate next sample</font>
+<a name='L158'>158  </a><font color='#A000A0'>//          if (phase &gt; 0) {</font>
+<a name='L159'>159  </a><font color='#A000A0'>//              out_val = MAX_DAC_CODE/2 + val;</font>
+<a name='L160'>160  </a><font color='#A000A0'>//          } else {</font>
+<a name='L161'>161  </a><font color='#A000A0'>//              out_val = MAX_DAC_CODE/2 - val;</font>
+<a name='L162'>162  </a><font color='#A000A0'>//          }</font>
+<a name='L163'>163  </a><font color='#A000A0'>//          phase = 1 - phase;</font>
+<a name='L164'>164  </a><font color='#A000A0'>//          temp_val = val * 0xFF00;</font>
+<a name='L165'>165  </a><font color='#A000A0'>//          val = temp_val &gt;&gt; 16;</font>
+<a name='L166'>166  </a><font color='#A000A0'>//#endif</font>
+<a name='L167'>167  </a><font color='#A000A0'>//          // Wait for next interval to play the sample</font>
+<a name='L168'>168  </a><font color='#A000A0'>//          os_itv_wait(); </font>
+<a name='L169'>169  </a><font color='#A000A0'>//          // Send sample to DAC</font>
+<a name='L170'>170  </a><font color='#A000A0'>//          DAC0-&gt;DAT[0].DATH = DAC_DATH_DATA1(out_val &gt;&gt; 8);</font>
+<a name='L171'>171  </a><font color='#A000A0'>//          DAC0-&gt;DAT[0].DATL = DAC_DATL_DATA0(out_val);</font>
+<a name='L172'>172  </a><font color='#A000A0'>//          PTB-&gt;PCOR = MASK(DEBUG_T2_POS);</font>
+<a name='L173'>173  </a><font color='#A000A0'>//      }</font>
+<a name='L174'>174  </a>    <font color='#0000FF'>}</font>
+<a name='L175'>175  </a><font color='#0000FF'>}</font>
+<a name='L176'>176  </a>
+<a name='L177'>177  </a>__task  <font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_16.html#OD0_3_112'>Task_Update_Screen</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L178'>178  </a><font color='#0000FF'>{</font>
+<a name='L179'>179  </a>    int16_t paddle_pos <font color='#0000FF'>=</font> TFT_WIDTH <font color='#0000FF'>/</font> 2<font color='#0000FF'>;</font>
+<a name='L180'>180  </a>    PT_T    p1<font color='#0000FF'>,</font>
+<a name='L181'>181  </a>            p2<font color='#0000FF'>;</font>
+<a name='L182'>182  </a>    COLOR_T paddle_color<font color='#0000FF'>,</font>
+<a name='L183'>183  </a>            black<font color='#0000FF'>;</font>
+<a name='L184'>184  </a>
+<a name='L185'>185  </a>    <span onclick='gotosrc(166);' class='hnd_cls'>paddle_color</span>.R <font color='#0000FF'>=</font> 100<font color='#0000FF'>;</font>
+<a name='L186'>186  </a>    <span onclick='gotosrc(166);' class='hnd_cls'>paddle_color</span>.G <font color='#0000FF'>=</font> 200<font color='#0000FF'>;</font>
+<a name='L187'>187  </a>    <span onclick='gotosrc(166);' class='hnd_cls'>paddle_color</span>.B <font color='#0000FF'>=</font> 50<font color='#0000FF'>;</font>
+<a name='L188'>188  </a>
+<a name='L189'>189  </a>    <span onclick='gotosrc(167);' class='hnd_cls'>black</span>.R        <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L190'>190  </a>    <span onclick='gotosrc(167);' class='hnd_cls'>black</span>.G        <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L191'>191  </a>    <span onclick='gotosrc(167);' class='hnd_cls'>black</span>.B        <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L192'>192  </a>
+<a name='L193'>193  </a>    os_itv_set<font color='#0000FF'>(</font> TASK_UPDATE_SCREEN_PERIOD_TICKS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L194'>194  </a>
+<a name='L195'>195  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font>
+<a name='L196'>196  </a>    <font color='#0000FF'>{</font>
+<a name='L197'>197  </a>        os_itv_wait<font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L198'>198  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T3_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L199'>199  </a>
+<a name='L200'>200  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(147);' class='hnd_cls'>roll</span> <font color='#0000FF'>&lt;</font> <font color='#0000FF'>-</font>2.0 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font><font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(147);' class='hnd_cls'>roll</span> <font color='#0000FF'>&gt;</font> 2.0 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L201'>201  </a>        <font color='#0000FF'>{</font>
+<a name='L202'>202  </a>            <span onclick='gotosrc(164);' class='hnd_cls'>p1</span>.X <font color='#0000FF'>=</font> paddle_pos<font color='#0000FF'>;</font>
+<a name='L203'>203  </a>            <span onclick='gotosrc(164);' class='hnd_cls'>p1</span>.Y <font color='#0000FF'>=</font> PADDLE_Y_POS<font color='#0000FF'>;</font>
+<a name='L204'>204  </a>            <span onclick='gotosrc(165);' class='hnd_cls'>p2</span>.X <font color='#0000FF'>=</font> p1.X <font color='#0000FF'>+</font> PADDLE_WIDTH<font color='#0000FF'>;</font>
+<a name='L205'>205  </a>            <span onclick='gotosrc(165);' class='hnd_cls'>p2</span>.Y <font color='#0000FF'>=</font> p1.Y <font color='#0000FF'>+</font> PADDLE_HEIGHT<font color='#0000FF'>;</font>
+<a name='L206'>206  </a>            <span onclick='gotosrc(176);' class='hnd_cls'>TFT_Fill_Rectangle</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(164);' class='hnd_cls'>p1</span><font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(165);' class='hnd_cls'>p2</span><font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(167);' class='hnd_cls'>black</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L207'>207  </a>
+<a name='L208'>208  </a>            <span onclick='gotosrc(162);' class='hnd_cls'>paddle_pos</span> <font color='#0000FF'>+</font><font color='#0000FF'>=</font> <span onclick='gotosrc(147);' class='hnd_cls'>roll</span><font color='#0000FF'>;</font>
+<a name='L209'>209  </a>            <span onclick='gotosrc(162);' class='hnd_cls'>paddle_pos</span>  <font color='#0000FF'>=</font> MAX<font color='#0000FF'>(</font> 0<font color='#0000FF'>,</font> <span onclick='gotosrc(162);' class='hnd_cls'>paddle_pos</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L210'>210  </a>            <span onclick='gotosrc(162);' class='hnd_cls'>paddle_pos</span>  <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(162);' class='hnd_cls'>paddle_pos</span><font color='#0000FF'>,</font> TFT_WIDTH <font color='#0000FF'>-</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L211'>211  </a>
+<a name='L212'>212  </a>            <span onclick='gotosrc(164);' class='hnd_cls'>p1</span>.X        <font color='#0000FF'>=</font> paddle_pos<font color='#0000FF'>;</font>
+<a name='L213'>213  </a>            <span onclick='gotosrc(164);' class='hnd_cls'>p1</span>.Y        <font color='#0000FF'>=</font> PADDLE_Y_POS<font color='#0000FF'>;</font>
+<a name='L214'>214  </a>            <span onclick='gotosrc(165);' class='hnd_cls'>p2</span>.X        <font color='#0000FF'>=</font> p1.X <font color='#0000FF'>+</font> PADDLE_WIDTH<font color='#0000FF'>;</font>
+<a name='L215'>215  </a>            <span onclick='gotosrc(165);' class='hnd_cls'>p2</span>.Y        <font color='#0000FF'>=</font> p1.Y <font color='#0000FF'>+</font> PADDLE_HEIGHT<font color='#0000FF'>;</font>
+<a name='L216'>216  </a>            <span onclick='gotosrc(176);' class='hnd_cls'>TFT_Fill_Rectangle</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(164);' class='hnd_cls'>p1</span><font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(165);' class='hnd_cls'>p2</span><font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(166);' class='hnd_cls'>paddle_color</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L217'>217  </a>        <font color='#0000FF'>}</font>
+<a name='L218'>218  </a>
+<a name='L219'>219  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DEBUG_T3_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L220'>220  </a>    <font color='#0000FF'>}</font>
+<a name='L221'>221  </a><font color='#0000FF'>}</font>
+<a name='L222'>222  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

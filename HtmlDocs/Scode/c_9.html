@@ -1,0 +1,83 @@
+﻿<html><head><title>Source Code - main.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_9.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; main.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>main.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_9.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'> 1  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L2'> 2  </a><font color='#A000A0'> *----------------------------------------------------------------------------*-------*-------*-------*-------*---*/</font>
+<a name='L3'> 3  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>MKL25Z4.H<font color='#0000FF'>&gt;</font>
+<a name='L4'> 4  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>stdio.h<font color='#0000FF'>&gt;</font>
+<a name='L5'> 5  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;gpio_defs.h&quot;</font>
+<a name='L6'> 6  </a>
+<a name='L7'> 7  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;tft_lcd.h&quot;</font>
+<a name='L8'> 8  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;font.h&quot;</font>
+<a name='L9'> 9  </a>
+<a name='L10'>10  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;LEDs.h&quot;</font>
+<a name='L11'>11  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;timers.h&quot;</font>
+<a name='L12'>12  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;sound.h&quot;</font>
+<a name='L13'>13  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;DMA.h&quot;</font>
+<a name='L14'>14  </a>
+<a name='L15'>15  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;I2C.h&quot;</font>
+<a name='L16'>16  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;mma8451.h&quot;</font>
+<a name='L17'>17  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;delay.h&quot;</font>
+<a name='L18'>18  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;profile.h&quot;</font>
+<a name='L19'>19  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;math.h&quot;</font>
+<a name='L20'>20  </a>
+<a name='L21'>21  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>RTL.h<font color='#0000FF'>&gt;</font>
+<a name='L22'>22  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;tasks.h&quot;</font>
+<a name='L23'>23  </a>
+<a name='L24'>24  </a><font color='#C6264F'>#define</font>     USE_GFX_LCD
+<a name='L25'>25  </a>
+<a name='L26'>26  </a><font color='#A000A0'>/*------------------------------------------------------------------------------------------------------------------</font>
+<a name='L27'>27  </a><font color='#A000A0'>  MAIN function</font>
+<a name='L28'>28  </a><font color='#A000A0'> *----------------------------------------------------------------------------*-------*-------*-------*-------*---*/</font>
+<a name='L29'>29  </a><font color='#C6264F'>int</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_9.html#OD0_3_32'>main</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L30'>30  </a><font color='#0000FF'>{</font>
+<a name='L31'>31  </a>
+<a name='L32'>32  </a>    <span onclick='gotosrc(30);' class='hnd_cls'>Init_Debug_Signals</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L33'>33  </a>    <span onclick='gotosrc(31);' class='hnd_cls'>Init_RGB_LEDs</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L34'>34  </a>    <span onclick='gotosrc(32);' class='hnd_cls'>Sound_Init</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L35'>35  </a>    <font color='#A000A0'>// Sound_Disable_Amp();</font>
+<a name='L36'>36  </a>    <span onclick='gotosrc(33);' class='hnd_cls'>Play_Tone</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L37'>37  </a>
+<a name='L38'>38  </a>    <span onclick='gotosrc(34);' class='hnd_cls'>TFT_Init</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L39'>39  </a>    <span onclick='gotosrc(35);' class='hnd_cls'>TFT_Text_Init</span><font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L40'>40  </a>    <span onclick='gotosrc(37);' class='hnd_cls'>TFT_Erase</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L41'>41  </a>    <span onclick='gotosrc(38);' class='hnd_cls'>TFT_Text_PrintStr_RC</span><font color='#0000FF'>(</font> 0<font color='#0000FF'>,</font> 0<font color='#0000FF'>,</font> <font color='#008000'>&quot;Test Code&quot;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L42'>42  </a>
+<a name='L43'>43  </a><font color='#A000A0'>/*</font>
+<a name='L44'>44  </a><font color='#A000A0'>    Graphics_Test();</font>
+<a name='L45'>45  </a><font color='#A000A0'>    while (1) </font>
+<a name='L46'>46  </a><font color='#A000A0'>        ;</font>
+<a name='L47'>47  </a><font color='#A000A0'>*/</font>
+<a name='L48'>48  </a>
+<a name='L49'>49  </a><font color='#A000A0'>//  TFT_TS_Calibrate();</font>
+<a name='L50'>50  </a><font color='#A000A0'>//  TFT_TS_Test();</font>
+<a name='L51'>51  </a>
+<a name='L52'>52  </a>    <span onclick='gotosrc(38);' class='hnd_cls'>TFT_Text_PrintStr_RC</span><font color='#0000FF'>(</font> 1<font color='#0000FF'>,</font> 0<font color='#0000FF'>,</font> <font color='#008000'>&quot;Accel...&quot;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L53'>53  </a>
+<a name='L54'>54  </a>    <span onclick='gotosrc(42);' class='hnd_cls'>i2c_init</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                                                <font color='#A000A0'>/*   init I2C peripheral                          */</font>
+<a name='L55'>55  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>!</font><span onclick='gotosrc(43);' class='hnd_cls'>init_mma</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L56'>56  </a>    <font color='#0000FF'>{</font>                                                           <font color='#A000A0'>/*   init accelerometer                           */</font>
+<a name='L57'>57  </a>        <span onclick='gotosrc(44);' class='hnd_cls'>Control_RGB_LEDs</span><font color='#0000FF'>(</font> 1<font color='#0000FF'>,</font> 0<font color='#0000FF'>,</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*     accel initialization failed, so turn on    */</font>
+<a name='L58'>58  </a>                                                                <font color='#A000A0'>/*      red error light                           */</font>
+<a name='L59'>59  </a>        <font color='#C6264F'>while</font><font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L60'>60  </a>    <font color='#0000FF'>}</font>
+<a name='L61'>61  </a>    <span onclick='gotosrc(38);' class='hnd_cls'>TFT_Text_PrintStr_RC</span><font color='#0000FF'>(</font> 1<font color='#0000FF'>,</font> 9<font color='#0000FF'>,</font> <font color='#008000'>&quot;Done&quot;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L62'>62  </a>
+<a name='L63'>63  </a>    <span onclick='gotosrc(47);' class='hnd_cls'>Play_Waveform_with_DMA</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L64'>64  </a>
+<a name='L65'>65  </a>    <span onclick='gotosrc(48);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> 70 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L66'>66  </a>
+<a name='L67'>67  </a>    os_sys_init<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font> <span onclick='gotosrc(51);' class='hnd_cls'>Task_Init</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L68'>68  </a>
+<a name='L69'>69  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L70'>70  </a><font color='#0000FF'>}</font>
+<a name='L71'>71  </a>
+<a name='L72'>72  </a><font color='#A000A0'>// *******************************ARM University Program Copyright © ARM Ltd 2013*************************************   </font>
+<a name='L73'>73  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

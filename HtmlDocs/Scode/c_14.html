@@ -1,0 +1,182 @@
+﻿<html><head><title>Source Code - sound.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_14.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; sound.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>sound.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_14.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'>  1  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>stdint.h<font color='#0000FF'>&gt;</font>
+<a name='L2'>  2  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>MKL25Z4.h<font color='#0000FF'>&gt;</font>
+<a name='L3'>  3  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;sound.h&quot;</font>
+<a name='L4'>  4  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;delay.h&quot;</font>
+<a name='L5'>  5  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;gpio_defs.h&quot;</font>
+<a name='L6'>  6  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;timers.h&quot;</font>
+<a name='L7'>  7  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;DMA.h&quot;</font>
+<a name='L8'>  8  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>math.h<font color='#0000FF'>&gt;</font>
+<a name='L9'>  9  </a>
+<a name='L10'> 10  </a>uint16_t SineTable<font color='#0000FF'>[</font> NUM_STEPS <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L11'> 11  </a>uint16_t Waveform<font color='#0000FF'>[</font> NUM_WAVEFORM_SAMPLES <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L12'> 12  </a>
+<a name='L13'> 13  </a>
+<a name='L14'> 14  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_98'>DAC_Init</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L15'> 15  </a><font color='#0000FF'>{</font>
+<a name='L16'> 16  </a> <font color='#A000A0'>// Init DAC output</font>
+<a name='L17'> 17  </a>
+<a name='L18'> 18  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6            <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> SIM_SCGC6_DAC0_SHIFT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L19'> 19  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC5            <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> SIM_SCGC5_PORTE_SHIFT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L20'> 20  </a>
+<a name='L21'> 21  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DAC_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L22'> 22  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> DAC_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                 <font color='#A000A0'>/*   Select analog                                */</font>
+<a name='L23'> 23  </a>
+<a name='L24'> 24  </a>    <font color='#A000A0'>// Disable buffer mode</font>
+<a name='L25'> 25  </a>    DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>C1               <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L26'> 26  </a>    DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>C2               <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L27'> 27  </a>
+<a name='L28'> 28  </a>    <font color='#A000A0'>// Enable DAC, select VDDA as reference voltage</font>
+<a name='L29'> 29  </a>    DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>C0 <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> DAC_C0_DACEN_SHIFT <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> MASK<font color='#0000FF'>(</font> DAC_C0_DACRFS_SHIFT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L30'> 30  </a><font color='#0000FF'>}</font>
+<a name='L31'> 31  </a>
+<a name='L32'> 32  </a><font color='#A000A0'>/*</font>
+<a name='L33'> 33  </a><font color='#A000A0'>    Code for driving DAC</font>
+<a name='L34'> 34  </a><font color='#A000A0'>*/</font>
+<a name='L35'> 35  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_51'>Play_Sound_Sample</a><font color='#0000FF'>(</font> uint16_t  val <font color='#0000FF'>)</font>
+<a name='L36'> 36  </a><font color='#0000FF'>{</font>
+<a name='L37'> 37  </a>    DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>DAT<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.DATH <font color='#0000FF'>=</font> DAC_DATH_DATA1<font color='#0000FF'>(</font> <span onclick='gotosrc(72);' class='hnd_cls'>val</span> <font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font> 8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L38'> 38  </a>    DAC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>DAT<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.DATL <font color='#0000FF'>=</font> DAC_DATL_DATA0<font color='#0000FF'>(</font> <span onclick='gotosrc(72);' class='hnd_cls'>val</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L39'> 39  </a><font color='#0000FF'>}</font>
+<a name='L40'> 40  </a>
+<a name='L41'> 41  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_103'>SineTable_Init</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L42'> 42  </a><font color='#0000FF'>{</font>
+<a name='L43'> 43  </a>    <font color='#C6264F'>unsigned</font>  n<font color='#0000FF'>;</font>
+<a name='L44'> 44  </a>
+<a name='L45'> 45  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> n <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> n <font color='#0000FF'>&lt;</font> NUM_STEPS<font color='#0000FF'>;</font> n<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L46'> 46  </a>    <font color='#0000FF'>{</font>
+<a name='L47'> 47  </a>        <span onclick='gotosrc(29);' class='hnd_cls'>SineTable</span><font color='#0000FF'>[</font> n <font color='#0000FF'>]</font>
+<a name='L48'> 48  </a>        <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> MAX_DAC_CODE <font color='#0000FF'>/</font> 2 <font color='#0000FF'>)</font> <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> 1  <font color='#0000FF'>+</font> sinf<font color='#0000FF'>(</font> n <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> 2 <font color='#0000FF'>*</font> 3.1415927 <font color='#0000FF'>/</font> NUM_STEPS <font color='#0000FF'>)</font> <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L49'> 49  </a>    <font color='#0000FF'>}</font>
+<a name='L50'> 50  </a><font color='#0000FF'>}</font>
+<a name='L51'> 51  </a>
+<a name='L52'> 52  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_100'>Init_Waveform</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L53'> 53  </a><font color='#0000FF'>{</font>
+<a name='L54'> 54  </a>    uint32_t i<font color='#0000FF'>;</font>
+<a name='L55'> 55  </a>
+<a name='L56'> 56  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> i <font color='#0000FF'>&lt;</font> NUM_WAVEFORM_SAMPLES<font color='#0000FF'>;</font> i<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L57'> 57  </a>    <font color='#0000FF'>{</font>
+<a name='L58'> 58  </a>        <span onclick='gotosrc(31);' class='hnd_cls'>Waveform</span><font color='#0000FF'>[</font> i <font color='#0000FF'>]</font>
+<a name='L59'> 59  </a>        <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> MAX_DAC_CODE <font color='#0000FF'>/</font> 2 <font color='#0000FF'>)</font>
+<a name='L60'> 60  </a>           <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> 1.0
+<a name='L61'> 61  </a>                 <font color='#0000FF'>+</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> 1.0  <font color='#0000FF'>-</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <font color='#C6264F'>float</font> <font color='#0000FF'>)</font>i <font color='#0000FF'>)</font> <font color='#0000FF'>/</font> NUM_WAVEFORM_SAMPLES <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L62'> 62  </a>                    <font color='#0000FF'>*</font> sinf<font color='#0000FF'>(</font> i <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> 2 <font color='#0000FF'>*</font> 3.1415927 <font color='#0000FF'>/</font> NUM_STEPS <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L63'> 63  </a>             <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L64'> 64  </a>    <font color='#0000FF'>}</font>
+<a name='L65'> 65  </a><font color='#0000FF'>}</font>
+<a name='L66'> 66  </a>
+<a name='L67'> 67  </a><font color='#A000A0'>/* Initialize sound hardware and sine table*/</font>
+<a name='L68'> 68  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_93'>Sound_Init</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L69'> 69  </a><font color='#0000FF'>{</font>
+<a name='L70'> 70  </a>    <span onclick='gotosrc(84);' class='hnd_cls'>SineTable_Init</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L71'> 71  </a>    <span onclick='gotosrc(92);' class='hnd_cls'>Init_Waveform</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L72'> 72  </a>
+<a name='L73'> 73  </a>    <span onclick='gotosrc(33);' class='hnd_cls'>DAC_Init</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L74'> 74  </a>    DMA_Init<font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L75'> 75  </a>    <span onclick='gotosrc(98);' class='hnd_cls'>TPM0_Init</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L76'> 76  </a>    <span onclick='gotosrc(99);' class='hnd_cls'>Configure_TPM0_for_DMA</span><font color='#0000FF'>(</font> 45 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L77'> 77  </a>
+<a name='L78'> 78  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SOPT2 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> SIM_SOPT2_TPMSRC<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> SIM_SOPT2_PLLFLLSEL_MASK <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L79'> 79  </a>
+<a name='L80'> 80  </a>
+<a name='L81'> 81  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC5                   <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> 1UL<font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>SIM_SCGC5_PORTE_SHIFT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L82'> 82  </a>
+<a name='L83'> 83  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> AMP_ENABLE_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L84'> 84  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> AMP_ENABLE_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>          <font color='#A000A0'>/*   Select GPIO                                  */</font>
+<a name='L85'> 85  </a>    PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                    <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> AMP_ENABLE_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>     <font color='#A000A0'>/*   set to output                                */</font>
+<a name='L86'> 86  </a>    PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR                     <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> AMP_ENABLE_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>     <font color='#A000A0'>/*   enable audio amp                             */</font>
+<a name='L87'> 87  </a>
+<a name='L88'> 88  </a><font color='#0000FF'>}</font>
+<a name='L89'> 89  </a>
+<a name='L90'> 90  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_105'>Sound_Enable_Amp</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L91'> 91  </a><font color='#0000FF'>{</font>
+<a name='L92'> 92  </a>    PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> AMP_ENABLE_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*   enable audio amp                             */</font>
+<a name='L93'> 93  </a><font color='#0000FF'>}</font>
+<a name='L94'> 94  </a>
+<a name='L95'> 95  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_104'>Sound_Disable_Amp</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L96'> 96  </a><font color='#0000FF'>{</font>
+<a name='L97'> 97  </a>    PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> AMP_ENABLE_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*   disable audio amp                            */</font>
+<a name='L98'> 98  </a><font color='#0000FF'>}</font>
+<a name='L99'> 99  </a>
+<a name='L100'>100  </a>uint16_t <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_106'>Sound_Generate_Next_Sample</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L101'>101  </a><font color='#0000FF'>{</font>
+<a name='L102'>102  </a>    <font color='#C6264F'>static</font>  uint16_t lfsr <font color='#0000FF'>=</font> 0xACE1u<font color='#0000FF'>;</font>
+<a name='L103'>103  </a>    <font color='#C6264F'>static</font>  uint16_t bit<font color='#0000FF'>;</font>
+<a name='L104'>104  </a>
+<a name='L105'>105  </a>    <font color='#A000A0'>// source code from http://en.wikipedia.org/wiki/Linear_feedback_shift_register</font>
+<a name='L106'>106  </a>    <font color='#A000A0'>/* taps: 16 14 13 11; characteristic polynomial: x^16 + x^14 + x^13 + x^11 + 1 */</font>
+<a name='L107'>107  </a>    <span onclick='gotosrc(129);' class='hnd_cls'>bit</span>  <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(127);' class='hnd_cls'>lfsr</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>0 <font color='#0000FF'>)</font> <font color='#0000FF'>^</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(127);' class='hnd_cls'>lfsr</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>2 <font color='#0000FF'>)</font> <font color='#0000FF'>^</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(127);' class='hnd_cls'>lfsr</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>3 <font color='#0000FF'>)</font> <font color='#0000FF'>^</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(127);' class='hnd_cls'>lfsr</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>5 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font> <font color='#0000FF'>&amp;</font> 1<font color='#0000FF'>;</font>
+<a name='L108'>108  </a>    <span onclick='gotosrc(127);' class='hnd_cls'>lfsr</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(127);' class='hnd_cls'>lfsr</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>1 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(129);' class='hnd_cls'>bit</span><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>15 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L109'>109  </a>    <font color='#C6264F'>return</font> <span onclick='gotosrc(127);' class='hnd_cls'>lfsr</span><font color='#0000FF'>;</font>
+<a name='L110'>110  </a><font color='#0000FF'>}</font>
+<a name='L111'>111  </a>
+<a name='L112'>112  </a>
+<a name='L113'>113  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_107'>Sound_Refill_Buffer</a><font color='#0000FF'>(</font> uint32_t  samples <font color='#0000FF'>)</font>
+<a name='L114'>114  </a><font color='#0000FF'>{</font>
+<a name='L115'>115  </a>    <font color='#C6264F'>static</font>  uint32_t samples_left <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L116'>116  </a>            uint32_t i<font color='#0000FF'>;</font>
+<a name='L117'>117  </a>
+<a name='L118'>118  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(135);' class='hnd_cls'>samples</span> <font color='#0000FF'>&gt;</font> 0 <font color='#0000FF'>)</font>                                           <font color='#A000A0'>/*   Start making a new sound                     */</font>
+<a name='L119'>119  </a>        <span onclick='gotosrc(136);' class='hnd_cls'>samples_left</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(135);' class='hnd_cls'>samples</span><font color='#0000FF'>;</font>
+<a name='L120'>120  </a>
+<a name='L121'>121  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> i <font color='#0000FF'>&lt;</font> NUM_WAVEFORM_SAMPLES<font color='#0000FF'>;</font> i<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L122'>122  </a>    <font color='#0000FF'>{</font>
+<a name='L123'>123  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(136);' class='hnd_cls'>samples_left</span> <font color='#0000FF'>&gt;</font> 0 <font color='#0000FF'>)</font>
+<a name='L124'>124  </a>        <font color='#0000FF'>{</font>
+<a name='L125'>125  </a>            <span onclick='gotosrc(31);' class='hnd_cls'>Waveform</span><font color='#0000FF'>[</font> i <font color='#0000FF'>]</font> <font color='#0000FF'>=</font> Sound_Generate_Next_Sample<font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L126'>126  </a>            <span onclick='gotosrc(136);' class='hnd_cls'>samples_left</span><font color='#0000FF'>-</font><font color='#0000FF'>-</font><font color='#0000FF'>;</font>
+<a name='L127'>127  </a>        <font color='#0000FF'>}</font>
+<a name='L128'>128  </a>        <font color='#C6264F'>else</font>
+<a name='L129'>129  </a>        <font color='#0000FF'>{</font>
+<a name='L130'>130  </a>            <span onclick='gotosrc(31);' class='hnd_cls'>Waveform</span><font color='#0000FF'>[</font> i <font color='#0000FF'>]</font> <font color='#0000FF'>=</font> MAX_DAC_CODE <font color='#0000FF'>/</font> 2<font color='#0000FF'>;</font>
+<a name='L131'>131  </a>        <font color='#0000FF'>}</font>
+<a name='L132'>132  </a>    <font color='#0000FF'>}</font>
+<a name='L133'>133  </a><font color='#0000FF'>}</font>
+<a name='L134'>134  </a>
+<a name='L135'>135  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_101'>Play_Tone</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L136'>136  </a><font color='#0000FF'>{</font>
+<a name='L137'>137  </a>    <font color='#C6264F'>int</font> n<font color='#0000FF'>,</font>
+<a name='L138'>138  </a>        d <font color='#0000FF'>=</font> MAX_DAC_CODE<font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>1<font color='#0000FF'>,</font>
+<a name='L139'>139  </a>        p<font color='#0000FF'>;</font>
+<a name='L140'>140  </a>
+<a name='L141'>141  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> p <font color='#0000FF'>=</font> 5<font color='#0000FF'>;</font> p <font color='#0000FF'>&gt;</font><font color='#0000FF'>=</font> 1<font color='#0000FF'>;</font> p<font color='#0000FF'>-</font><font color='#0000FF'>-</font> <font color='#0000FF'>)</font>
+<a name='L142'>142  </a>    <font color='#0000FF'>{</font>
+<a name='L143'>143  </a>        <font color='#C6264F'>for</font><font color='#0000FF'>(</font> n <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> n <font color='#0000FF'>&lt;</font> 20 <font color='#0000FF'>/</font> p<font color='#0000FF'>;</font> n<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L144'>144  </a>        <font color='#0000FF'>{</font>
+<a name='L145'>145  </a>            <span onclick='gotosrc(71);' class='hnd_cls'>Play_Sound_Sample</span><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> MAX_DAC_CODE<font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>1 <font color='#0000FF'>)</font> <font color='#0000FF'>+</font> d <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L146'>146  </a>            <span onclick='gotosrc(144);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> p <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L147'>147  </a>            <span onclick='gotosrc(71);' class='hnd_cls'>Play_Sound_Sample</span><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> MAX_DAC_CODE<font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>1 <font color='#0000FF'>)</font> <font color='#0000FF'>-</font> d <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L148'>148  </a>            <span onclick='gotosrc(144);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> p <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L149'>149  </a>        <font color='#0000FF'>}</font>
+<a name='L150'>150  </a>    <font color='#0000FF'>}</font>
+<a name='L151'>151  </a><font color='#0000FF'>}</font>
+<a name='L152'>152  </a>
+<a name='L153'>153  </a>
+<a name='L154'>154  </a>
+<a name='L155'>155  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_102'>Play_Tone_with_DMA</a><font color='#0000FF'>(</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  period<font color='#0000FF'>,</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  num_cycles <font color='#0000FF'>)</font>
+<a name='L156'>156  </a><font color='#0000FF'>{</font>
+<a name='L157'>157  </a>    <span onclick='gotosrc(99);' class='hnd_cls'>Configure_TPM0_for_DMA</span><font color='#0000FF'>(</font> <span onclick='gotosrc(148);' class='hnd_cls'>period</span> <font color='#0000FF'>/</font> NUM_STEPS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L158'>158  </a>    Configure_DMA_For_Playback<font color='#0000FF'>(</font> <span onclick='gotosrc(29);' class='hnd_cls'>SineTable</span><font color='#0000FF'>,</font> NUM_STEPS<font color='#0000FF'>,</font> <span onclick='gotosrc(149);' class='hnd_cls'>num_cycles</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L159'>159  </a>    Start_DMA_Playback<font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L160'>160  </a><font color='#0000FF'>}</font>
+<a name='L161'>161  </a>
+<a name='L162'>162  </a>
+<a name='L163'>163  </a><font color='#A000A0'>// void Play_Waveform_with_DMA(uint32_t sample_period_us, uint16_t * waveform, uint32_t num_samples) {</font>
+<a name='L164'>164  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_14.html#OD0_3_92'>Play_Waveform_with_DMA</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L165'>165  </a><font color='#0000FF'>{</font>
+<a name='L166'>166  </a> <font color='#A000A0'>// Init_Waveform();</font>
+<a name='L167'>167  </a> <font color='#A000A0'>// Configure_TPM0_for_DMA(45);</font>
+<a name='L168'>168  </a>    Configure_DMA_For_Playback<font color='#0000FF'>(</font> <span onclick='gotosrc(31);' class='hnd_cls'>Waveform</span><font color='#0000FF'>,</font> NUM_WAVEFORM_SAMPLES<font color='#0000FF'>,</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L169'>169  </a>    Start_DMA_Playback<font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L170'>170  </a><font color='#0000FF'>}</font>
+<a name='L171'>171  </a>
+<a name='L172'>172  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

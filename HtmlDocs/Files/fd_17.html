@@ -1,0 +1,1344 @@
+﻿<html><head><title>Crystal FLOW for C Documentation  - tft_lcd.c</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script></head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("<a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">Documentation </a> &nbsp; >> &nbsp; <a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">All Files</a> &nbsp; >> tft_lcd.c");file_doc_starter(true);'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><script language='javascript'>
+var   vstr='visible';
+var   dly=220;
+var     mitms=new Array(2);
+mitms[0] = {'dn':'MoreArea0', 'sl':'LMore0', 'toid':0 };
+mitms[1] = {'dn':'MoreArea1', 'sl':'LMore1', 'toid':0 };
+function lcrto()
+{
+   clearTimeout(mitms[0].toid);
+   clearTimeout(mitms[1].toid);
+}
+</script>
+<div id='SCUT' style='visibility:hidden; position:absolute;'>
+<table border=1 bgcolor='#f0f0f0' cellspacing=0 cellpadding=0 width='230' id='MORE_TAB'><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr><td width=10><td>
+<table border=0 cellspacing=0 cellpadding=4 width='100%'>
+<tr><td height=1 width=20><td height=1 width=20><td height=1 width=210><tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#INCAREA'>Included Files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_FUN_DEFs' >Functions Defined</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_FUNC_PROTOs' >Functions Declared</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_VAR_DEFs' >Globals Defined</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_VAR_PROTOs' >Externs Functions</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_FUNs' >Functions from .H files</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_VARs' >Globals from .H files</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_STRs' >structs/unions from .H files</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_MACs' >#defines from .H files</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_TYPs' >Typedefs from .H files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_FUNs' >Functions from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_STRs' >structs/unions from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_MACs' >#defines from Library</a>
+<tr><td><td  colspan=2 align='right' > &nbsp; <a class='POPM_LNK1TXT' id='LMore0' alt='Summary of the Document being viewed' href='#' onmouseout='lcrto()' ondblclick='showvisiblediv(0)' onclick='showvisiblediv(0)' onmouseover='mitms[0].toid=setTimeout("showMorepopup(vstr, mitms[0].dn, mitms[0].sl,1,0)", dly)'>More &nbsp  &nbsp>>></a>
+<tr><td height=5></table></table></table></div>
+<div id='MoreArea0' style='visibility:hidden; position:absolute;'>
+<table border=1 bgcolor='#f0f0f0' cellspacing=0 cellpadding=0 width='245' id ='MORE_TAB0'><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr><td width=10><td>
+<table border=0 cellspacing=0 cellpadding=3 width='100%'>
+<tr><td height=1 width=10><td height=1 width=10><td height=1 width=195><tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_TYPs' >Typedefs from Library</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#DTLFUNDEFS'>Functions - Detailed</a>
+<tr><td height=5></table></table></table></div>
+<h3><a name='TTOP'></a><u>tft_lcd.c</u></h3><span  class='TTL_CMT_DFLTTXT'><pre> Code for configuring and controlling TFT LCD using ILI9341 controller. 
+</pre></span><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td height=1 width=40><td height=1 width=20><td height=1 width=450>
+<tr><td class='INCTBL_HDNGTXT' colspan=3><a name='FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a target='_sgv_cc_brws_tree' href='../graphs/f17_fl_rpt.html' class='DOC_DFLTLNK'>File Report Tree</a><tr><td colspan=3 height=10>
+</table><br><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td class='INCTBL_HDNGTXT' colspan=5><a name='INCAREA'>Included Files</a><tr><td colspan=5 height=10><tr><td width=160>stdint.h
+<td width=160>stdio.h
+<td width=160>MKL25Z4.h
+<td width=160>TFT_LCD.h
+<td width=160>gpio_defs.h
+<tr><td width=160>timers.h
+<td width=160>font.h
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_FUN_DEFs'>Functions defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_73'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_73'>TFT_GPIO_Init</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_74'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_74'>TFT_Init_Backlight</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_76'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_76'>TFT_Set_Backlight_Brightness</a>( uint16_t  brightness_percent)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_69'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_69'>TFT_24S_Write_Command</a>( uint8_t  command)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_70'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_70'>TFT_24S_Write_Data</a>( uint8_t  data)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_25'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_25'>TFT_Init</a>( )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_10'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_10'>TFT_Plot_Pixel</a>( PT_T *  pos, 
+                       COLOR_T *  color)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_71'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_71'>TFT_Fill_Buffer</a>( COLOR_T *  color)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_72'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_72'>TFT_Fill_Rectangle</a>( PT_T *  p1, 
+                           PT_T *  p2, 
+                           COLOR_T *  color)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_116'></a>uint32_t   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_116'>TFT_Start_Rectangle</a>( PT_T *  p1, 
+                                PT_T *  p2)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_117'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_117'>TFT_Write_Rectangle_Pixel</a>( COLOR_T *  color, 
+                                  unsigned int  count)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_75'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_75'>TFT_Set_BL</a>( uint8_t  on)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_77'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_77'>TFT_Set_Brightness</a>( uint8_t  brightness)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_66'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_66'>Init_ADC</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_79'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_79'>TFT_TS_Init</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_54'></a>uint32_t   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_54'>TFT_TS_Read</a>( PT_T *  position)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_80'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_80'>TFT_TS_Test</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_78'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_78'>TFT_TS_Calibrate</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_FUNC_PROTOs'>Function Declared</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_67'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>Old_Init_PWM</span>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_VAR_PROTOs'>External Function Declared</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_5'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>Delay</span>( uint32_t  dly)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_VAR_DEFs'>Globals Defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_58'></a>uint8_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>TFT_TS_Calibrated</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_60'></a>uint32_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>TFT_TS_X_Scale</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_59'></a>uint32_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>TFT_TS_X_Offset</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_62'></a>uint32_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>TFT_TS_Y_Scale</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_61'></a>uint32_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>TFT_TS_Y_Offset</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_65'></a>PT_T   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>TS_Min</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_64'></a>PT_T   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>TS_Max</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_66'></a>static uint16_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>xl</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_67'></a>static uint16_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>yu</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_FUNs'>Functions from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_3_115'></a><a class='NOS_OBJNMTXT' href='../Files/fd_19.html#OD0_3_115'>PWM_Set_Value</a><td width=300><a name='OS0_3_79'></a><a class='NOS_OBJNMTXT' href='../Files/fd_17.html#OD0_3_79'>TFT_TS_Init</a><td width=300><a name='OS0_3_24'></a><a class='NOS_OBJNMTXT' href='../Files/fd_18.html#OD0_3_24'>TFT_Erase</a>
+<tr><td width=300><a name='OS0_3_43'></a><a class='NOS_OBJNMTXT' href='../Files/fd_18.html#OD0_3_43'>TFT_Text_PrintStr</a><td width=300><a name='OS0_3_111'></a><span class='NOS_NL_OBJNMTXT'>TFT_Draw_Line</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_VARs'>Globals from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_49'></a><a class='NOS_OBJNMTXT' href='../Files/fd_15.html#OS0_2_49'>SystemCoreClock</a><td width=300><a name='OS0_2_35'></a><a class='NOS_OBJNMTXT' href='../Files/fd_18.html#OS0_2_35'>G_TFT_char_width</a><td width=300><a name='OS0_2_34'></a><a class='NOS_OBJNMTXT' href='../Files/fd_18.html#OS0_2_34'>G_TFT_char_height</a></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_STRs'>structs/unions from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_0_18'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct1</span><td width=300><a name='OS0_0_19'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct2</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_MACs'>Macros  #defines from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_135'></a><span class='NOS_NL_OBJNMTXT'>TFT_DB8_POS</span><td width=300><a name='OS0_4_134'></a><span class='NOS_NL_OBJNMTXT'>TFT_DB15_POS</span><td width=300><a name='OS0_4_32'></a><span class='NOS_NL_OBJNMTXT'>MASK</span>
+<tr><td width=300><a name='OS0_4_136'></a><span class='NOS_NL_OBJNMTXT'>TFT_D_NC_POS</span><td width=300><a name='OS0_4_139'></a><span class='NOS_NL_OBJNMTXT'>TFT_NWR_POS</span><td width=300><a name='OS0_4_137'></a><span class='NOS_NL_OBJNMTXT'>TFT_NRD_POS</span>
+<tr><td width=300><a name='OS0_4_138'></a><span class='NOS_NL_OBJNMTXT'>TFT_NRST_POS</span><td width=300><a name='OS0_4_132'></a><span class='NOS_NL_OBJNMTXT'>TFT_BL_TPM</span><td width=300><a name='OS0_4_133'></a><span class='NOS_NL_OBJNMTXT'>TFT_BL_TPM_CHANNEL</span>
+<tr><td width=300><a name='OS0_4_131'></a><span class='NOS_NL_OBJNMTXT'>TFT_BL_PERIOD</span><td width=300><a name='OS0_4_188'></a><span class='NOS_NL_OBJNMTXT'>GPIO_ResetBit</span><td width=300><a name='OS0_4_190'></a><span class='NOS_NL_OBJNMTXT'>GPIO_Write</span>
+<tr><td width=300><a name='OS0_4_189'></a><span class='NOS_NL_OBJNMTXT'>GPIO_SetBit</span><td width=300><a name='OS0_4_181'></a><span class='NOS_NL_OBJNMTXT'>MIN</span><td width=300><a name='OS0_4_180'></a><span class='NOS_NL_OBJNMTXT'>MAX</span>
+<tr><td width=300><a name='OS0_4_12'></a><span class='NOS_NL_OBJNMTXT'>TFT_WIDTH</span><td width=300><a name='OS0_4_11'></a><span class='NOS_NL_OBJNMTXT'>TFT_HEIGHT</span><td width=300><a name='OS0_4_144'></a><span class='NOS_NL_OBJNMTXT'>TFT_TS_YU_BIT</span>
+<tr><td width=300><a name='OS0_4_143'></a><span class='NOS_NL_OBJNMTXT'>TFT_TS_YD_BIT</span><td width=300><a name='OS0_4_140'></a><span class='NOS_NL_OBJNMTXT'>TFT_TS_XL_BIT</span><td width=300><a name='OS0_4_142'></a><span class='NOS_NL_OBJNMTXT'>TFT_TS_XR_BIT</span>
+<tr><td width=300><a name='OS0_4_147'></a><span class='NOS_NL_OBJNMTXT'>TS_DELAY</span><td width=300><a name='OS0_4_145'></a><span class='NOS_NL_OBJNMTXT'>TFT_TS_YU_CHANNEL</span><td width=300><a name='OS0_4_141'></a><span class='NOS_NL_OBJNMTXT'>TFT_TS_XL_CHANNEL</span>
+<tr><td width=300><a name='OS0_4_55'></a><span class='NOS_NL_OBJNMTXT'>COL_TO_X</span><td width=300><a name='OS0_4_56'></a><span class='NOS_NL_OBJNMTXT'>ROW_TO_Y</span><td width=300><a name='OS0_4_146'></a><span class='NOS_NL_OBJNMTXT'>TS_CALIB_SAMPLES</span>
+<tr><td width=300><a name='OS0_4_121'></a><span class='NOS_NL_OBJNMTXT'>CHAR_WIDTH</span><td width=300><a name='OS0_4_120'></a><span class='NOS_NL_OBJNMTXT'>CHAR_HEIGHT</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_TYPs'>Types from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_13'></a><span class='NOS_NL_OBJNMTXT'>PT_T</span><td width=300><a name='OS0_2_12'></a><span class='NOS_NL_OBJNMTXT'>COLOR_T</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_FUNs'>Functions from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_3_65'></a><span class='NOS_NL_OBJNMTXT'>sprintf</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_STRs'>structs/unions from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_0_2'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct30</span><td width=300><a name='OS0_0_0'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct26</span><td width=300><a name='OS0_0_7'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct12</span>
+<tr><td width=300><a name='OS0_0_20'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct10</span><td width=300><a name='OS0_0_12'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct33</span><td width=300><a name='OS0_0_11'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct1</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_MACs'>Macros #defines from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_7'></a><span class='NOS_NL_OBJNMTXT'>SIM</span><td width=300><a name='OS0_4_129'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC5_PORTC_MASK</span><td width=300><a name='OS0_4_29'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC5_PORTE_MASK</span>
+<tr><td width=300><a name='OS0_4_125'></a><span class='NOS_NL_OBJNMTXT'>PORTC</span><td width=300><a name='OS0_4_35'></a><span class='NOS_NL_OBJNMTXT'>PORT_PCR_MUX_MASK</span><td width=300><a name='OS0_4_6'></a><span class='NOS_NL_OBJNMTXT'>PORT_PCR_MUX</span>
+<tr><td width=300><a name='OS0_4_127'></a><span class='NOS_NL_OBJNMTXT'>PTC</span><td width=300><a name='OS0_4_187'></a><span class='NOS_NL_OBJNMTXT'>FPTC</span><td width=300><a name='OS0_4_130'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC6_ADC0_MASK</span>
+<tr><td width=300><a name='OS0_4_118'></a><span class='NOS_NL_OBJNMTXT'>ADC0</span><td width=300><a name='OS0_4_5'></a><span class='NOS_NL_OBJNMTXT'>PORTE</span><td width=300><a name='OS0_4_128'></a><span class='NOS_NL_OBJNMTXT'>PTE</span>
+<tr><td width=300><a name='OS0_4_126'></a><span class='NOS_NL_OBJNMTXT'>PORT_PCR_PE_MASK</span><td width=300><a name='OS0_4_119'></a><span class='NOS_NL_OBJNMTXT'>ADC_SC1_COCO_MASK</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_TYPs'>Types from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_10'></a><span class='NOS_NL_OBJNMTXT'>uint32_t</span><td width=300><a name='OS0_2_11'></a><span class='NOS_NL_OBJNMTXT'>uint8_t</span><td width=300><a name='OS0_2_6'></a><span class='NOS_NL_OBJNMTXT'>SIM_Type</span>
+<tr><td width=300><a name='OS0_2_4'></a><span class='NOS_NL_OBJNMTXT'>PORT_Type</span><td width=300><a name='OS0_2_16'></a><span class='NOS_NL_OBJNMTXT'>GPIO_Type</span><td width=300><a name='OS0_2_91'></a><span class='NOS_NL_OBJNMTXT'>FGPIO_Type</span>
+<tr><td width=300><a name='OS0_2_20'></a><span class='NOS_NL_OBJNMTXT'>uint16_t</span><td width=300><a name='OS0_2_63'></a><span class='NOS_NL_OBJNMTXT'>TPM_Type</span><td width=300><a name='OS0_2_57'></a><span class='NOS_NL_OBJNMTXT'>ADC_Type</span></table><br><br><br><br><a name='DTLFUNDEFS'></a><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><table border=1 bordercolor='#cf0000' cellspacing=0 cellpadding=6 width='700'><tr><td bgcolor='#f0f0ff' class='DDC_HDNGTXT'>Functions - Detailed Documentation</table>
+<td width=100 align=right>
+<tr><td height=10></table><br>
+<table class='DDC_DFLTTXT' border=0 cellspacing=0 cellpadding=8 width=100%>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_73'>TFT_GPIO_Init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td width=40><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_74'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_GPIO_Init( void )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Initialize GPIO ports for communicating with TFT LCD controller. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_73_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_73_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_25' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_GPIO_Init
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>i<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_25'>TFT_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>FPTC</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORTC</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PTC</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC5_PORTC_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC5_PORTE_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_D_NC_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_DB15_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_DB8_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_NRD_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_NRST_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_NWR_POS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;24<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;106</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_74'>TFT_Init_Backlight</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_73'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_76'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Init_Backlight( void )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Initialize hardware for LCD backlight control and set to default value. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_74_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_74_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_25' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Init_Backlight
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_19.html#OD0_3_67' class='FUNC_HIERARCHY_DFLTLNK'>Old_Init_PWM</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_19.html#OD0_3_67'>Old_Init_PWM</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_25'>TFT_Init</a><tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;69<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;108</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_76'>TFT_Set_Backlight_Brightness</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_74'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_69'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Set_Backlight_Brightness( uint16_t  brightness_percent)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Set backlight brightness for LCD via duty cycle. Function is currently broken. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_76_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_76_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Set_Backlight_Brightness
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_19.html#OD0_3_115' class='FUNC_HIERARCHY_DFLTLNK'>PWM_Set_Value</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>brightness_percent<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_19.html#OD0_3_115'>PWM_Set_Value</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_BL_PERIOD</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_BL_TPM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_BL_TPM_CHANNEL</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;77<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_69'>TFT_24S_Write_Command</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_76'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_70'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_24S_Write_Command( uint8_t  command)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Write one byte as a command to the TFT LCD controller. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_69_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_69_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_71' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Fill_Buffer</a></NOBR></td></tr></table>
+<td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  ><td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  >
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_72' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Fill_Rectangle</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_25' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Init</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_10' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Plot_Pixel</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_75' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Set_BL</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_77' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Set_Brightness</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_116' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Start_Rectangle</a></NOBR></td></tr></table>
+<td valign=top><img src='../fn_a_b.gif' ALIGN=top  ><td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  >
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_24S_Write_Command
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>command<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_71'>TFT_Fill_Buffer</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_72'>TFT_Fill_Rectangle</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_25'>TFT_Init</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_10'>TFT_Plot_Pixel</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_75'>TFT_Set_BL</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_77'>TFT_Set_Brightness</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_116'>TFT_Start_Rectangle</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>GPIO_ResetBit</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>GPIO_SetBit</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>GPIO_Write</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_D_NC_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_NWR_POS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;85<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;116, &nbsp;117, &nbsp;119, &nbsp;125, &nbsp;129, &nbsp;133, &nbsp;136, &nbsp;141, &nbsp;143, &nbsp;147, &nbsp;149, &nbsp;152, &nbsp;154, &nbsp;160, &nbsp;163, &nbsp;166, &nbsp;168, &nbsp;170, &nbsp;172, &nbsp;177, &nbsp;182, &nbsp;192, &nbsp;199, &nbsp;210, &nbsp;224, &nbsp;229, &nbsp;240, &nbsp;270, &nbsp;275, &nbsp;286, &nbsp;319, &nbsp;324, &nbsp;331, &nbsp;356, &nbsp;363</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_70'>TFT_24S_Write_Data</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_69'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_25'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_24S_Write_Data( uint8_t  data)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Write one byte as data to the TFT LCD Controller. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_70_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_70_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_71' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Fill_Buffer</a></NOBR></td></tr></table>
+<td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  ><td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  >
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_72' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Fill_Rectangle</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_25' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Init</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_10' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Plot_Pixel</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_75' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Set_BL</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_77' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Set_Brightness</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_116' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Start_Rectangle</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_117' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Write_Rectangle_Pixel</a></NOBR></td></tr></table>
+<td valign=top><img src='../fn_a_b.gif' ALIGN=top  ><td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  >
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_24S_Write_Data
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>data<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_71'>TFT_Fill_Buffer</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_72'>TFT_Fill_Rectangle</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_25'>TFT_Init</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_10'>TFT_Plot_Pixel</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_75'>TFT_Set_BL</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_77'>TFT_Set_Brightness</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_116'>TFT_Start_Rectangle</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_117'>TFT_Write_Rectangle_Pixel</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>GPIO_ResetBit</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>GPIO_SetBit</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>GPIO_Write</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_D_NC_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_NWR_POS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;94<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;118, &nbsp;120, &nbsp;121, &nbsp;122, &nbsp;123, &nbsp;124, &nbsp;126, &nbsp;127, &nbsp;128, &nbsp;130, &nbsp;131, &nbsp;132, &nbsp;134, &nbsp;135, &nbsp;137, &nbsp;138, &nbsp;139, &nbsp;140, &nbsp;142, &nbsp;144, &nbsp;145, &nbsp;148, &nbsp;150, &nbsp;151, &nbsp;153, &nbsp;156, &nbsp;158, &nbsp;161, &nbsp;162, &nbsp;164, &nbsp;165, &nbsp;167, &nbsp;169, &nbsp;171, &nbsp;173, &nbsp;174, &nbsp;175, &nbsp;176, &nbsp;178, &nbsp;179, &nbsp;180, &nbsp;181, &nbsp;193, &nbsp;194, &nbsp;195, &nbsp;196, &nbsp;200, &nbsp;201, &nbsp;202, &nbsp;203, &nbsp;211, &nbsp;212, &nbsp;225, &nbsp;226, &nbsp;227, &nbsp;228, &nbsp;230, &nbsp;231, &nbsp;232, &nbsp;233, &nbsp;245, &nbsp;246, &nbsp;271, &nbsp;272, &nbsp;273, &nbsp;274, &nbsp;276, &nbsp;277, &nbsp;278, &nbsp;279, &nbsp;291, &nbsp;292, &nbsp;320, &nbsp;321, &nbsp;322, &nbsp;323, &nbsp;325, &nbsp;326, &nbsp;327, &nbsp;328, &nbsp;348, &nbsp;349, &nbsp;357, &nbsp;364</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_25'>TFT_Init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_70'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_10'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Init( )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Initialize the relevant peripherals (GPIO, TPM, ADC) and the display
+components (TFT LCD controller, touch screen and backlight controller). 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_25_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_25_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_9.html#OD0_3_32' class='FUNC_HIERARCHY_DFLTLNK'>main</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Init
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_2.html#OD0_3_5' class='FUNC_HIERARCHY_DFLTLNK'>Delay</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_69' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Command</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_70' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Data</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_73' class='FUNC_HIERARCHY_DFLTLNK'>TFT_GPIO_Init</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_74' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Init_Backlight</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_79' class='FUNC_HIERARCHY_DFLTLNK'>TFT_TS_Init</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_2.html#OD0_3_5'>Delay</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_69'>TFT_24S_Write_Command</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_73'>TFT_GPIO_Init</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_74'>TFT_Init_Backlight</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_79'>TFT_TS_Init</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_9.html#OD0_3_32'>main</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>GPIO_ResetBit</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>GPIO_SetBit</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_NRD_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_NRST_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_NWR_POS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>main.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;38<tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;104<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_10'>TFT_Plot_Pixel</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_25'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_71'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Plot_Pixel( PT_T *  pos, 
+                       COLOR_T *  color)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Set the pixel at pos to the given color. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_10_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_10_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>DrawLine</span></NOBR></td></tr></table>
+<td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  ><td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  >
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_80' class='FUNC_HIERARCHY_DFLTLNK'>TFT_TS_Test</a></NOBR></td></tr></table>
+<td valign=top><img src='../fn_a_b.gif' ALIGN=top  ><td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  >
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Plot_Pixel
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_69' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Command</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_70' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Data</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>PT_T *  <td class='DDC_LCLOBJTXT'>pos<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>COLOR_T *  <td class='DDC_LCLOBJTXT'>color<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>b1<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>b2<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_69'>TFT_24S_Write_Command</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'>DrawLine<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_80'>TFT_TS_Test</a><tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_71'>TFT_Fill_Buffer</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_10'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_72'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Fill_Buffer( COLOR_T *  color)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Fill the entire display buffer with the given color. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_71_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_71_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_18.html#OD0_3_24' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Erase</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Fill_Buffer
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_69' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Command</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_70' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Data</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>COLOR_T *  <td class='DDC_LCLOBJTXT'>color<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>b1<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>b2<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>x<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>y<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_69'>TFT_24S_Write_Command</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_18.html#OD0_3_24'>TFT_Erase</a><tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;216<br><tr><td><td valign=top>tft_text.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;30</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_72'>TFT_Fill_Rectangle</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_71'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_116'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Fill_Rectangle( PT_T *  p1, 
+                           PT_T *  p2, 
+                           COLOR_T *  color)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Draw a rectangle from p1 to p2 filled with specified color. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_72_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_72_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_16.html#OD0_3_112' class='FUNC_HIERARCHY_DFLTLNK'>Task_Update_Screen</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Fill_Rectangle
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_69' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Command</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_70' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Data</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>PT_T *  <td class='DDC_LCLOBJTXT'>p1<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>PT_T *  <td class='DDC_LCLOBJTXT'>p2<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>COLOR_T *  <td class='DDC_LCLOBJTXT'>color<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>b1<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>b2<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>c_max<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>c_min<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>n<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>r_max<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>r_min<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_69'>TFT_24S_Write_Command</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_16.html#OD0_3_112'>Task_Update_Screen</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MAX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MIN</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_HEIGHT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_WIDTH</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;251<br><tr><td><td valign=top>tasks.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;184, &nbsp;194</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_116'>TFT_Start_Rectangle</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_72'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_117'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>uint32_t  TFT_Start_Rectangle( PT_T *  p1, 
+                                PT_T *  p2)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Prepare LCD controller draw rectangle from p1 to p2 using future pixels provided 
+by calls to TFT_Write_Rectangle_pixel. 
+Return value is number of pixels expected. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_116_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_116_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_18.html#OD0_3_81' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Text_PrintChar</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Start_Rectangle
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_69' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Command</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_70' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Data</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>PT_T *  <td class='DDC_LCLOBJTXT'>p1<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>PT_T *  <td class='DDC_LCLOBJTXT'>p2<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>c_max<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>c_min<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>r_max<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>r_min<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_69'>TFT_24S_Write_Command</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_18.html#OD0_3_81'>TFT_Text_PrintChar</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MAX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MIN</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_HEIGHT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_WIDTH</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;300<br><tr><td><td valign=top>tft_text.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;80</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_117'>TFT_Write_Rectangle_Pixel</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_116'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_75'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Write_Rectangle_Pixel( COLOR_T *  color, 
+                                  unsigned int  count)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Plot this pixel in the next location as defined by TFT_Start_Rectangle. You must 
+have called TFT_Write_Rectangle before calling this function. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_117_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_117_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_18.html#OD0_3_81' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Text_PrintChar</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Write_Rectangle_Pixel
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_70' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Data</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>COLOR_T *  <td class='DDC_LCLOBJTXT'>color<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>count<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>b1<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>b2<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_18.html#OD0_3_81'>TFT_Text_PrintChar</a><tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;338<br><tr><td><td valign=top>tft_text.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;91, &nbsp;98, &nbsp;108, &nbsp;114, &nbsp;120, &nbsp;126, &nbsp;132, &nbsp;138, &nbsp;144, &nbsp;150, &nbsp;164, &nbsp;176</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_75'>TFT_Set_BL</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_117'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_77'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Set_BL( uint8_t  on)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Enable (on > 0) or disable LED backlight via LCD controller. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_75_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_75_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Set_BL
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_69' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Command</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_70' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Data</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>on<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_69'>TFT_24S_Write_Command</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;354<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_77'>TFT_Set_Brightness</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_75'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_66'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_Set_Brightness( uint8_t  brightness)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Set brightness via LCD controller. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_77_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_77_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_Set_Brightness
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_69' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Command</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_70' class='FUNC_HIERARCHY_DFLTLNK'>TFT_24S_Write_Data</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>brightness<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_69'>TFT_24S_Write_Command</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;361<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_66'>Init_ADC</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_77'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_79'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Init_ADC( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_66_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_66_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_79' class='FUNC_HIERARCHY_DFLTLNK'>TFT_TS_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Init_ADC
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_79'>TFT_TS_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>ADC0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC6_ADC0_MASK</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;367<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;380</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_79'>TFT_TS_Init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_66'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_54'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_TS_Init( void )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Initialize touchscreen hardware (ADC). 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_79_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_79_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_25' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_TS_Init
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_66' class='FUNC_HIERARCHY_DFLTLNK'>Init_ADC</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_66'>Init_ADC</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_25'>TFT_Init</a><tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;107<br><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;377<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_54'>TFT_TS_Read</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_79'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_80'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>uint32_t  TFT_TS_Read( PT_T *  position)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Read touch screen. Returns 1 if touched, and updates position. Else returns 0 leaving 
+position unchanged. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_54_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_54_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_16.html#OD0_3_56' class='FUNC_HIERARCHY_DFLTLNK'>Task_Read_TS</a></NOBR></td></tr></table>
+<td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  ><td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  >
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_78' class='FUNC_HIERARCHY_DFLTLNK'>TFT_TS_Calibrate</a></NOBR></td></tr></table>
+<td valign=middle><img src='../fn_a.gif' ><td BGCOLOR='black'>
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_80' class='FUNC_HIERARCHY_DFLTLNK'>TFT_TS_Test</a></NOBR></td></tr></table>
+<td valign=top><img src='../fn_a_b.gif' ALIGN=top  ><td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  >
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_TS_Read
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_2.html#OD0_3_5' class='FUNC_HIERARCHY_DFLTLNK'>Delay</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>PT_T *  <td class='DDC_LCLOBJTXT'>position<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>b<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>x<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>y<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_2.html#OD0_3_5'>Delay</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_16.html#OD0_3_56'>Task_Read_TS</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_78'>TFT_TS_Calibrate</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_17.html#OD0_3_80'>TFT_TS_Test</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>ADC0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>ADC_SC1_COCO_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_PE_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORTE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PTE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_TS_XL_BIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_TS_XL_CHANNEL</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_TS_XR_BIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_TS_YD_BIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_TS_YU_BIT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_TS_YU_CHANNEL</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TS_DELAY</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_58'>TFT_TS_Calibrated</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_59'>TFT_TS_X_Offset</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_60'>TFT_TS_X_Scale</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_61'>TFT_TS_Y_Offset</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_62'>TFT_TS_Y_Scale</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_66'>xl</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_67'>yu</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tasks.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;87<tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;389<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;533, &nbsp;595, &nbsp;608, &nbsp;624, &nbsp;637</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_80'>TFT_TS_Test</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_54'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_78'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_TS_Test( void )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Test touchscreen by printing touch coordinates and drawing lines where touched. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_80_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_80_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_TS_Test
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>sprintf</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>TFT_Draw_Line</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_18.html#OD0_3_24' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Erase</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_10' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Plot_Pixel</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_18.html#OD0_3_43' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Text_PrintStr</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_54' class='FUNC_HIERARCHY_DFLTLNK'>TFT_TS_Read</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>PT_T  <td class='DDC_LCLOBJTXT'>bp<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>char  <td class='DDC_LCLOBJTXT'>buffer<td> [ 32 ]<td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>COLOR_T  <td class='DDC_LCLOBJTXT'>c<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>PT_T  <td class='DDC_LCLOBJTXT'>p<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>PT_T  <td class='DDC_LCLOBJTXT'>pp<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>sprintf</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_Draw_Line</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_18.html#OD0_3_24'>TFT_Erase</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_18.html#OD0_3_43'>TFT_Text_PrintStr</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_54'>TFT_TS_Read</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>COL_TO_X</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>ROW_TO_Y</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;512<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_78'>TFT_TS_Calibrate</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_80'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  TFT_TS_Calibrate( void )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Calibrate touchscreen. 
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_78_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_78_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+TFT_TS_Calibrate
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_18.html#OD0_3_24' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Erase</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_18.html#OD0_3_43' class='FUNC_HIERARCHY_DFLTLNK'>TFT_Text_PrintStr</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_17.html#OD0_3_54' class='FUNC_HIERARCHY_DFLTLNK'>TFT_TS_Read</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>PT_T  <td class='DDC_LCLOBJTXT'>bp<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>i<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>PT_T  <td class='DDC_LCLOBJTXT'>p<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>PT_T  <td class='DDC_LCLOBJTXT'>p_bound<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_18.html#OD0_3_24'>TFT_Erase</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_18.html#OD0_3_43'>TFT_Text_PrintStr</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OD0_3_54'>TFT_TS_Read</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>CHAR_HEIGHT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>CHAR_WIDTH</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>COL_TO_X</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>ROW_TO_Y</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_HEIGHT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TFT_WIDTH</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>TS_CALIB_SAMPLES</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_58'>TFT_TS_Calibrated</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_59'>TFT_TS_X_Offset</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_60'>TFT_TS_X_Scale</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_61'>TFT_TS_Y_Offset</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_62'>TFT_TS_Y_Scale</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_64'>TS_Max</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_17.html#OS0_2_65'>TS_Min</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>tft_lcd.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;572<br></table><br></blockquote><p>&nbsp;</table><br>
+<br><br><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

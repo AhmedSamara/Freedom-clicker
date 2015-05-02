@@ -1,0 +1,16 @@
+BL __aeabi_fmul
+BL __aeabi_fmul
+BL __aeabi_fsub
+BL cosf
+BL __aeabi_fmul
+BL cosf
+BL __aeabi_fmul
+BL cosf
+BL __aeabi_fmul
+BL __aeabi_fmul
+BL sinf
+BL sinf
+BL __aeabi_fmul
+BL __aeabi_fadd
+BL acosf
+BL __aeabi_fmul

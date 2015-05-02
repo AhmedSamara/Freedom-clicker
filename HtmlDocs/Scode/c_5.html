@@ -1,0 +1,62 @@
+﻿<html><head><title>Source Code - LEDs.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_5.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; LEDs.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>LEDs.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_5.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'> 1  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>MKL25Z4.H<font color='#0000FF'>&gt;</font>
+<a name='L2'> 2  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;LEDs.h&quot;</font>
+<a name='L3'> 3  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;gpio_defs.h&quot;</font>
+<a name='L4'> 4  </a>
+<a name='L5'> 5  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_5.html#OD0_3_19'>Init_RGB_LEDs</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L6'> 6  </a><font color='#0000FF'>{</font>
+<a name='L7'> 7  </a> <font color='#A000A0'>// Enable clock to ports B and D</font>
+<a name='L8'> 8  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC5 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC5_PORTB_MASK <font color='#0000FF'>|</font> SIM_SCGC5_PORTD_MASK<font color='#0000FF'>;</font>
+<a name='L9'> 9  </a>    <font color='#0000FF'>;</font>
+<a name='L10'>10  </a>
+<a name='L11'>11  </a>    <font color='#A000A0'>// Make 3 pins GPIO</font>
+<a name='L12'>12  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> RED_LED_POS <font color='#0000FF'>]</font>   <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L13'>13  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> RED_LED_POS <font color='#0000FF'>]</font>   <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L14'>14  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> GREEN_LED_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L15'>15  </a>    PORTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> GREEN_LED_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L16'>16  </a>    PORTD<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> BLUE_LED_POS <font color='#0000FF'>]</font>  <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L17'>17  </a>    PORTD<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> BLUE_LED_POS <font color='#0000FF'>]</font>  <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L18'>18  </a>
+<a name='L19'>19  </a>    <font color='#A000A0'>// Set ports to outputs</font>
+<a name='L20'>20  </a>    PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                   <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> RED_LED_POS <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> MASK<font color='#0000FF'>(</font> GREEN_LED_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L21'>21  </a>    PTD<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                   <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> BLUE_LED_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L22'>22  </a><font color='#0000FF'>}</font>
+<a name='L23'>23  </a>
+<a name='L24'>24  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_5.html#OD0_3_18'>Control_RGB_LEDs</a><font color='#0000FF'>(</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  red_on<font color='#0000FF'>,</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  green_on<font color='#0000FF'>,</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  blue_on <font color='#0000FF'>)</font>
+<a name='L25'>25  </a><font color='#0000FF'>{</font>
+<a name='L26'>26  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(69);' class='hnd_cls'>red_on</span> <font color='#0000FF'>)</font>
+<a name='L27'>27  </a>    <font color='#0000FF'>{</font>
+<a name='L28'>28  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> RED_LED_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L29'>29  </a>    <font color='#0000FF'>}</font>
+<a name='L30'>30  </a>    <font color='#C6264F'>else</font>
+<a name='L31'>31  </a>    <font color='#0000FF'>{</font>
+<a name='L32'>32  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> RED_LED_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L33'>33  </a>    <font color='#0000FF'>}</font>
+<a name='L34'>34  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(70);' class='hnd_cls'>green_on</span> <font color='#0000FF'>)</font>
+<a name='L35'>35  </a>    <font color='#0000FF'>{</font>
+<a name='L36'>36  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> GREEN_LED_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L37'>37  </a>    <font color='#0000FF'>}</font>
+<a name='L38'>38  </a>    <font color='#C6264F'>else</font>
+<a name='L39'>39  </a>    <font color='#0000FF'>{</font>
+<a name='L40'>40  </a>        PTB<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> GREEN_LED_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L41'>41  </a>    <font color='#0000FF'>}</font>
+<a name='L42'>42  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(71);' class='hnd_cls'>blue_on</span> <font color='#0000FF'>)</font>
+<a name='L43'>43  </a>    <font color='#0000FF'>{</font>
+<a name='L44'>44  </a>        PTD<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> BLUE_LED_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L45'>45  </a>    <font color='#0000FF'>}</font>
+<a name='L46'>46  </a>    <font color='#C6264F'>else</font>
+<a name='L47'>47  </a>    <font color='#0000FF'>{</font>
+<a name='L48'>48  </a>        PTD<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> BLUE_LED_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L49'>49  </a>    <font color='#0000FF'>}</font>
+<a name='L50'>50  </a><font color='#0000FF'>}</font>
+<a name='L51'>51  </a><font color='#A000A0'>// *******************************ARM University Program Copyright © ARM Ltd 2013*************************************   </font>
+<a name='L52'>52  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

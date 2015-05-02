@@ -1,0 +1,204 @@
+﻿<html><head><title>Crystal FLOW for C Documentation  - system_MKL25Z4.c</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script></head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("<a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">Documentation </a> &nbsp; >> &nbsp; <a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">All Files</a> &nbsp; >> system_MKL25Z4.c");file_doc_starter(true);'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><script language='javascript'>
+var   vstr='visible';
+var   dly=220;
+var     mitms=new Array(2);
+mitms[0] = {'dn':'MoreArea0', 'sl':'LMore0', 'toid':0 };
+mitms[1] = {'dn':'MoreArea1', 'sl':'LMore1', 'toid':0 };
+function lcrto()
+{
+   clearTimeout(mitms[0].toid);
+   clearTimeout(mitms[1].toid);
+}
+</script>
+<div id='SCUT' style='visibility:hidden; position:absolute;'>
+<table border=1 bgcolor='#f0f0f0' cellspacing=0 cellpadding=0 width='230' id='MORE_TAB'><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr><td width=10><td>
+<table border=0 cellspacing=0 cellpadding=4 width='100%'>
+<tr><td height=1 width=20><td height=1 width=20><td height=1 width=210><tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#INCAREA'>Included Files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_FUN_DEFs' >Functions Defined</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_VAR_DEFs' >Globals Defined</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_MACRO' >Macros #defined</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_SL_STRs' >structs/unions from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_SL_MACs' >#defines from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_SL_TYPs' >Typedefs from Library</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DTLFUNDEFS'>Functions - Detailed</a>
+<tr><td height=5></table></table></table></div>
+<h3><a name='TTOP'></a><u>system_MKL25Z4.c</u></h3><span  class='TTL_CMT_DFLTTXT'><pre>** ###################################################################** #####** #####** #####** #####** #####** ###
+**     Processor:           MKL25Z128VLK4
+**     Compilers:           ARM Compiler
+**                          Freescale C/C++ for Embedded ARM
+**                          GNU C Compiler
+**                          IAR ANSI C/C++ Compiler for ARM
+**
+**     Reference manual:    KL25RM, Rev.1, Jun 2012
+**     Version:             rev. 1.1, 2012-06-21
+**
+**     Abstract:
+**         Provides a system configuration function and a global variable that
+**         contains the system frequency. It configures the device and initializes
+**         the oscillator (PLL) that is part of the microcontroller device.
+**
+**     Copyright: 2012 Freescale Semiconductor, Inc. All Rights Reserved.
+**
+**     http:                 www.freescale.com
+**     mail:                 support@freescale.com
+**
+**     Revisions:
+**     - rev. 1.0 (2012-06-13)
+**         Initial version.
+**     - rev. 1.1 (2012-06-21)
+**         Update according to reference manual rev. 1.
+**
+** ###################################################################** #####** #####** #####** #####** #####** ###
+*
+ * @file MKL25Z4
+ * @version 1.1
+ * @date 2012-06-21
+ * @brief Device specific configuration file for MKL25Z4 (implementation file)
+ *
+ * Provides a system configuration function and a global variable that contains
+ * the system frequency. It configures the device and initializes the oscillator
+ * (PLL) that is part of the microcontroller device.
+ 
+</pre></span><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td height=1 width=40><td height=1 width=20><td height=1 width=450>
+<tr><td class='INCTBL_HDNGTXT' colspan=3><a name='FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a target='_sgv_cc_brws_tree' href='../graphs/f15_fl_rpt.html' class='DOC_DFLTLNK'>File Report Tree</a><tr><td colspan=3 height=10>
+</table><br><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td class='INCTBL_HDNGTXT' colspan=5><a name='INCAREA'>Included Files</a><tr><td colspan=5 height=10><tr><td width=160>stdint.h
+<td width=160>MKL25Z4.h
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_FUN_DEFs'>Functions defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_53'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_53'>SystemInit</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_52'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_52'>SystemCoreClockUpdate</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_VAR_DEFs'>Globals Defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_49'></a>uint32_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>SystemCoreClock</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_MACRO'>Macros #defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_4_88'></a># define    &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>DISABLE_WDOG</span> 1
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_4_75'></a># define    &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>CLOCK_SETUP</span> 1
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_4_83'></a># define    &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>CPU_XTAL_CLK_HZ</span> 8000000u
+<td valign=top class='NDS_DSCRPTNTXT'>Value of the external crystal or oscillator clock frequency in Hz
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_4_80'></a># define    &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>CPU_INT_SLOW_CLK_HZ</span> 32768u
+<td valign=top class='NDS_DSCRPTNTXT'>Value of the slow internal oscillator clock frequency in Hz
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_4_77'></a># define    &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>CPU_INT_FAST_CLK_HZ</span> 4000000u
+<td valign=top class='NDS_DSCRPTNTXT'>Value of the fast internal oscillator clock frequency in Hz
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_4_86'></a># define    &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>DEFAULT_SYSTEM_CLOCK</span> 48000000u
+<td valign=top class='NDS_DSCRPTNTXT'>Default System clock value
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_STRs'>structs/unions from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_0_2'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct30</span><td width=300><a name='OS0_0_0'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct26</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_MACs'>Macros #defines from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_7'></a><span class='NOS_NL_OBJNMTXT'>SIM</span><td width=300><a name='OS0_4_106'></a><span class='NOS_NL_OBJNMTXT'>PORTA</span><td width=300><a name='OS0_4_104'></a><span class='NOS_NL_OBJNMTXT'>MCG_S_LOCK0_MASK</span>
+<tr><td width=300><a name='OS0_4_90'></a><span class='NOS_NL_OBJNMTXT'>MCG_C1_CLKS_MASK</span><td width=300><a name='OS0_4_99'></a><span class='NOS_NL_OBJNMTXT'>MCG_C6_PLLS_MASK</span><td width=300><a name='OS0_4_93'></a><span class='NOS_NL_OBJNMTXT'>MCG_C1_IREFS_MASK</span>
+<tr><td width=300><a name='OS0_4_91'></a><span class='NOS_NL_OBJNMTXT'>MCG_C1_FRDIV_MASK</span><td width=300><a name='OS0_4_92'></a><span class='NOS_NL_OBJNMTXT'>MCG_C1_FRDIV_SHIFT</span><td width=300><a name='OS0_4_95'></a><span class='NOS_NL_OBJNMTXT'>MCG_C2_RANGE0_MASK</span>
+<tr><td width=300><a name='OS0_4_96'></a><span class='NOS_NL_OBJNMTXT'>MCG_C4_DMX32_MASK</span><td width=300><a name='OS0_4_97'></a><span class='NOS_NL_OBJNMTXT'>MCG_C4_DRST_DRS_MASK</span><td width=300><a name='OS0_4_98'></a><span class='NOS_NL_OBJNMTXT'>MCG_C5_PRDIV0_MASK</span>
+<tr><td width=300><a name='OS0_4_100'></a><span class='NOS_NL_OBJNMTXT'>MCG_C6_VDIV0_MASK</span><td width=300><a name='OS0_4_94'></a><span class='NOS_NL_OBJNMTXT'>MCG_C2_IRCS_MASK</span><td width=300><a name='OS0_4_101'></a><span class='NOS_NL_OBJNMTXT'>MCG_SC_FCRDIV_MASK</span>
+<tr><td width=300><a name='OS0_4_102'></a><span class='NOS_NL_OBJNMTXT'>MCG_SC_FCRDIV_SHIFT</span><td width=300><a name='OS0_4_107'></a><span class='NOS_NL_OBJNMTXT'>SIM_CLKDIV1_OUTDIV1_MASK</span><td width=300><a name='OS0_4_108'></a><span class='NOS_NL_OBJNMTXT'>SIM_CLKDIV1_OUTDIV1_SHIFT</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_TYPs'>Types from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_10'></a><span class='NOS_NL_OBJNMTXT'>uint32_t</span><td width=300><a name='OS0_2_6'></a><span class='NOS_NL_OBJNMTXT'>SIM_Type</span><td width=300><a name='OS0_2_4'></a><span class='NOS_NL_OBJNMTXT'>PORT_Type</span></table><br><br><br><br><a name='DTLFUNDEFS'></a><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><table border=1 bordercolor='#cf0000' cellspacing=0 cellpadding=6 width='700'><tr><td bgcolor='#f0f0ff' class='DDC_HDNGTXT'>Functions - Detailed Documentation</table>
+<td width=100 align=right>
+<tr><td height=10></table><br>
+<table class='DDC_DFLTTXT' border=0 cellspacing=0 cellpadding=8 width=100%>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_53'>SystemInit</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td width=40><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_52'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  SystemInit( void )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> -----------------------------------------------------------------------------------------------------------------
+   -- SystemInit()
+   ---------------------------------------------------------------------------- ----------------------------------
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_53_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_53_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_S_IREFST_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_S_LOCK0_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>OSC0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORTA</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>system_MKL25Z4.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;100<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_52'>SystemCoreClockUpdate</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_53'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  SystemCoreClockUpdate( void )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> -----------------------------------------------------------------------------------------------------------------
+   -- SystemCoreClockUpdate()
+   ---------------------------------------------------------------------------- ----------------------------------
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_52_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_52_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint8_t  <td class='DDC_LCLOBJTXT'>Divider<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>MCGOUTClock<td><td class='DDC_DFLTTXT'>Variable to store output clock frequency of the MCG module
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_15.html#OS0_4_77'>CPU_INT_FAST_CLK_HZ</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_15.html#OS0_4_80'>CPU_INT_SLOW_CLK_HZ</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_15.html#OS0_4_83'>CPU_XTAL_CLK_HZ</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C1_CLKS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C1_FRDIV_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C1_FRDIV_SHIFT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C1_IREFS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C2_IRCS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C2_RANGE0_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C4_DMX32_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C4_DRST_DRS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C5_PRDIV0_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C6_PLLS_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_C6_VDIV0_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_SC_FCRDIV_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MCG_SC_FCRDIV_SHIFT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_CLKDIV1_OUTDIV1_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_CLKDIV1_OUTDIV1_SHIFT</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_15.html#OS0_2_49'>SystemCoreClock</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>system_MKL25Z4.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;222<br></table><br></blockquote><p>&nbsp;</table><br>
+<br><br><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

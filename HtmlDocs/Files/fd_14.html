@@ -1,0 +1,832 @@
+﻿<html><head><title>Crystal FLOW for C Documentation  - sound.c</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script></head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("<a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">Documentation </a> &nbsp; >> &nbsp; <a target=\"_sgv_cc_brws_tree\" class=\"BNNR_HLPLN_LNK\" href=\"allfilestv.html\">All Files</a> &nbsp; >> sound.c");file_doc_starter(true);'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><script language='javascript'>
+var   vstr='visible';
+var   dly=220;
+var     mitms=new Array(2);
+mitms[0] = {'dn':'MoreArea0', 'sl':'LMore0', 'toid':0 };
+mitms[1] = {'dn':'MoreArea1', 'sl':'LMore1', 'toid':0 };
+function lcrto()
+{
+   clearTimeout(mitms[0].toid);
+   clearTimeout(mitms[1].toid);
+}
+</script>
+<div id='SCUT' style='visibility:hidden; position:absolute;'>
+<table border=1 bgcolor='#f0f0f0' cellspacing=0 cellpadding=0 width='230' id='MORE_TAB'><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr><td width=10><td>
+<table border=0 cellspacing=0 cellpadding=4 width='100%'>
+<tr><td height=1 width=20><td height=1 width=20><td height=1 width=210><tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#INCAREA'>Included Files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_FUN_DEFs' >Functions Defined</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#DD_VAR_DEFs' >Globals Defined</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_FUNs' >Functions from .H files</a>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#USE_MACs' >#defines from .H files</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_FUNs' >Functions from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_STRs' >structs/unions from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_MACs' >#defines from Library</a>
+<tr><td><td colspan=2><a class='POPM_LNK2TXT' href='#USE_SL_TYPs' >Typedefs from Library</a>
+<tr><td><td colspan=2 height=6>
+<tr><td><td colspan=2><a class='POPM_LNK1TXT' href='#DTLFUNDEFS'>Functions - Detailed</a>
+<tr><td height=5></table></table></table></div>
+<h3><a name='TTOP'></a><u>sound.c</u></h3><p class='DOC_DFLTTXT'>No documentation available</p><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td height=1 width=40><td height=1 width=20><td height=1 width=450>
+<tr><td class='INCTBL_HDNGTXT' colspan=3><a name='FLOVW'>File Overview</a>
+<tr><td><td colspan=2><a target='_sgv_cc_brws_tree' href='../graphs/f14_fl_rpt.html' class='DOC_DFLTLNK'>File Report Tree</a><tr><td colspan=3 height=10>
+</table><br><br><table border=0 cellspacing=0 cellpadding=6 class='INCTBL_DFLTTXT'><tr><td class='INCTBL_HDNGTXT' colspan=5><a name='INCAREA'>Included Files</a><tr><td colspan=5 height=10><tr><td width=160>stdint.h
+<td width=160>MKL25Z4.h
+<td width=160>math.h
+<td width=160>RTL.h
+<td width=160>sound.h
+<tr><td width=160>delay.h
+<td width=160>gpio_defs.h
+<td width=160>timers.h
+<td width=160>DMA.h
+<td width=160>tasks.h
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_FUN_DEFs'>Functions defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_98'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_98'>DAC_Init</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_51'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_51'>Play_Sound_Sample</a>( uint16_t  val)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_103'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_103'>SineTable_Init</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_100'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_100'>Init_Waveform</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_93'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_93'>Sound_Init</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_105'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_105'>Sound_Enable_Amp</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_104'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_104'>Sound_Disable_Amp</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_101'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_101'>Play_Tone</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_106'></a>uint16_t   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_106'>Sound_Generate_Next_Sample</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_92'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_92'>Play_Waveform_with_DMA</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_102'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_102'>Play_Tone_with_DMA</a>( unsigned int  period, 
+                           unsigned int  num_cycles)
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_122'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_122'>Task_Sound_Manager</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_3_121'></a>void   &nbsp;  <td class='NDS_DCLNTXT'><a class='NDS_NMSLNK' href='#OD0_3_121'>Task_Refill_Sound_Buffer</a>( void )
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='DD_VAR_DEFs'>Globals Defined</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_86'></a>uint16_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>SineTable</span> [ NUM_STEPS ] ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_87'></a>uint16_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>Waveform</span> [ NUM_WAVEFORM_SAMPLES ] ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+<tr><td class='NDS_DCLNTXT' align=right nowrap valign=top><a name='OS0_2_93'></a>uint32_t   &nbsp;  <td class='NDS_DCLNTXT'><span class='NDS_NL_NMSLNK'>WNG_Len</span> ;
+<td valign=top class='NDS_DSCRPTNTXT'>&nbsp;
+</table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_FUNs'>Functions from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_3_110'></a><span class='NOS_NL_OBJNMTXT'>sinf</span><td width=300><a name='OS0_3_99'></a><span class='NOS_NL_OBJNMTXT'>DMA_Init</span><td width=300><a name='OS0_3_109'></a><a class='NOS_OBJNMTXT' href='../Files/fd_19.html#OD0_3_109'>TPM0_Init</a>
+<tr><td width=300><a name='OS0_3_97'></a><a class='NOS_OBJNMTXT' href='../Files/fd_19.html#OD0_3_97'>Configure_TPM0_for_DMA</a><td width=300><a name='OS0_3_5'></a><a class='NOS_OBJNMTXT' href='../Files/fd_2.html#OD0_3_5'>Delay</a><td width=300><a name='OS0_3_96'></a><span class='NOS_NL_OBJNMTXT'>Configure_DMA_For_Playback</span>
+<tr><td width=300><a name='OS0_3_108'></a><span class='NOS_NL_OBJNMTXT'>Start_DMA_Playback</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_MACs'>Macros  #defines from Included Files</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_174'></a><span class='NOS_NL_OBJNMTXT'>NUM_STEPS</span><td width=300><a name='OS0_4_175'></a><span class='NOS_NL_OBJNMTXT'>NUM_WAVEFORM_SAMPLES</span><td width=300><a name='OS0_4_32'></a><span class='NOS_NL_OBJNMTXT'>MASK</span>
+<tr><td width=300><a name='OS0_4_74'></a><span class='NOS_NL_OBJNMTXT'>DAC_POS</span><td width=300><a name='OS0_4_110'></a><span class='NOS_NL_OBJNMTXT'>MAX_DAC_CODE</span><td width=300><a name='OS0_4_173'></a><span class='NOS_NL_OBJNMTXT'>AMP_ENABLE_POS</span>
+<tr><td width=300><a name='OS0_4_195'></a><span class='NOS_NL_OBJNMTXT'>EV_REFILL_SOUND</span><td width=300><a name='OS0_4_114'></a><span class='NOS_NL_OBJNMTXT'>WAIT_FOREVER</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_FUNs'>Functions from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_3_60'></a><span class='NOS_NL_OBJNMTXT'>os_itv_set</span><td width=300><a name='OS0_3_61'></a><span class='NOS_NL_OBJNMTXT'>os_itv_wait</span><td width=300><a name='OS0_3_59'></a><span class='NOS_NL_OBJNMTXT'>os_evt_wait</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_STRs'>structs/unions from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_0_2'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct30</span><td width=300><a name='OS0_0_0'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct26</span><td width=300><a name='OS0_0_1'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct3</span>
+<tr><td width=300><a name='OS0_0_3'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct4</span><td width=300><a name='OS0_0_7'></a><span class='NOS_NL_OBJNMTXT'>___CrystalC_NoNameStruct12</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_MACs'>Macros #defines from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_4_7'></a><span class='NOS_NL_OBJNMTXT'>SIM</span><td width=300><a name='OS0_4_9'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC6_DAC0_SHIFT</span><td width=300><a name='OS0_4_8'></a><span class='NOS_NL_OBJNMTXT'>SIM_SCGC5_PORTE_SHIFT</span>
+<tr><td width=300><a name='OS0_4_5'></a><span class='NOS_NL_OBJNMTXT'>PORTE</span><td width=300><a name='OS0_4_35'></a><span class='NOS_NL_OBJNMTXT'>PORT_PCR_MUX_MASK</span><td width=300><a name='OS0_4_6'></a><span class='NOS_NL_OBJNMTXT'>PORT_PCR_MUX</span>
+<tr><td width=300><a name='OS0_4_0'></a><span class='NOS_NL_OBJNMTXT'>DAC0</span><td width=300><a name='OS0_4_1'></a><span class='NOS_NL_OBJNMTXT'>DAC_C0_DACEN_SHIFT</span><td width=300><a name='OS0_4_2'></a><span class='NOS_NL_OBJNMTXT'>DAC_C0_DACRFS_SHIFT</span>
+<tr><td width=300><a name='OS0_4_3'></a><span class='NOS_NL_OBJNMTXT'>DAC_DATH_DATA1</span><td width=300><a name='OS0_4_4'></a><span class='NOS_NL_OBJNMTXT'>DAC_DATL_DATA0</span><td width=300><a name='OS0_4_163'></a><span class='NOS_NL_OBJNMTXT'>SIM_SOPT2_TPMSRC</span>
+<tr><td width=300><a name='OS0_4_162'></a><span class='NOS_NL_OBJNMTXT'>SIM_SOPT2_PLLFLLSEL_MASK</span><td width=300><a name='OS0_4_128'></a><span class='NOS_NL_OBJNMTXT'>PTE</span><td width=300><a name='OS0_4_73'></a><span class='NOS_NL_OBJNMTXT'>__task</span>
+<tr><td width=300><a name='OS0_4_115'></a><span class='NOS_NL_OBJNMTXT'>os_evt_wait_and</span></table><br><br><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><a class='NDSTBL_HDNGTXT' name='USE_SL_TYPs'>Types from Standard Library</a>
+<td width=100 align=right>
+<tr><td height=10></table>
+<table border=0 cellspacing=0 cellpadding=6 >
+
+<tr><td width=300><a name='OS0_2_20'></a><span class='NOS_NL_OBJNMTXT'>uint16_t</span><td width=300><a name='OS0_2_10'></a><span class='NOS_NL_OBJNMTXT'>uint32_t</span><td width=300><a name='OS0_2_6'></a><span class='NOS_NL_OBJNMTXT'>SIM_Type</span>
+<tr><td width=300><a name='OS0_2_4'></a><span class='NOS_NL_OBJNMTXT'>PORT_Type</span><td width=300><a name='OS0_2_1'></a><span class='NOS_NL_OBJNMTXT'>DAC_Type</span><td width=300><a name='OS0_2_11'></a><span class='NOS_NL_OBJNMTXT'>uint8_t</span>
+<tr><td width=300><a name='OS0_2_16'></a><span class='NOS_NL_OBJNMTXT'>GPIO_Type</span></table><br><br><br><br><a name='DTLFUNDEFS'></a><table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td><table border=1 bordercolor='#cf0000' cellspacing=0 cellpadding=6 width='700'><tr><td bgcolor='#f0f0ff' class='DDC_HDNGTXT'>Functions - Detailed Documentation</table>
+<td width=100 align=right>
+<tr><td height=10></table><br>
+<table class='DDC_DFLTTXT' border=0 cellspacing=0 cellpadding=8 width=100%>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_98'>DAC_Init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td width=40><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_51'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  DAC_Init( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_98_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_98_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_93' class='FUNC_HIERARCHY_DFLTLNK'>Sound_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+DAC_Init
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_93'>Sound_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>DAC0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>DAC_C0_DACEN_SHIFT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>DAC_C0_DACRFS_SHIFT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>DAC_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORTE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC5_PORTE_SHIFT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC6_DAC0_SHIFT</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;18<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;77</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_51'>Play_Sound_Sample</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_98'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_103'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Play_Sound_Sample( uint16_t  val)</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre>    Code for driving DAC
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_51_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_51_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_101' class='FUNC_HIERARCHY_DFLTLNK'>Play_Tone</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Play_Sound_Sample
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>uint16_t  <td class='DDC_LCLOBJTXT'>val<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_101'>Play_Tone</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>DAC0</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>DAC_DATH_DATA1</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>DAC_DATL_DATA0</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;39<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;114, &nbsp;116</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_103'>SineTable_Init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_51'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_100'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  SineTable_Init( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_103_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_103_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_93' class='FUNC_HIERARCHY_DFLTLNK'>Sound_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+SineTable_Init
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>sinf</span></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>n<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>sinf</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_93'>Sound_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MAX_DAC_CODE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NUM_STEPS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OS0_2_86'>SineTable</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;45<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;74</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_100'>Init_Waveform</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_103'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_93'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Init_Waveform( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_100_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_100_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_93' class='FUNC_HIERARCHY_DFLTLNK'>Sound_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Init_Waveform
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>sinf</span></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>i<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>sinf</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_93'>Sound_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MAX_DAC_CODE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NUM_STEPS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NUM_WAVEFORM_SAMPLES</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OS0_2_87'>Waveform</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;56<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;75</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_93'>Sound_Init</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_100'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_105'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Sound_Init( void )</code></pre>
+<tr><td colspan=2>
+<span  class='TTL_CMT_DFLTTXT'><pre> Initialize sound hardware and sine table
+</pre></span><br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_93_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_93_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_9.html#OD0_3_32' class='FUNC_HIERARCHY_DFLTLNK'>main</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Sound_Init
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_19.html#OD0_3_97' class='FUNC_HIERARCHY_DFLTLNK'>Configure_TPM0_for_DMA</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_98' class='FUNC_HIERARCHY_DFLTLNK'>DAC_Init</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>DMA_Init</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_100' class='FUNC_HIERARCHY_DFLTLNK'>Init_Waveform</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_103' class='FUNC_HIERARCHY_DFLTLNK'>SineTable_Init</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_19.html#OD0_3_109' class='FUNC_HIERARCHY_DFLTLNK'>TPM0_Init</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_19.html#OD0_3_97'>Configure_TPM0_for_DMA</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OD0_3_98'>DAC_Init</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>DMA_Init</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OD0_3_100'>Init_Waveform</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OD0_3_103'>SineTable_Init</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_19.html#OD0_3_109'>TPM0_Init</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_9.html#OD0_3_32'>main</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>AMP_ENABLE_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORT_PCR_MUX_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PORTE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PTE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SCGC5_PORTE_SHIFT</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SOPT2_PLLFLLSEL_MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>SIM_SOPT2_TPMSRC</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>main.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;34<tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;72<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_105'>Sound_Enable_Amp</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_93'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_104'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Sound_Enable_Amp( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_105_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_105_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_16.html#OD0_3_56' class='FUNC_HIERARCHY_DFLTLNK'>Task_Read_TS</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Sound_Enable_Amp
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_16.html#OD0_3_56'>Task_Read_TS</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>AMP_ENABLE_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PTE</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;94<br><tr><td><td valign=top>tasks.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;100</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_104'>Sound_Disable_Amp</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_105'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_101'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Sound_Disable_Amp( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_104_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_104_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_16.html#OD0_3_56' class='FUNC_HIERARCHY_DFLTLNK'>Task_Read_TS</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Sound_Disable_Amp
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_16.html#OD0_3_56'>Task_Read_TS</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>AMP_ENABLE_POS</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MASK</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>PTE</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;99<br><tr><td><td valign=top>tasks.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;96</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_101'>Play_Tone</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_104'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_106'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Play_Tone( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_101_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_101_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Play_Tone
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_2.html#OD0_3_5' class='FUNC_HIERARCHY_DFLTLNK'>Delay</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_51' class='FUNC_HIERARCHY_DFLTLNK'>Play_Sound_Sample</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>int  <td class='DDC_LCLOBJTXT'>d<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>int  <td class='DDC_LCLOBJTXT'>n<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>int  <td class='DDC_LCLOBJTXT'>p<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_2.html#OD0_3_5'>Delay</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OD0_3_51'>Play_Sound_Sample</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MAX_DAC_CODE</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;104<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_106'>Sound_Generate_Next_Sample</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_101'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_92'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>uint16_t  Sound_Generate_Next_Sample( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_106_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_106_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_121' class='FUNC_HIERARCHY_DFLTLNK'>Task_Refill_Sound_Buffer</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Sound_Generate_Next_Sample
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>static uint16_t  <td class='DDC_LCLOBJTXT'>bit<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>static uint16_t  <td class='DDC_LCLOBJTXT'>lfsr<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_121'>Task_Refill_Sound_Buffer</a><tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;122<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;181</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_92'>Play_Waveform_with_DMA</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_106'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_102'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Play_Waveform_with_DMA( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_92_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_92_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_9.html#OD0_3_32' class='FUNC_HIERARCHY_DFLTLNK'>main</a></NOBR></td></tr></table>
+<td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  ><td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  >
+<tr><td height=6 ><td height=6 ><td height=6 width=1 BGCOLOR='black'>
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_122' class='FUNC_HIERARCHY_DFLTLNK'>Task_Sound_Manager</a></NOBR></td></tr></table>
+<td valign=top><img src='../fn_a_b.gif' ALIGN=top  ><td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  >
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Play_Waveform_with_DMA
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>Configure_DMA_For_Playback</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>Start_DMA_Playback</span></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>Configure_DMA_For_Playback</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>Start_DMA_Playback</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_9.html#OD0_3_32'>main</a><tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_14.html#OD0_3_122'>Task_Sound_Manager</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NUM_WAVEFORM_SAMPLES</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OS0_2_87'>Waveform</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>main.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;63<tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;135<br><span style='color:#00a000'>use</span>&nbsp;&nbsp;165</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_102'>Play_Tone_with_DMA</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_92'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_122'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Play_Tone_with_DMA( unsigned int  period, 
+                           unsigned int  num_cycles)</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_102_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_102_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Play_Tone_with_DMA
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>Configure_DMA_For_Playback</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_19.html#OD0_3_97' class='FUNC_HIERARCHY_DFLTLNK'>Configure_TPM0_for_DMA</a></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>Start_DMA_Playback</span></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Parameters<tr><td height=2>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>period<td><td class='DDC_DFLTTXT'>
+<tr><td><td align=right nowrap>unsigned int  <td class='DDC_LCLOBJTXT'>num_cycles<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>Configure_DMA_For_Playback</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_19.html#OD0_3_97'>Configure_TPM0_for_DMA</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>Start_DMA_Playback</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NUM_STEPS</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OS0_2_86'>SineTable</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;144<br></table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_122'>Task_Sound_Manager</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_102'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40 align=right nowrap><a class='DOC_DFLTSMLLNK' href='#OD0_3_121'><img title='Goto Next Function' border=0 src='../nextbutn.gif'></a></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Task_Sound_Manager( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_122_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_122_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_16.html#OD0_3_28' class='FUNC_HIERARCHY_DFLTLNK'>Task_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Task_Sound_Manager
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>os_itv_set</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td BGCOLOR='black'><td valign=middle><img src='../fn_a.gif' >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>os_itv_wait</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_92' class='FUNC_HIERARCHY_DFLTLNK'>Play_Waveform_with_DMA</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>os_itv_set</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>os_itv_wait</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OD0_3_92'>Play_Waveform_with_DMA</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_16.html#OD0_3_28'>Task_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OS0_2_93'>WNG_Len</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;152<br><tr><td><td valign=top>tasks.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;60</table><br></blockquote><p>&nbsp;<tr><td colspan=2><hr>
+
+<tr><td><a class='DDC_OBJNMTXT' name='OD0_3_121'>Task_Refill_Sound_Buffer</a>&nbsp; &nbsp; <span class='DOC_ACCSSSPCFRTXT'></span><td><table border=0 cellspacing=0 cellpadding=5><tr>
+<td nowrap width=40><a class='DOC_DFLTSMLLNK' href='#OD0_3_122'><img border=0 title='Goto Previous Function' src='../prevbutn.gif'></a><td nowrap><a class='DOC_DFLTSMLLNK' href='#DD_FUN_DEFs'><img border=0 title='Goto Definitions' src='../defbutn.gif'></a><td width=40></table><tr><td colspan=2><pre><code class='DDC_DCLNTXT'>void  Task_Refill_Sound_Buffer( void )</code></pre>
+<tr><td><br> No documentation available<br>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td colspan=2 height=20><tr><td width=50>
+<td class='DOC_SUBHDNGTXT'><table border=3 bordercolor='#d0d0d0' cellspacing=0 cellpadding=0>
+<tr><td height='0' width='250' class='DOC_SUBHDNGTXT' align='center' valign='top'><br><a target='sgv_CC_rframe' href='../flowcharts/fn3_0_121_fc.html' class='DOC_DFLTLNK'>Flowchart<br><br><img src='../flowcharts/images/fn3_0_121_fc_thmb.bmp' BORDER=0></a>
+</table><td width=50></table><br><blockquote><table border=0 cellspacing=0 cellpadding=0 width='100%' align=center><tr><td heigth='20'><tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 width='100%'><tr>
+<td align=left><a class ='DDC_SUBHDNGTXT'>Function Hierarchy</a>
+<tr><td height=10></table>
+<tr><td height=20>
+<tr><td align=center>
+<table border=0 cellspacing=0 cellpadding=0 ><tr><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td valign=middle align='right'><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFDDFF'>
+<NOBR><a href='../Files/fd_16.html#OD0_3_28' class='FUNC_HIERARCHY_DFLTLNK'>Task_Init</a></NOBR></td></tr></table>
+</table>
+<td valign='middle'><img src='../fn_a.gif' >
+<td valign='middle' >
+<table border=3 cellspacing=0 width='170' height='60' cellpadding=0 style='border-color:black' align='center' valign=middle><tr><td align='center' valign=middle bgcolor='#DCD0D0' class='FUNC_HIERARCHY_DFLTTXT'>
+Task_Refill_Sound_Buffer
+</table>
+<td valign='middle'><img src='../fn_a.gif' ><td>
+<table border=0 cellspacing=0 cellpadding=0 >
+<tr>
+<td width=1 valign='bottom'><img src='../a_t.gif' ALIGN=absbottom  ><td valign=bottom><img src='../fn_a_t.gif' ALIGN=absbottom  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><span class='FUNC_HIERARCHY_DFLTTXT'>os_evt_wait</span></NOBR></td></tr></table>
+<tr><td height=6 width=1 BGCOLOR='black'><td height=6 ><td height=6 >
+<tr>
+<td width=1 valign='top'><img src='../a_b.gif' ALIGN=top  ><td valign=top><img src='../fn_a_b.gif' ALIGN=top  >
+<td valign=middle ><table border=1 cellspacing=0  cellpadding=2 style='border-color:black'><tr><td width='150' height='40'  align='center' bgcolor='#FFE4D9'>
+<NOBR><a href='../Files/fd_14.html#OD0_3_106' class='FUNC_HIERARCHY_DFLTLNK'>Sound_Generate_Next_Sample</a></NOBR></td></tr></table>
+</table>
+</table>
+</table></blockquote><br><br>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Local Variables<tr><td height=2>
+<tr><td><td align=right nowrap>uint32_t  <td class='DDC_LCLOBJTXT'>i<td><td class='DDC_DFLTTXT'>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Functions Called<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OD0_3_106'>Sound_Generate_Next_Sample</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 width='100%' cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=100><td height=1 width=90><td height=1 width=190><td height=1 width=190><td height=1 width=220>
+<tr><td colspan=10 class='DDC_SUBHDNGTXT'>Called By<tr><td height=2>
+<tr><td><td colspan=5 class='DDC_LCLOBJTXT'><a href='../Files/fd_16.html#OD0_3_28'>Task_Init</a><tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>#defines used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>EV_REFILL_SOUND</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>MAX_DAC_CODE</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>NUM_WAVEFORM_SAMPLES</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>os_evt_wait_and</NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR>WAIT_FOREVER</NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><table class='DDC_DCLNTXT' border=0 cellspacing=0 cellpadding=5><tr><td height=1 width=20><td height=1 width=190><td height=1 width=100><td height=1 width=90><td height=1 width=220>
+<tr><td colspan=5 class='DDC_SUBHDNGTXT'>Globals used<tr><td height=2>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OS0_2_87'>Waveform</a></NOBR>
+<tr><td><td class='DDC_LCLOBJTXT'><NOBR><a href='../Files/fd_14.html#OS0_2_93'>WNG_Len</a></NOBR>
+<tr><td height=15></table></blockquote>
+<blockquote><p class='DDC_SUBHDNGTXT'>Cross Reference<table class='XRF_DFLTTXT' border=0 cellspacing=0 cellpadding=2 width=700 style='line-height:1.8'>
+<tr><td width=30 height=1><td width=100 height=1><td width=40 height=1><td width=500 height=1><tr><td><td valign=top>sound.c<td valign=top>at<td valign=top><span style='color:#f00000'>Defined</span>&nbsp;&nbsp;169<br><tr><td><td valign=top>tasks.c<td valign=top>at<td valign=top><span style='color:#00a000'>use</span>&nbsp;&nbsp;62</table><br></blockquote><p>&nbsp;</table><br>
+<br><br><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

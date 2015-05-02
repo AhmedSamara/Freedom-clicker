@@ -1,0 +1,130 @@
+L 1 "src\region.c"
+N// Automatically generated file. Do not edit if you plan to regenerate it.
+N#include "region.h"
+L 1 ".\inc\region.h" 1
+N#ifndef REGION_H
+N#define REGION_H
+N
+Ntypedef struct {
+N	unsigned int Start;
+N	unsigned int End;
+N	char Name[24];
+N} REGION_T;
+N
+N extern const REGION_T RegionTable[];
+N extern const unsigned NumProfileRegions;
+N extern volatile unsigned RegionCount[];
+N extern unsigned SortedRegions[];
+N
+N#endif
+L 3 "src\region.c" 2
+Nconst REGION_T RegionTable[] = {
+N	{0x00001e6d, 0x0000216c, "_printf_core"}, // 0
+N	{0x00002171, 0x00002190, "_printf_post_padding"}, // 1
+N	{0x00002191, 0x000021bc, "_printf_pre_padding"}, // 2
+N	{0x000021bd, 0x000021d2, "_snputc"}, // 3
+N	{0x000021d3, 0x000021dc, "_sputc"}, // 4
+N	{0x000000d5, 0x0000014c, "SystemInit"}, // 5
+N	{0x0000014d, 0x0000022c, "SystemCoreClockUpdate"}, // 6
+N	{0x00000261, 0x00000268, "Reset_Handler"}, // 7
+N	{0x00000269, 0x0000026a, "NMI_Handler"}, // 8
+N	{0x0000026b, 0x0000026c, "HardFault_Handler"}, // 9
+N	{0x0000026d, 0x0000026e, "SVC_Handler"}, // 10
+N	{0x0000026f, 0x00000270, "PendSV_Handler"}, // 11
+N	{0x00000271, 0x00000272, "SysTick_Handler"}, // 12
+N	{0x0000027d, 0x00000314, "main"}, // 13
+N	{0x00000321, 0x00000372, "Init_RGB_LEDs"}, // 14
+N	{0x00000373, 0x000003a6, "Control_RGB_LEDs"}, // 15
+N	{0x000003bd, 0x000003d0, "Delay"}, // 16
+N	{0x000003d5, 0x00000400, "__aeabi_uidivmod"}, // 17
+N	{0x00000411, 0x0000049a, "PIT_IRQHandler"}, // 18
+N	{0x0000049b, 0x000004e6, "PIT_Init"}, // 19
+N	{0x000004e7, 0x000004f2, "PIT_Start"}, // 20
+N	{0x000004f3, 0x000004fe, "PIT_Stop"}, // 21
+N	{0x000004ff, 0x00000578, "Init_PWM"}, // 22
+N	{0x00000579, 0x000005b8, "Old_Init_PWM"}, // 23
+N	{0x000005b9, 0x000005c0, "Set_PWM_Value"}, // 24
+N	{0x00000615, 0x00000650, "i2c_init"}, // 25
+N	{0x00000651, 0x00000662, "i2c_wait"}, // 26
+N	{0x00000663, 0x00000676, "i2c_start"}, // 27
+N	{0x00000677, 0x000006a6, "i2c_read_setup"}, // 28
+N	{0x000006a7, 0x000006d6, "i2c_repeated_read"}, // 29
+N	{0x000006d7, 0x0000072e, "i2c_read_byte"}, // 30
+N	{0x0000072f, 0x00000762, "i2c_write_byte"}, // 31
+N	{0x00000771, 0x000007a6, "init_mma"}, // 32
+N	{0x000007a7, 0x000007f8, "read_full_xyz"}, // 33
+N	{0x000007f9, 0x0000082e, "read_xyz"}, // 34
+N	{0x0000082f, 0x00000842, "approx_sqrtf"}, // 35
+N	{0x00000843, 0x00000914, "approx_atan2f"}, // 36
+N	{0x00000915, 0x000009a8, "convert_xyz_to_roll_pitc"}, // 37
+N	{0x000009cd, 0x00000a08, "Init_Profiling"}, // 38
+N	{0x00000a09, 0x00000a12, "Disable_Profiling"}, // 39
+N	{0x00000a13, 0x00000a1c, "Enable_Profiling"}, // 40
+N	{0x00000a1d, 0x00000b10, "Sort_Profile_Regions"}, // 41
+N	{0x00000b11, 0x00000b8e, "Display_Profile"}, // 42
+N	{0x00000bb9, 0x00000cdc, "TFT_GPIO_Init"}, // 43
+N	{0x00000cdd, 0x00000d04, "TFT_Set_Backlight_Bright"}, // 44
+N	{0x00000d05, 0x00000d2c, "TFT_Init_Backlight"}, // 45
+N	{0x00000d2d, 0x00000d52, "TFT_24S_Write_Command"}, // 46
+N	{0x00000d53, 0x00000d78, "TFT_24S_Write_Data"}, // 47
+N	{0x00000d79, 0x00000d90, "Init_ADC"}, // 48
+N	{0x00000d91, 0x00000da8, "TFT_TS_Init"}, // 49
+N	{0x00000da9, 0x00000f56, "TFT_Init"}, // 50
+N	{0x00000f57, 0x00000fe8, "TFT_Plot_Pixel"}, // 51
+N	{0x00000fe9, 0x0000106a, "TFT_Fill_Buffer"}, // 52
+N	{0x0000106b, 0x00001086, "TFT_Set_BL"}, // 53
+N	{0x00001087, 0x00001098, "TFT_Set_Brightness"}, // 54
+N	{0x00001099, 0x00001200, "TFT_TS_Read"}, // 55
+N	{0x00001201, 0x000012c2, "TFT_TS_Test"}, // 56
+N	{0x00001301, 0x0000131e, "TFT_Text_Set_Colors"}, // 57
+N	{0x0000131f, 0x00001328, "TFT_Erase"}, // 58
+N	{0x00001329, 0x00001352, "TFT_Text_Init"}, // 59
+N	{0x00001353, 0x000013d4, "TFT_Text_PrintChar"}, // 60
+N	{0x000013d5, 0x0000147e, "TFT_Text_PrintStr"}, // 61
+N	{0x00001491, 0x00001532, "__aeabi_fadd"}, // 62
+N	{0x00001533, 0x0000153a, "__aeabi_fsub"}, // 63
+N	{0x0000153b, 0x00001542, "__aeabi_frsub"}, // 64
+N	{0x00001543, 0x000015bc, "__aeabi_fmul"}, // 65
+N	{0x000015bd, 0x00001638, "__aeabi_fdiv"}, // 66
+N	{0x00001639, 0x00001650, "__ARM_scalbnf"}, // 67
+N	{0x00001651, 0x00001666, "__aeabi_i2f"}, // 68
+N	{0x00001667, 0x0000168e, "__aeabi_f2d"}, // 69
+N	{0x0000168f, 0x000016c6, "__aeabi_d2f"}, // 70
+N	{0x000016c7, 0x000016d6, "_float_round"}, // 71
+N	{0x000016d7, 0x00001748, "_float_epilogue"}, // 72
+N	{0x00001749, 0x00001890, "__aeabi_dadd"}, // 73
+N	{0x00001891, 0x0000189c, "__aeabi_dsub"}, // 74
+N	{0x0000189d, 0x000018a8, "__aeabi_drsub"}, // 75
+N	{0x000018ad, 0x00001976, "__aeabi_dmul"}, // 76
+N	{0x0000197d, 0x00001a66, "__aeabi_ddiv"}, // 77
+N	{0x00001a6d, 0x00001b0e, "_dsqrt"}, // 78
+N	{0x00001b11, 0x00001b2c, "__scatterload"}, // 79
+N	{0x00001b35, 0x00001b54, "__aeabi_llsl"}, // 80
+N	{0x00001b55, 0x00001b76, "__aeabi_llsr"}, // 81
+N	{0x00001b77, 0x00001b9c, "__aeabi_lasr"}, // 82
+N	{0x00001b9d, 0x00001bb6, "_double_round"}, // 83
+N	{0x00001bb7, 0x00001c5a, "_double_epilogue"}, // 84
+N	{0x00001c5b, 0x00001c86, "__ARM_scalbn"}, // 85
+N	{0x00001c89, 0x00001cae, "__0snprintf$6"}, // 86
+N	{0x00001cb5, 0x00001cd8, "__0sprintf$6"}, // 87
+N	{0x00001cdd, 0x00001d0a, "__ARM_clz"}, // 88
+N	{0x00001d0d, 0x00001d34, "__ARM_fpclassify"}, // 89
+N	{0x00001d39, 0x00001d5a, "__ARM_fpclassifyf"}, // 90
+N	{0x00001d5b, 0x00001e06, "__kernel_poly"}, // 91
+N	{0x00001e07, 0x00001e10, "__mathlib_dbl_infnan"}, // 92
+N	{0x00001e11, 0x00001e18, "__mathlib_dbl_infnan2"}, // 93
+N	{0x00001e19, 0x00001e26, "__mathlib_dbl_underflow"}, // 94
+N	{0x00001e2d, 0x00001e34, "__mathlib_flt_infnan2"}, // 95
+N	{0x00001e35, 0x00001e42, "__mathlib_flt_underflow"}, // 96
+N	{0x00001e43, 0x00001e50, "__scatterload_copy"}, // 97
+N	{0x00001e51, 0x00001e52, "__scatterload_null"}, // 98
+N	{0x00001e53, 0x00001e60, "__scatterload_zeroinit"}, // 99
+N	{0x00001e61, 0x00001e66, "__set_errno"}, // 100
+N	{0x000021dd, 0x000023b4, "atan"}, // 101
+N	{0x000023f9, 0x00002546, "atan2"}, // 102
+N	{0x00002571, 0x0000277e, "atan2f"}, // 103
+N	{0x000027cd, 0x0000280e, "sqrt"}, // 104
+N}; 
+Nconst unsigned NumProfileRegions=105;
+Nvolatile unsigned RegionCount[105];
+Nunsigned SortedRegions[105];

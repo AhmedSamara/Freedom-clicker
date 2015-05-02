@@ -1,0 +1,213 @@
+﻿<html><head><title>Source Code - tft_text.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_18.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; tft_text.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>tft_text.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_18.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'>  1  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;font.h&quot;</font>
+<a name='L2'>  2  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;TFT_LCD.h&quot;</font>
+<a name='L3'>  3  </a>
+<a name='L4'>  4  </a><font color='#C6264F'>const</font>  uint8_t       <font color='#0000FF'>*</font>font<font color='#0000FF'>;</font>
+<a name='L5'>  5  </a>       FONT_HEADER_T <font color='#0000FF'>*</font>font_header<font color='#0000FF'>;</font>
+<a name='L6'>  6  </a>       GLYPH_INDEX_T <font color='#0000FF'>*</font>glyph_index<font color='#0000FF'>;</font>
+<a name='L7'>  7  </a>
+<a name='L8'>  8  </a>COLOR_T fg<font color='#0000FF'>,</font>
+<a name='L9'>  9  </a>        bg<font color='#0000FF'>;</font>
+<a name='L10'> 10  </a>
+<a name='L11'> 11  </a>uint8_t G_TFT_char_width<font color='#0000FF'>,</font>
+<a name='L12'> 12  </a>        G_TFT_char_height<font color='#0000FF'>;</font>
+<a name='L13'> 13  </a>
+<a name='L14'> 14  </a><font color='#C6264F'>const</font> uint8_t <font color='#0000FF'>*</font> fonts<font color='#0000FF'>[</font><font color='#0000FF'>]</font> <font color='#0000FF'>=</font> <font color='#0000FF'>{</font><span onclick='gotosrc(45);' class='hnd_cls'>Lucida_Console8x13</span><font color='#0000FF'>,</font> <span onclick='gotosrc(46);' class='hnd_cls'>Lucida_Console12x19</span><font color='#0000FF'>}</font><font color='#0000FF'>;</font> <font color='#A000A0'>// Lucida_Console20x31};</font>
+<a name='L15'> 15  </a><font color='#C6264F'>const</font> uint8_t char_widths<font color='#0000FF'>[</font><font color='#0000FF'>]</font> <font color='#0000FF'>=</font> <font color='#0000FF'>{</font>8<font color='#0000FF'>,</font> 12<font color='#0000FF'>,</font> 20<font color='#0000FF'>}</font><font color='#0000FF'>;</font>
+<a name='L16'> 16  </a><font color='#C6264F'>const</font> uint8_t char_heights<font color='#0000FF'>[</font><font color='#0000FF'>]</font> <font color='#0000FF'>=</font> <font color='#0000FF'>{</font>13<font color='#0000FF'>,</font> 19<font color='#0000FF'>,</font> 31<font color='#0000FF'>}</font><font color='#0000FF'>;</font>
+<a name='L17'> 17  </a>
+<a name='L18'> 18  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_18.html#OD0_3_82'>TFT_Text_Set_Colors</a><font color='#0000FF'>(</font> COLOR_T  <font color='#0000FF'>*</font>foreground<font color='#0000FF'>,</font> COLOR_T  <font color='#0000FF'>*</font>background <font color='#0000FF'>)</font>
+<a name='L19'> 19  </a><font color='#0000FF'>{</font>
+<a name='L20'> 20  </a>    <span onclick='gotosrc(40);' class='hnd_cls'>fg</span>.R <font color='#0000FF'>=</font> foreground<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>R<font color='#0000FF'>;</font>
+<a name='L21'> 21  </a>    <span onclick='gotosrc(40);' class='hnd_cls'>fg</span>.G <font color='#0000FF'>=</font> foreground<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G<font color='#0000FF'>;</font>
+<a name='L22'> 22  </a>    <span onclick='gotosrc(40);' class='hnd_cls'>fg</span>.B <font color='#0000FF'>=</font> foreground<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>B<font color='#0000FF'>;</font>
+<a name='L23'> 23  </a>    <span onclick='gotosrc(41);' class='hnd_cls'>bg</span>.R <font color='#0000FF'>=</font> background<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>R<font color='#0000FF'>;</font>
+<a name='L24'> 24  </a>    <span onclick='gotosrc(41);' class='hnd_cls'>bg</span>.G <font color='#0000FF'>=</font> background<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G<font color='#0000FF'>;</font>
+<a name='L25'> 25  </a>    <span onclick='gotosrc(41);' class='hnd_cls'>bg</span>.B <font color='#0000FF'>=</font> background<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>B<font color='#0000FF'>;</font>
+<a name='L26'> 26  </a><font color='#0000FF'>}</font>
+<a name='L27'> 27  </a>
+<a name='L28'> 28  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_18.html#OD0_3_24'>TFT_Erase</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L29'> 29  </a><font color='#0000FF'>{</font>
+<a name='L30'> 30  </a>    <span onclick='gotosrc(65);' class='hnd_cls'>TFT_Fill_Buffer</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(41);' class='hnd_cls'>bg</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L31'> 31  </a><font color='#0000FF'>}</font>
+<a name='L32'> 32  </a>
+<a name='L33'> 33  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_18.html#OD0_3_26'>TFT_Text_Init</a><font color='#0000FF'>(</font> uint8_t  font_num <font color='#0000FF'>)</font>
+<a name='L34'> 34  </a><font color='#0000FF'>{</font>
+<a name='L35'> 35  </a>
+<a name='L36'> 36  </a><font color='#C6264F'>#if</font> 0                                                           <font color='#A000A0'>/* Code for multiple fonts not working yet        */</font>
+<a name='L37'> 37  </a>    <span onclick='gotosrc(28);' class='hnd_cls'>font</span>              <font color='#408080'>=</font> <span onclick='gotosrc(44);' class='hnd_cls'>fonts</span><font color='#408080'>[</font> <span onclick='gotosrc(68);' class='hnd_cls'>font_num</span> <font color='#408080'>]</font><font color='#408080'>;</font>
+<a name='L38'> 38  </a>    <span onclick='gotosrc(42);' class='hnd_cls'>G_TFT_char_width</span>  <font color='#408080'>=</font> <span onclick='gotosrc(47);' class='hnd_cls'>char_widths</span><font color='#408080'>[</font> <span onclick='gotosrc(68);' class='hnd_cls'>font_num</span> <font color='#408080'>]</font><font color='#408080'>;</font>
+<a name='L39'> 39  </a>    <span onclick='gotosrc(43);' class='hnd_cls'>G_TFT_char_height</span> <font color='#408080'>=</font> <span onclick='gotosrc(51);' class='hnd_cls'>char_heights</span><font color='#408080'>[</font> <span onclick='gotosrc(68);' class='hnd_cls'>font_num</span> <font color='#408080'>]</font><font color='#408080'>;</font>
+<a name='L40'> 40  </a><font color='#C6264F'>#else</font>                                                           <font color='#A000A0'>/* This code is working                           */</font>
+<a name='L41'> 41  </a>    <span onclick='gotosrc(28);' class='hnd_cls'>font</span>              <font color='#0000FF'>=</font> <span onclick='gotosrc(46);' class='hnd_cls'>Lucida_Console12x19</span><font color='#0000FF'>;</font>
+<a name='L42'> 42  </a>    <span onclick='gotosrc(42);' class='hnd_cls'>G_TFT_char_width</span>  <font color='#0000FF'>=</font> 12<font color='#0000FF'>;</font>
+<a name='L43'> 43  </a>    <span onclick='gotosrc(43);' class='hnd_cls'>G_TFT_char_height</span> <font color='#0000FF'>=</font> 19<font color='#0000FF'>;</font>
+<a name='L44'> 44  </a><font color='#C6264F'>#endif</font>
+<a name='L45'> 45  </a>
+<a name='L46'> 46  </a>    <span onclick='gotosrc(32);' class='hnd_cls'>font_header</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> FONT_HEADER_T <font color='#0000FF'>*</font> <font color='#0000FF'>)</font><span onclick='gotosrc(28);' class='hnd_cls'>font</span><font color='#0000FF'>;</font>
+<a name='L47'> 47  </a>    <span onclick='gotosrc(36);' class='hnd_cls'>glyph_index</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> GLYPH_INDEX_T <font color='#0000FF'>*</font> <font color='#0000FF'>)</font><font color='#0000FF'>(</font> <span onclick='gotosrc(28);' class='hnd_cls'>font</span> <font color='#0000FF'>+</font> <font color='#C6264F'>sizeof</font><font color='#0000FF'>(</font> FONT_HEADER_T <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L48'> 48  </a>
+<a name='L49'> 49  </a>    <font color='#A000A0'>// Set default FG and BG colors</font>
+<a name='L50'> 50  </a>    <span onclick='gotosrc(40);' class='hnd_cls'>fg</span>.R        <font color='#0000FF'>=</font> 255<font color='#0000FF'>;</font>
+<a name='L51'> 51  </a>    <span onclick='gotosrc(40);' class='hnd_cls'>fg</span>.G        <font color='#0000FF'>=</font> 255<font color='#0000FF'>;</font>
+<a name='L52'> 52  </a>    <span onclick='gotosrc(40);' class='hnd_cls'>fg</span>.B        <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L53'> 53  </a>
+<a name='L54'> 54  </a>    <span onclick='gotosrc(41);' class='hnd_cls'>bg</span>.R        <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L55'> 55  </a>    <span onclick='gotosrc(41);' class='hnd_cls'>bg</span>.G        <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L56'> 56  </a>    <span onclick='gotosrc(41);' class='hnd_cls'>bg</span>.B        <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L57'> 57  </a><font color='#0000FF'>}</font>
+<a name='L58'> 58  </a>
+<a name='L59'> 59  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_18.html#OD0_3_81'>TFT_Text_PrintChar</a><font color='#0000FF'>(</font> PT_T  <font color='#0000FF'>*</font>pos<font color='#0000FF'>,</font> <font color='#C6264F'>char</font>  ch <font color='#0000FF'>)</font>
+<a name='L60'> 60  </a><font color='#0000FF'>{</font>
+<a name='L61'> 61  </a>           uint8_t   glyph_index_entry<font color='#0000FF'>;</font>
+<a name='L62'> 62  </a>    <font color='#C6264F'>const</font>  uint8_t  <font color='#0000FF'>*</font>glyph_data<font color='#0000FF'>;</font>                                <font color='#A000A0'>/*  &lt; start of the data &gt;                         */</font>
+<a name='L63'> 63  </a>           PT_T      end_pos<font color='#0000FF'>;</font>
+<a name='L64'> 64  </a>           COLOR_T  <font color='#0000FF'>*</font>pixel_color<font color='#0000FF'>;</font>
+<a name='L65'> 65  </a>           uint8_t   bitmap_byte<font color='#0000FF'>;</font>
+<a name='L66'> 66  </a>           uint8_t   glyph_width<font color='#0000FF'>,</font>
+<a name='L67'> 67  </a>                     x_bm<font color='#0000FF'>;</font>
+<a name='L68'> 68  </a>           uint32_t  offset<font color='#0000FF'>;</font>
+<a name='L69'> 69  </a>           uint32_t  row<font color='#0000FF'>,</font>
+<a name='L70'> 70  </a>                     col<font color='#0000FF'>,</font>
+<a name='L71'> 71  </a>                     num_pixels<font color='#0000FF'>;</font>
+<a name='L72'> 72  </a>
+<a name='L73'> 73  </a>    <span onclick='gotosrc(79);' class='hnd_cls'>glyph_index_entry</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(78);' class='hnd_cls'>ch</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(32);' class='hnd_cls'>font_header</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>FirstChar<font color='#0000FF'>;</font>
+<a name='L74'> 74  </a>    <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span>       <font color='#0000FF'>=</font> <span onclick='gotosrc(36);' class='hnd_cls'>glyph_index</span><font color='#0000FF'>[</font> <span onclick='gotosrc(79);' class='hnd_cls'>glyph_index_entry</span> <font color='#0000FF'>]</font>.Width<font color='#0000FF'>;</font>
+<a name='L75'> 75  </a>    <span onclick='gotosrc(87);' class='hnd_cls'>offset</span>            <font color='#0000FF'>=</font> <span onclick='gotosrc(36);' class='hnd_cls'>glyph_index</span><font color='#0000FF'>[</font> <span onclick='gotosrc(79);' class='hnd_cls'>glyph_index_entry</span> <font color='#0000FF'>]</font>.Offset<font color='#0000FF'>;</font>
+<a name='L76'> 76  </a>    <span onclick='gotosrc(80);' class='hnd_cls'>glyph_data</span>        <font color='#0000FF'>=</font> <font color='#0000FF'>&amp;</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(28);' class='hnd_cls'>font</span><font color='#0000FF'>[</font> <span onclick='gotosrc(87);' class='hnd_cls'>offset</span> <font color='#0000FF'>]</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L77'> 77  </a>
+<a name='L78'> 78  </a>    <span onclick='gotosrc(81);' class='hnd_cls'>end_pos</span>.X         <font color='#0000FF'>=</font> pos<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>+</font> CHAR_WIDTH <font color='#0000FF'>-</font> 1<font color='#0000FF'>;</font>
+<a name='L79'> 79  </a>    <span onclick='gotosrc(81);' class='hnd_cls'>end_pos</span>.Y         <font color='#0000FF'>=</font> pos<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>+</font> CHAR_HEIGHT <font color='#0000FF'>-</font> 1<font color='#0000FF'>;</font>
+<a name='L80'> 80  </a>    <span onclick='gotosrc(100);' class='hnd_cls'>TFT_Start_Rectangle</span><font color='#0000FF'>(</font> <span onclick='gotosrc(77);' class='hnd_cls'>pos</span><font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(81);' class='hnd_cls'>end_pos</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L81'> 81  </a>
+<a name='L82'> 82  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> <span onclick='gotosrc(88);' class='hnd_cls'>row</span> <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> <span onclick='gotosrc(88);' class='hnd_cls'>row</span> <font color='#0000FF'>&lt;</font> CHAR_HEIGHT<font color='#0000FF'>;</font> <span onclick='gotosrc(88);' class='hnd_cls'>row</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L83'> 83  </a>    <font color='#0000FF'>{</font>
+<a name='L84'> 84  </a>        <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L85'> 85  </a>        <font color='#C6264F'>do</font>
+<a name='L86'> 86  </a>        <font color='#0000FF'>{</font>
+<a name='L87'> 87  </a>            <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>=</font> <font color='#0000FF'>*</font><span onclick='gotosrc(80);' class='hnd_cls'>glyph_data</span><font color='#0000FF'>;</font>
+<a name='L88'> 88  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0x00 <font color='#0000FF'>)</font>
+<a name='L89'> 89  </a>            <font color='#0000FF'>{</font>
+<a name='L90'> 90  </a>                <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 8<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L91'> 91  </a>                <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(41);' class='hnd_cls'>bg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L92'> 92  </a>                <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>+</font><font color='#0000FF'>=</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span><font color='#0000FF'>;</font>
+<a name='L93'> 93  </a>            <font color='#0000FF'>}</font>
+<a name='L94'> 94  </a>            <font color='#C6264F'>else</font>
+<a name='L95'> 95  </a>                <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0xff <font color='#0000FF'>)</font>
+<a name='L96'> 96  </a>                <font color='#0000FF'>{</font>
+<a name='L97'> 97  </a>                    <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 8<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L98'> 98  </a>                    <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(40);' class='hnd_cls'>fg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L99'> 99  </a>                    <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>+</font><font color='#0000FF'>=</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span><font color='#0000FF'>;</font>
+<a name='L100'>100  </a>                <font color='#0000FF'>}</font>
+<a name='L101'>101  </a>                <font color='#C6264F'>else</font>
+<a name='L102'>102  </a>                <font color='#0000FF'>{</font>
+<a name='L103'>103  </a>                    <span onclick='gotosrc(89);' class='hnd_cls'>col</span>        <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L104'>104  </a>                    <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L105'>105  </a>                    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x7f <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L106'>106  </a>                    <font color='#0000FF'>{</font>
+<a name='L107'>107  </a>                        <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 7<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L108'>108  </a>                        <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(41);' class='hnd_cls'>bg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L109'>109  </a>                    <font color='#0000FF'>}</font>
+<a name='L110'>110  </a>                    <font color='#C6264F'>else</font>
+<a name='L111'>111  </a>                        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x7f <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0x7f <font color='#0000FF'>)</font>
+<a name='L112'>112  </a>                        <font color='#0000FF'>{</font>
+<a name='L113'>113  </a>                            <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 7<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L114'>114  </a>                            <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(40);' class='hnd_cls'>fg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L115'>115  </a>                        <font color='#0000FF'>}</font>
+<a name='L116'>116  </a>                        <font color='#C6264F'>else</font>
+<a name='L117'>117  </a>                            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x3f <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L118'>118  </a>                            <font color='#0000FF'>{</font>
+<a name='L119'>119  </a>                                <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 6<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L120'>120  </a>                                <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(41);' class='hnd_cls'>bg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L121'>121  </a>                            <font color='#0000FF'>}</font>
+<a name='L122'>122  </a>                            <font color='#C6264F'>else</font>
+<a name='L123'>123  </a>                                <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x3f <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0x3f <font color='#0000FF'>)</font>
+<a name='L124'>124  </a>                                <font color='#0000FF'>{</font>
+<a name='L125'>125  </a>                                    <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 6<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L126'>126  </a>                                    <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(40);' class='hnd_cls'>fg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L127'>127  </a>                                <font color='#0000FF'>}</font>
+<a name='L128'>128  </a>                                <font color='#C6264F'>else</font>
+<a name='L129'>129  </a>                                    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x1f <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L130'>130  </a>                                    <font color='#0000FF'>{</font>
+<a name='L131'>131  </a>                                        <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 5<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L132'>132  </a>                                        <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(41);' class='hnd_cls'>bg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L133'>133  </a>                                    <font color='#0000FF'>}</font>
+<a name='L134'>134  </a>                                    <font color='#C6264F'>else</font>
+<a name='L135'>135  </a>                                        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x1f <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0x1f <font color='#0000FF'>)</font>
+<a name='L136'>136  </a>                                        <font color='#0000FF'>{</font>
+<a name='L137'>137  </a>                                            <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 5<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L138'>138  </a>                                            <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(40);' class='hnd_cls'>fg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L139'>139  </a>                                        <font color='#0000FF'>}</font>
+<a name='L140'>140  </a>                                        <font color='#C6264F'>else</font>
+<a name='L141'>141  </a>                                            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x0f <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L142'>142  </a>                                            <font color='#0000FF'>{</font>
+<a name='L143'>143  </a>                                            <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 4<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L144'>144  </a>                                            <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(41);' class='hnd_cls'>bg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L145'>145  </a>                                            <font color='#0000FF'>}</font>
+<a name='L146'>146  </a>                                            <font color='#C6264F'>else</font>
+<a name='L147'>147  </a>                                            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x0f <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0x0f <font color='#0000FF'>)</font>
+<a name='L148'>148  </a>                                            <font color='#0000FF'>{</font>
+<a name='L149'>149  </a>                                            <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> 4<font color='#0000FF'>,</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L150'>150  </a>                                            <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(40);' class='hnd_cls'>fg</span><font color='#0000FF'>,</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L151'>151  </a>                                            <font color='#0000FF'>}</font>
+<a name='L152'>152  </a>                    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span> <font color='#0000FF'>&gt;</font> 0 <font color='#0000FF'>)</font>
+<a name='L153'>153  </a>                    <font color='#0000FF'>{</font>
+<a name='L154'>154  </a>                        <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span>         <font color='#0000FF'>+</font><font color='#0000FF'>=</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span><font color='#0000FF'>;</font>
+<a name='L155'>155  </a>                        <span onclick='gotosrc(89);' class='hnd_cls'>col</span>          <font color='#0000FF'>+</font><font color='#0000FF'>=</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span><font color='#0000FF'>;</font>
+<a name='L156'>156  </a>                        <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>=</font> <span onclick='gotosrc(90);' class='hnd_cls'>num_pixels</span><font color='#0000FF'>;</font>
+<a name='L157'>157  </a>                    <font color='#0000FF'>}</font>
+<a name='L158'>158  </a>                    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> <font color='#0000FF'>;</font> <span onclick='gotosrc(89);' class='hnd_cls'>col</span> <font color='#0000FF'>&lt;</font> 8<font color='#0000FF'>;</font> <span onclick='gotosrc(89);' class='hnd_cls'>col</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L159'>159  </a>                    <font color='#0000FF'>{</font>
+<a name='L160'>160  </a>                        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&amp;</font> 0x01 <font color='#0000FF'>)</font>                <font color='#A000A0'>/*             if pixel is to be set              */</font>
+<a name='L161'>161  </a>                            <span onclick='gotosrc(82);' class='hnd_cls'>pixel_color</span> <font color='#0000FF'>=</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(40);' class='hnd_cls'>fg</span><font color='#0000FF'>;</font>
+<a name='L162'>162  </a>                        <font color='#C6264F'>else</font>
+<a name='L163'>163  </a>                            <span onclick='gotosrc(82);' class='hnd_cls'>pixel_color</span> <font color='#0000FF'>=</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(41);' class='hnd_cls'>bg</span><font color='#0000FF'>;</font>
+<a name='L164'>164  </a>                        <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <span onclick='gotosrc(82);' class='hnd_cls'>pixel_color</span><font color='#0000FF'>,</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L165'>165  </a>                        <span onclick='gotosrc(83);' class='hnd_cls'>bitmap_byte</span> <font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>=</font> 1<font color='#0000FF'>;</font>
+<a name='L166'>166  </a>                        <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font><font color='#0000FF'>;</font>
+<a name='L167'>167  </a>                        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>&gt;</font><font color='#0000FF'>=</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>)</font>
+<a name='L168'>168  </a>                            <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L169'>169  </a>                    <font color='#0000FF'>}</font>
+<a name='L170'>170  </a>                <font color='#0000FF'>}</font>
+<a name='L171'>171  </a>            <span onclick='gotosrc(80);' class='hnd_cls'>glyph_data</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font><font color='#0000FF'>;</font>
+<a name='L172'>172  </a>        <font color='#0000FF'>}</font> <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>&lt;</font> <span onclick='gotosrc(84);' class='hnd_cls'>glyph_width</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L173'>173  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>&lt;</font> CHAR_WIDTH <font color='#0000FF'>)</font>
+<a name='L174'>174  </a>        <font color='#0000FF'>{</font>
+<a name='L175'>175  </a>        <font color='#A000A0'>// fill in rest of cell with background color for narrow glyphs</font>
+<a name='L176'>176  </a>            <span onclick='gotosrc(103);' class='hnd_cls'>TFT_Write_Rectangle_Pixel</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(41);' class='hnd_cls'>bg</span><font color='#0000FF'>,</font> CHAR_WIDTH <font color='#0000FF'>-</font> <span onclick='gotosrc(85);' class='hnd_cls'>x_bm</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L177'>177  </a>        <font color='#0000FF'>}</font>
+<a name='L178'>178  </a>    <font color='#0000FF'>}</font>
+<a name='L179'>179  </a><font color='#0000FF'>}</font>
+<a name='L180'>180  </a>
+<a name='L181'>181  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_18.html#OD0_3_43'>TFT_Text_PrintStr</a><font color='#0000FF'>(</font> PT_T  <font color='#0000FF'>*</font>pos<font color='#0000FF'>,</font> <font color='#C6264F'>char</font>  <font color='#0000FF'>*</font>str <font color='#0000FF'>)</font>
+<a name='L182'>182  </a><font color='#0000FF'>{</font>
+<a name='L183'>183  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <font color='#0000FF'>*</font><span onclick='gotosrc(118);' class='hnd_cls'>str</span> <font color='#0000FF'>)</font>
+<a name='L184'>184  </a>    <font color='#0000FF'>{</font>
+<a name='L185'>185  </a>        <span onclick='gotosrc(76);' class='hnd_cls'>TFT_Text_PrintChar</span><font color='#0000FF'>(</font> <span onclick='gotosrc(117);' class='hnd_cls'>pos</span><font color='#0000FF'>,</font> <font color='#0000FF'>*</font><span onclick='gotosrc(118);' class='hnd_cls'>str</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L186'>186  </a>        <span onclick='gotosrc(118);' class='hnd_cls'>str</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font><font color='#0000FF'>;</font>
+<a name='L187'>187  </a>        <span onclick='gotosrc(117);' class='hnd_cls'>pos</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>+</font><font color='#0000FF'>=</font> CHAR_WIDTH<font color='#0000FF'>;</font>                                   <font color='#A000A0'>/*     forces monospacing for fonts               */</font>
+<a name='L188'>188  </a>    <font color='#0000FF'>}</font>
+<a name='L189'>189  </a><font color='#0000FF'>}</font>
+<a name='L190'>190  </a>
+<a name='L191'>191  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_18.html#OD0_3_27'>TFT_Text_PrintStr_RC</a><font color='#0000FF'>(</font> uint8_t  row<font color='#0000FF'>,</font> uint8_t  col<font color='#0000FF'>,</font> <font color='#C6264F'>char</font>  <font color='#0000FF'>*</font>str <font color='#0000FF'>)</font>
+<a name='L192'>192  </a><font color='#0000FF'>{</font>
+<a name='L193'>193  </a>    PT_T pos<font color='#0000FF'>;</font>
+<a name='L194'>194  </a>    <span onclick='gotosrc(126);' class='hnd_cls'>pos</span>.X <font color='#0000FF'>=</font> COL_TO_X<font color='#0000FF'>(</font> col <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L195'>195  </a>    <span onclick='gotosrc(126);' class='hnd_cls'>pos</span>.Y <font color='#0000FF'>=</font> ROW_TO_Y<font color='#0000FF'>(</font> row <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L196'>196  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <font color='#0000FF'>*</font><span onclick='gotosrc(125);' class='hnd_cls'>str</span> <font color='#0000FF'>)</font>
+<a name='L197'>197  </a>    <font color='#0000FF'>{</font>
+<a name='L198'>198  </a>        <span onclick='gotosrc(76);' class='hnd_cls'>TFT_Text_PrintChar</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(126);' class='hnd_cls'>pos</span><font color='#0000FF'>,</font> <font color='#0000FF'>*</font><span onclick='gotosrc(125);' class='hnd_cls'>str</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L199'>199  </a>        <span onclick='gotosrc(125);' class='hnd_cls'>str</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font><font color='#0000FF'>;</font>
+<a name='L200'>200  </a>        <span onclick='gotosrc(126);' class='hnd_cls'>pos</span>.X <font color='#0000FF'>+</font><font color='#0000FF'>=</font> CHAR_WIDTH<font color='#0000FF'>;</font>                                    <font color='#A000A0'>/*     forces monospacing for fonts               */</font>
+<a name='L201'>201  </a>    <font color='#0000FF'>}</font>
+<a name='L202'>202  </a><font color='#0000FF'>}</font>
+<a name='L203'>203  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

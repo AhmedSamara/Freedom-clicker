@@ -1,0 +1,186 @@
+﻿<html><head><title>Source Code - mma8451.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_10.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; mma8451.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>mma8451.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_10.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'>  1  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>MKL25Z4.H<font color='#0000FF'>&gt;</font>
+<a name='L2'>  2  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;MMA8451.h&quot;</font>
+<a name='L3'>  3  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;I2C.h&quot;</font>
+<a name='L4'>  4  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;delay.h&quot;</font>
+<a name='L5'>  5  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;LEDs.h&quot;</font>
+<a name='L6'>  6  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>math.h<font color='#0000FF'>&gt;</font>
+<a name='L7'>  7  </a>
+<a name='L8'>  8  </a><font color='#C6264F'>#define</font>     M_PI_2     <font color='#0000FF'>(</font> M_PI <font color='#0000FF'>/</font> 2.0 <font color='#0000FF'>)</font>
+<a name='L9'>  9  </a><font color='#C6264F'>#define</font>     M_PI_4     <font color='#0000FF'>(</font> M_PI <font color='#0000FF'>/</font> 4.0 <font color='#0000FF'>)</font>
+<a name='L10'> 10  </a>
+<a name='L11'> 11  </a><font color='#C6264F'>#if</font> 0                                                           <font color='#A000A0'>/* used for atan2 test function                   */</font>
+<a name='L12'> 12  </a><font color='#408080'>volatile</font>  <font color='#408080'>float</font> acc<font color='#408080'>,</font>
+<a name='L13'> 13  </a>                app<font color='#408080'>,</font>
+<a name='L14'> 14  </a>                error<font color='#408080'>;</font>
+<a name='L15'> 15  </a><font color='#408080'>volatile</font>  <font color='#408080'>float</font> x<font color='#408080'>,</font>
+<a name='L16'> 16  </a>                y<font color='#408080'>;</font>
+<a name='L17'> 17  </a>#endif
+<a name='L18'> 18  </a>
+<a name='L19'> 19  </a>int16_t acc_X <font color='#0000FF'>=</font> 0<font color='#0000FF'>,</font>
+<a name='L20'> 20  </a>        acc_Y <font color='#0000FF'>=</font> 0<font color='#0000FF'>,</font>
+<a name='L21'> 21  </a>        acc_Z <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L22'> 22  </a><font color='#C6264F'>float</font>   roll  <font color='#0000FF'>=</font> 0.0<font color='#0000FF'>,</font>
+<a name='L23'> 23  </a>        pitch <font color='#0000FF'>=</font> 0.0<font color='#0000FF'>;</font>
+<a name='L24'> 24  </a>
+<a name='L25'> 25  </a><font color='#A000A0'>//mma data ready</font>
+<a name='L26'> 26  </a><font color='#C6264F'>extern</font>  uint32_t DATA_READY<font color='#0000FF'>;</font>
+<a name='L27'> 27  </a>
+<a name='L28'> 28  </a><font color='#A000A0'>/*</font>
+<a name='L29'> 29  </a><font color='#A000A0'> Initializes mma8451 sensor. I2C has to already be enabled.</font>
+<a name='L30'> 30  </a><font color='#A000A0'> */</font>
+<a name='L31'> 31  </a><font color='#C6264F'>int</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_10.html#OD0_3_31'>init_mma</a><font color='#0000FF'>(</font> <font color='#0000FF'>)</font>
+<a name='L32'> 32  </a><font color='#0000FF'>{</font>
+<a name='L33'> 33  </a> <font color='#A000A0'>//check for device</font>
+<a name='L34'> 34  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(45);' class='hnd_cls'>i2c_read_byte</span><font color='#0000FF'>(</font> MMA_ADDR<font color='#0000FF'>,</font> REG_WHOAMI <font color='#0000FF'>)</font> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> WHOAMI <font color='#0000FF'>)</font>
+<a name='L35'> 35  </a>    <font color='#0000FF'>{</font>
+<a name='L36'> 36  </a>
+<a name='L37'> 37  </a>        <span onclick='gotosrc(50);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> 100 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L38'> 38  </a>        <font color='#A000A0'>//turn on data ready irq; defaults to int2 (PTA15)</font>
+<a name='L39'> 39  </a>        <span onclick='gotosrc(52);' class='hnd_cls'>i2c_write_byte</span><font color='#0000FF'>(</font> MMA_ADDR<font color='#0000FF'>,</font> REG_CTRL4<font color='#0000FF'>,</font> 0x01 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L40'> 40  </a>        <span onclick='gotosrc(50);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> 100 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L41'> 41  </a>        <font color='#A000A0'>//set active 14bit mode and 100Hz (0x19)</font>
+<a name='L42'> 42  </a>        <span onclick='gotosrc(52);' class='hnd_cls'>i2c_write_byte</span><font color='#0000FF'>(</font> MMA_ADDR<font color='#0000FF'>,</font> REG_CTRL1<font color='#0000FF'>,</font> 0x01 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L43'> 43  </a>
+<a name='L44'> 44  </a>        <font color='#A000A0'>//enable the irq in the NVIC</font>
+<a name='L45'> 45  </a>        <font color='#A000A0'>//NVIC_EnableIRQ(PORTA_IRQn);</font>
+<a name='L46'> 46  </a>        <font color='#C6264F'>return</font> 1<font color='#0000FF'>;</font>
+<a name='L47'> 47  </a>    <font color='#0000FF'>}</font>
+<a name='L48'> 48  </a>
+<a name='L49'> 49  </a>    <font color='#A000A0'>//else error</font>
+<a name='L50'> 50  </a>    <font color='#C6264F'>return</font> 0<font color='#0000FF'>;</font>
+<a name='L51'> 51  </a>
+<a name='L52'> 52  </a><font color='#0000FF'>}</font>
+<a name='L53'> 53  </a>
+<a name='L54'> 54  </a><font color='#A000A0'>/* </font>
+<a name='L55'> 55  </a><font color='#A000A0'>  Reads full 16-bit X, Y, Z accelerations.</font>
+<a name='L56'> 56  </a><font color='#A000A0'>*/</font>
+<a name='L57'> 57  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_10.html#OD0_3_34'>read_full_xyz</a><font color='#0000FF'>(</font> <font color='#0000FF'>)</font>
+<a name='L58'> 58  </a><font color='#0000FF'>{</font>
+<a name='L59'> 59  </a>
+<a name='L60'> 60  </a>    <font color='#C6264F'>int</font>     i<font color='#0000FF'>;</font>
+<a name='L61'> 61  </a>    uint8_t data<font color='#0000FF'>[</font> 6 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L62'> 62  </a>
+<a name='L63'> 63  </a>    <span onclick='gotosrc(61);' class='hnd_cls'>i2c_start</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L64'> 64  </a>    <span onclick='gotosrc(62);' class='hnd_cls'>i2c_read_setup</span><font color='#0000FF'>(</font> MMA_ADDR<font color='#0000FF'>,</font> REG_XHI <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L65'> 65  </a>
+<a name='L66'> 66  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> i <font color='#0000FF'>&lt;</font> 6<font color='#0000FF'>;</font> i<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L67'> 67  </a>    <font color='#0000FF'>{</font>
+<a name='L68'> 68  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 5 <font color='#0000FF'>)</font>
+<a name='L69'> 69  </a>            <span onclick='gotosrc(60);' class='hnd_cls'>data</span><font color='#0000FF'>[</font> i <font color='#0000FF'>]</font> <font color='#0000FF'>=</font> i2c_repeated_read<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L70'> 70  </a>        <font color='#C6264F'>else</font>
+<a name='L71'> 71  </a>            <span onclick='gotosrc(60);' class='hnd_cls'>data</span><font color='#0000FF'>[</font> i <font color='#0000FF'>]</font> <font color='#0000FF'>=</font> i2c_repeated_read<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L72'> 72  </a>    <font color='#0000FF'>}</font>
+<a name='L73'> 73  </a>
+<a name='L74'> 74  </a>    <span onclick='gotosrc(36);' class='hnd_cls'>acc_X</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int16_t <font color='#0000FF'>)</font><span onclick='gotosrc(60);' class='hnd_cls'>data</span><font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font> <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>8 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <span onclick='gotosrc(60);' class='hnd_cls'>data</span><font color='#0000FF'>[</font> 1 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L75'> 75  </a>    <span onclick='gotosrc(37);' class='hnd_cls'>acc_Y</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int16_t <font color='#0000FF'>)</font><span onclick='gotosrc(60);' class='hnd_cls'>data</span><font color='#0000FF'>[</font> 2 <font color='#0000FF'>]</font> <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>8 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <span onclick='gotosrc(60);' class='hnd_cls'>data</span><font color='#0000FF'>[</font> 3 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L76'> 76  </a>    <span onclick='gotosrc(38);' class='hnd_cls'>acc_Z</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int16_t <font color='#0000FF'>)</font><span onclick='gotosrc(60);' class='hnd_cls'>data</span><font color='#0000FF'>[</font> 4 <font color='#0000FF'>]</font> <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>8 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <span onclick='gotosrc(60);' class='hnd_cls'>data</span><font color='#0000FF'>[</font> 5 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L77'> 77  </a><font color='#0000FF'>}</font>
+<a name='L78'> 78  </a>
+<a name='L79'> 79  </a>
+<a name='L80'> 80  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_10.html#OD0_3_38'>read_xyz</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L81'> 81  </a><font color='#0000FF'>{</font>
+<a name='L82'> 82  </a> <font color='#A000A0'>// sign extend byte to 16 bits - need to cast to signed since function</font>
+<a name='L83'> 83  </a> <font color='#A000A0'>// returns uint8_t which is unsigned</font>
+<a name='L84'> 84  </a>    <span onclick='gotosrc(36);' class='hnd_cls'>acc_X</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int16_t <font color='#0000FF'>)</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int8_t <font color='#0000FF'>)</font><span onclick='gotosrc(45);' class='hnd_cls'>i2c_read_byte</span><font color='#0000FF'>(</font> MMA_ADDR<font color='#0000FF'>,</font> REG_XHI <font color='#0000FF'>)</font> <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>8<font color='#0000FF'>;</font>
+<a name='L85'> 85  </a>    <span onclick='gotosrc(50);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> 100 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L86'> 86  </a>    <span onclick='gotosrc(37);' class='hnd_cls'>acc_Y</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int16_t <font color='#0000FF'>)</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int8_t <font color='#0000FF'>)</font><span onclick='gotosrc(45);' class='hnd_cls'>i2c_read_byte</span><font color='#0000FF'>(</font> MMA_ADDR<font color='#0000FF'>,</font> REG_YHI <font color='#0000FF'>)</font> <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>8<font color='#0000FF'>;</font>
+<a name='L87'> 87  </a>    <span onclick='gotosrc(50);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> 100 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L88'> 88  </a>    <span onclick='gotosrc(38);' class='hnd_cls'>acc_Z</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int16_t <font color='#0000FF'>)</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> int8_t <font color='#0000FF'>)</font><span onclick='gotosrc(45);' class='hnd_cls'>i2c_read_byte</span><font color='#0000FF'>(</font> MMA_ADDR<font color='#0000FF'>,</font> REG_ZHI <font color='#0000FF'>)</font> <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>8<font color='#0000FF'>;</font>
+<a name='L89'> 89  </a><font color='#0000FF'>}</font>
+<a name='L90'> 90  </a>
+<a name='L91'> 91  </a><font color='#C6264F'>float</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_10.html#OD0_3_36'>approx_sqrtf</a><font color='#0000FF'>(</font> <font color='#C6264F'>float</font>  z <font color='#0000FF'>)</font>
+<a name='L92'> 92  </a><font color='#0000FF'>{</font>                                                               <font color='#A000A0'>/* from Wikipedia                                 */</font>
+<a name='L93'> 93  </a>           <font color='#C6264F'>int</font> val_int <font color='#0000FF'>=</font> <font color='#0000FF'>*</font><font color='#0000FF'>(</font> <font color='#C6264F'>int</font> <font color='#0000FF'>*</font> <font color='#0000FF'>)</font><font color='#0000FF'>&amp;</font>z<font color='#0000FF'>;</font>                          <font color='#A000A0'>/*  &lt; Same bits, but as an int &gt;                  */</font>
+<a name='L94'> 94  </a>    <font color='#C6264F'>const</font>  <font color='#C6264F'>int</font> a       <font color='#0000FF'>=</font> 0x4c000<font color='#0000FF'>;</font>
+<a name='L95'> 95  </a>
+<a name='L96'> 96  </a>    <span onclick='gotosrc(78);' class='hnd_cls'>val_int</span>  <font color='#0000FF'>-</font><font color='#0000FF'>=</font> 1<font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>23<font color='#0000FF'>;</font>                                          <font color='#A000A0'>/*   Subtract 2^m.                                */</font>
+<a name='L97'> 97  </a>    <span onclick='gotosrc(78);' class='hnd_cls'>val_int</span> <font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>=</font> 1<font color='#0000FF'>;</font>                                              <font color='#A000A0'>/*   Divide by 2.                                 */</font>
+<a name='L98'> 98  </a>    <span onclick='gotosrc(78);' class='hnd_cls'>val_int</span>  <font color='#0000FF'>+</font><font color='#0000FF'>=</font> 1<font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>29<font color='#0000FF'>;</font>                                          <font color='#A000A0'>/*   Add ((b + 1) / 2) * 2^m.                     */</font>
+<a name='L99'> 99  </a>    <span onclick='gotosrc(78);' class='hnd_cls'>val_int</span>  <font color='#0000FF'>+</font><font color='#0000FF'>=</font> a<font color='#0000FF'>;</font>
+<a name='L100'>100  </a>    <font color='#A000A0'>//  val_int = (1 &lt;&lt; 29) + (val_int &gt;&gt; 1) - (1 &lt;&lt; 22) + a;</font>
+<a name='L101'>101  </a>    <font color='#C6264F'>return</font> <font color='#0000FF'>*</font><font color='#0000FF'>(</font> <font color='#C6264F'>float</font> <font color='#0000FF'>*</font> <font color='#0000FF'>)</font><font color='#0000FF'>&amp;</font><span onclick='gotosrc(78);' class='hnd_cls'>val_int</span><font color='#0000FF'>;</font>                                <font color='#A000A0'>/*   Interpret again as float                     */</font>
+<a name='L102'>102  </a><font color='#0000FF'>}</font>
+<a name='L103'>103  </a>
+<a name='L104'>104  </a><font color='#C6264F'>float</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_10.html#OD0_3_35'>approx_atan2f</a><font color='#0000FF'>(</font> <font color='#C6264F'>float</font>  y<font color='#0000FF'>,</font> <font color='#C6264F'>float</font>  x <font color='#0000FF'>)</font>
+<a name='L105'>105  </a><font color='#0000FF'>{</font>
+<a name='L106'>106  </a>    <font color='#C6264F'>float</font> a<font color='#0000FF'>,</font>
+<a name='L107'>107  </a>          abs_a<font color='#0000FF'>,</font>
+<a name='L108'>108  </a>          approx<font color='#0000FF'>,</font>
+<a name='L109'>109  </a>          adj    <font color='#0000FF'>=</font> 0.0<font color='#0000FF'>;</font>
+<a name='L110'>110  </a>    <font color='#C6264F'>char</font>  negate <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L111'>111  </a>
+<a name='L112'>112  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> x <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L113'>113  </a>    <font color='#0000FF'>{</font>                                                           <font color='#A000A0'>/*   special cases                                */</font>
+<a name='L114'>114  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> y <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0.0 <font color='#0000FF'>)</font>
+<a name='L115'>115  </a>            <font color='#C6264F'>return</font> 0.0<font color='#0000FF'>;</font>                                         <font color='#A000A0'>/*       undefined, but return 0 by convention    */</font>
+<a name='L116'>116  </a>        <font color='#C6264F'>else</font>
+<a name='L117'>117  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> y <font color='#0000FF'>&lt;</font> 0.0 <font color='#0000FF'>)</font>
+<a name='L118'>118  </a>                <font color='#C6264F'>return</font> <font color='#0000FF'>-</font><span onclick='gotosrc(27);' class='hnd_cls'>M_PI_2</span><font color='#0000FF'>;</font>
+<a name='L119'>119  </a>            <font color='#C6264F'>else</font>
+<a name='L120'>120  </a>                <font color='#C6264F'>return</font> <span onclick='gotosrc(27);' class='hnd_cls'>M_PI_2</span><font color='#0000FF'>;</font>
+<a name='L121'>121  </a>    <font color='#0000FF'>}</font>
+<a name='L122'>122  </a>    <font color='#C6264F'>else</font>
+<a name='L123'>123  </a>    <font color='#0000FF'>{</font>
+<a name='L124'>124  </a>    <font color='#A000A0'>// Version 7</font>
+<a name='L125'>125  </a><font color='#C6264F'>#if</font> 1
+<a name='L126'>126  </a>        a <font color='#0000FF'>=</font> y <font color='#0000FF'>/</font> x<font color='#0000FF'>;</font>
+<a name='L127'>127  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> a <font color='#0000FF'>&gt;</font> 1 <font color='#0000FF'>)</font>
+<a name='L128'>128  </a>        <font color='#0000FF'>{</font>
+<a name='L129'>129  </a>            a      <font color='#0000FF'>=</font> x <font color='#0000FF'>/</font> y<font color='#0000FF'>;</font>
+<a name='L130'>130  </a>            <span onclick='gotosrc(91);' class='hnd_cls'>adj</span>    <font color='#0000FF'>=</font> <span onclick='gotosrc(27);' class='hnd_cls'>M_PI_2</span><font color='#0000FF'>;</font>
+<a name='L131'>131  </a>            <span onclick='gotosrc(92);' class='hnd_cls'>negate</span> <font color='#0000FF'>=</font> 1<font color='#0000FF'>;</font>
+<a name='L132'>132  </a>        <font color='#0000FF'>}</font>
+<a name='L133'>133  </a>        <font color='#C6264F'>else</font>
+<a name='L134'>134  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> a <font color='#0000FF'>&lt;</font> <font color='#0000FF'>-</font>1 <font color='#0000FF'>)</font>
+<a name='L135'>135  </a>            <font color='#0000FF'>{</font>
+<a name='L136'>136  </a>                a      <font color='#0000FF'>=</font> x <font color='#0000FF'>/</font> y<font color='#0000FF'>;</font>
+<a name='L137'>137  </a>                <span onclick='gotosrc(91);' class='hnd_cls'>adj</span>    <font color='#0000FF'>=</font> <font color='#0000FF'>-</font><span onclick='gotosrc(27);' class='hnd_cls'>M_PI_2</span><font color='#0000FF'>;</font>
+<a name='L138'>138  </a>                <span onclick='gotosrc(92);' class='hnd_cls'>negate</span> <font color='#0000FF'>=</font> 1<font color='#0000FF'>;</font>
+<a name='L139'>139  </a>            <font color='#0000FF'>}</font>
+<a name='L140'>140  </a><font color='#C6264F'>#endif</font>
+<a name='L141'>141  </a>
+<a name='L142'>142  </a>        <span onclick='gotosrc(89);' class='hnd_cls'>abs_a</span>  <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> a <font color='#0000FF'>&lt;</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>?</font> <font color='#0000FF'>-</font>a<font color='#0000FF'>:</font>a<font color='#0000FF'>;</font>
+<a name='L143'>143  </a>        <span onclick='gotosrc(90);' class='hnd_cls'>approx</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(28);' class='hnd_cls'>M_PI_4</span> <font color='#0000FF'>*</font> a <font color='#0000FF'>-</font> a <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> abs_a <font color='#0000FF'>-</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> 0.2447  <font color='#0000FF'>+</font> 0.0663 <font color='#0000FF'>*</font> abs_a <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L144'>144  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(92);' class='hnd_cls'>negate</span> <font color='#0000FF'>)</font>
+<a name='L145'>145  </a>        <font color='#0000FF'>{</font>
+<a name='L146'>146  </a>            <span onclick='gotosrc(90);' class='hnd_cls'>approx</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(91);' class='hnd_cls'>adj</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(90);' class='hnd_cls'>approx</span><font color='#0000FF'>;</font>
+<a name='L147'>147  </a>        <font color='#0000FF'>}</font>
+<a name='L148'>148  </a>
+<a name='L149'>149  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> x <font color='#0000FF'>&gt;</font> 0 <font color='#0000FF'>)</font>
+<a name='L150'>150  </a>            <font color='#C6264F'>return</font> <span onclick='gotosrc(90);' class='hnd_cls'>approx</span><font color='#0000FF'>;</font>
+<a name='L151'>151  </a>        <font color='#C6264F'>else</font>
+<a name='L152'>152  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> y <font color='#0000FF'>&gt;</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L153'>153  </a>                <font color='#C6264F'>return</font> <span onclick='gotosrc(90);' class='hnd_cls'>approx</span> <font color='#0000FF'>+</font> M_PI<font color='#0000FF'>;</font>
+<a name='L154'>154  </a>            <font color='#C6264F'>else</font>
+<a name='L155'>155  </a>                <font color='#C6264F'>return</font> <span onclick='gotosrc(90);' class='hnd_cls'>approx</span> <font color='#0000FF'>-</font> M_PI<font color='#0000FF'>;</font>
+<a name='L156'>156  </a>    <font color='#0000FF'>}</font>
+<a name='L157'>157  </a><font color='#0000FF'>}</font>
+<a name='L158'>158  </a>
+<a name='L159'>159  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_10.html#OD0_3_30'>convert_xyz_to_roll_pitch</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L160'>160  </a><font color='#0000FF'>{</font>
+<a name='L161'>161  </a><font color='#A000A0'>/*</font>
+<a name='L162'>162  </a><font color='#A000A0'>    float ax = acc_X/COUNTS_PER_G,</font>
+<a name='L163'>163  </a><font color='#A000A0'>                ay = acc_Y/COUNTS_PER_G,</font>
+<a name='L164'>164  </a><font color='#A000A0'>                az = acc_Z/COUNTS_PER_G;</font>
+<a name='L165'>165  </a><font color='#A000A0'>*/</font>
+<a name='L166'>166  </a>
+<a name='L167'>167  </a>    <span onclick='gotosrc(39);' class='hnd_cls'>roll</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(85);' class='hnd_cls'>approx_atan2f</span><font color='#0000FF'>(</font> <span onclick='gotosrc(37);' class='hnd_cls'>acc_Y</span><font color='#0000FF'>,</font> <span onclick='gotosrc(38);' class='hnd_cls'>acc_Z</span> <font color='#0000FF'>)</font> <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> 180 <font color='#0000FF'>/</font> M_PI <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L168'>168  </a>    <span onclick='gotosrc(41);' class='hnd_cls'>pitch</span>
+<a name='L169'>169  </a>    <font color='#0000FF'>=</font> <span onclick='gotosrc(85);' class='hnd_cls'>approx_atan2f</span><font color='#0000FF'>(</font> <span onclick='gotosrc(36);' class='hnd_cls'>acc_X</span><font color='#0000FF'>,</font> <span onclick='gotosrc(76);' class='hnd_cls'>approx_sqrtf</span><font color='#0000FF'>(</font> <span onclick='gotosrc(37);' class='hnd_cls'>acc_Y</span> <font color='#0000FF'>*</font> <span onclick='gotosrc(37);' class='hnd_cls'>acc_Y</span> <font color='#0000FF'>+</font> <span onclick='gotosrc(38);' class='hnd_cls'>acc_Z</span> <font color='#0000FF'>*</font> <span onclick='gotosrc(38);' class='hnd_cls'>acc_Z</span> <font color='#0000FF'>)</font> <font color='#0000FF'>)</font> <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> 180 <font color='#0000FF'>/</font> M_PI <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L170'>170  </a><font color='#C6264F'>#if</font> 0
+<a name='L171'>171  </a>    <span onclick='gotosrc(39);' class='hnd_cls'>roll</span>  <font color='#408080'>=</font> atan2<font color='#408080'>(</font> ay<font color='#408080'>,</font> az <font color='#408080'>)</font> <font color='#408080'>*</font> 180 <font color='#408080'>/</font> M_PI<font color='#408080'>;</font>
+<a name='L172'>172  </a>    <span onclick='gotosrc(41);' class='hnd_cls'>pitch</span> <font color='#408080'>=</font> atan2<font color='#408080'>(</font> ax<font color='#408080'>,</font> sqrt<font color='#408080'>(</font> ay <font color='#408080'>*</font> ay <font color='#408080'>+</font> az <font color='#408080'>*</font> az <font color='#408080'>)</font> <font color='#408080'>)</font> <font color='#408080'>*</font> 180 <font color='#408080'>/</font> M_PI<font color='#408080'>;</font>
+<a name='L173'>173  </a><font color='#C6264F'>#endif</font>
+<a name='L174'>174  </a><font color='#0000FF'>}</font>
+<a name='L175'>175  </a>
+<a name='L176'>176  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

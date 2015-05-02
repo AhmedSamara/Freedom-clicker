@@ -1,0 +1,11 @@
+/obj/*
+
+*.htm
+*.Inp
+*.uvgui.*
+*.uvopt
+*.uvproj
+*.bak
+*.Alec
+*.dep
+*.iex

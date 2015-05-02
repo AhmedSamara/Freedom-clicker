@@ -1,0 +1,637 @@
+﻿<html><head><title>Source Code - tft_lcd.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_17.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; tft_lcd.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>tft_lcd.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_17.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'>  1  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>stdint.h<font color='#0000FF'>&gt;</font>
+<a name='L2'>  2  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>stdio.h<font color='#0000FF'>&gt;</font>
+<a name='L3'>  3  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;MKL25Z4.h&quot;</font>
+<a name='L4'>  4  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;TFT_LCD.h&quot;</font>
+<a name='L5'>  5  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;gpio_defs.h&quot;</font>
+<a name='L6'>  6  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;timers.h&quot;</font>
+<a name='L7'>  7  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;font.h&quot;</font>
+<a name='L8'>  8  </a>
+<a name='L9'>  9  </a>
+<a name='L10'> 10  </a><font color='#C6264F'>extern</font>  <font color='#C6264F'>void</font> Delay<font color='#0000FF'>(</font> uint32_t <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L11'> 11  </a>
+<a name='L12'> 12  </a>
+<a name='L13'> 13  </a>uint8_t  TFT_TS_Calibrated <font color='#0000FF'>=</font> 1<font color='#0000FF'>;</font>
+<a name='L14'> 14  </a>uint32_t TFT_TS_X_Scale    <font color='#0000FF'>=</font> 209<font color='#0000FF'>,</font>
+<a name='L15'> 15  </a>         TFT_TS_X_Offset   <font color='#0000FF'>=</font> 6648<font color='#0000FF'>;</font>
+<a name='L16'> 16  </a>uint32_t TFT_TS_Y_Scale    <font color='#0000FF'>=</font> 159<font color='#0000FF'>,</font>
+<a name='L17'> 17  </a>         TFT_TS_Y_Offset   <font color='#0000FF'>=</font> 6689<font color='#0000FF'>;</font>
+<a name='L18'> 18  </a>
+<a name='L19'> 19  </a>PT_T TS_Min<font color='#0000FF'>;</font>
+<a name='L20'> 20  </a>PT_T TS_Max<font color='#0000FF'>;</font>
+<a name='L21'> 21  </a>
+<a name='L22'> 22  </a><font color='#A000A0'>/******************************************************************************************************************/</font>
+<a name='L23'> 23  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_73'>TFT_GPIO_Init</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L24'> 24  </a><font color='#0000FF'>{</font>
+<a name='L25'> 25  </a>    <font color='#C6264F'>unsigned</font>  i<font color='#0000FF'>;</font>
+<a name='L26'> 26  </a>
+<a name='L27'> 27  </a>    <font color='#A000A0'>// Enable clock to ports</font>
+<a name='L28'> 28  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC5 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC5_PORTC_MASK <font color='#0000FF'>|</font> SIM_SCGC5_PORTE_MASK<font color='#0000FF'>;</font>
+<a name='L29'> 29  </a>
+<a name='L30'> 30  </a>    <font color='#A000A0'>// Make digital pins GPIO</font>
+<a name='L31'> 31  </a>    <font color='#A000A0'>// Data bus pins</font>
+<a name='L32'> 32  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font> TFT_DB8_POS<font color='#0000FF'>;</font> i <font color='#0000FF'>&lt;</font><font color='#0000FF'>=</font> TFT_DB15_POS<font color='#0000FF'>;</font> i<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L33'> 33  </a>    <font color='#0000FF'>{</font>
+<a name='L34'> 34  </a>        PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> i <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L35'> 35  </a>        PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> i <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L36'> 36  </a>        PTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR       <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> i <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L37'> 37  </a>    <font color='#0000FF'>}</font>
+<a name='L38'> 38  </a>
+<a name='L39'> 39  </a>    <font color='#A000A0'>// Data/Command</font>
+<a name='L40'> 40  </a>    PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_D_NC_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L41'> 41  </a>    PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_D_NC_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L42'> 42  </a>    <font color='#A000A0'>// /Write</font>
+<a name='L43'> 43  </a>    PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_NWR_POS <font color='#0000FF'>]</font>  <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L44'> 44  </a>    PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_NWR_POS <font color='#0000FF'>]</font>  <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L45'> 45  </a>    <font color='#A000A0'>// /Read</font>
+<a name='L46'> 46  </a>    PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_NRD_POS <font color='#0000FF'>]</font>  <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L47'> 47  </a>    PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_NRD_POS <font color='#0000FF'>]</font>  <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L48'> 48  </a>    <font color='#A000A0'>// /Reset</font>
+<a name='L49'> 49  </a>    PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_NRST_POS <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L50'> 50  </a>    PORTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_NRST_POS <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L51'> 51  </a>
+<a name='L52'> 52  </a>    <font color='#A000A0'>// Set port directions to outputs</font>
+<a name='L53'> 53  </a>    FPTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_D_NC_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L54'> 54  </a>    FPTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_NWR_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L55'> 55  </a>    FPTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_NRD_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L56'> 56  </a>    FPTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_NRST_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L57'> 57  </a>
+<a name='L58'> 58  </a>    <font color='#A000A0'>// Set initial control line values to inactive (1)</font>
+<a name='L59'> 59  </a>    FPTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDOR                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_D_NC_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L60'> 60  </a>    FPTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDOR                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_NWR_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L61'> 61  </a>    FPTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDOR                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_NRD_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L62'> 62  </a>    FPTC<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDOR                 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_NRST_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L63'> 63  </a><font color='#0000FF'>}</font>
+<a name='L64'> 64  </a>
+<a name='L65'> 65  </a><font color='#A000A0'>/******************************************************************************************************************/</font>
+<a name='L66'> 66  </a><font color='#C6264F'>void</font> Old_Init_PWM<font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L67'> 67  </a>
+<a name='L68'> 68  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_74'>TFT_Init_Backlight</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L69'> 69  </a><font color='#0000FF'>{</font>
+<a name='L70'> 70  </a>    <font color='#A000A0'>// Init_PWM(TFT_BL_TPM, TFT_BL_TPM_CHANNEL, 10000 /* TFT_BL_PERIOD*/, 5000 /* TFT_BL_PERIOD/2*/);   </font>
+<a name='L71'> 71  </a>    <span onclick='gotosrc(102);' class='hnd_cls'>Old_Init_PWM</span><font color='#0000FF'>(</font><font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L72'> 72  </a>    <font color='#A000A0'>// TFT_Set_Backlight_Brightness(100);</font>
+<a name='L73'> 73  </a><font color='#0000FF'>}</font>
+<a name='L74'> 74  </a>
+<a name='L75'> 75  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_76'>TFT_Set_Backlight_Brightness</a><font color='#0000FF'>(</font> uint16_t  brightness_percent <font color='#0000FF'>)</font>
+<a name='L76'> 76  </a><font color='#0000FF'>{</font>
+<a name='L77'> 77  </a>    <span onclick='gotosrc(109);' class='hnd_cls'>PWM_Set_Value</span><font color='#0000FF'>(</font> TFT_BL_TPM<font color='#0000FF'>,</font> TFT_BL_TPM_CHANNEL<font color='#0000FF'>,</font> 
+<a name='L78'> 78  </a>                   <font color='#0000FF'>(</font> <span onclick='gotosrc(108);' class='hnd_cls'>brightness_percent</span> <font color='#0000FF'>*</font> 100 <font color='#0000FF'>)</font> <font color='#0000FF'>/</font> TFT_BL_PERIOD <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L79'> 79  </a><font color='#0000FF'>}</font>
+<a name='L80'> 80  </a>
+<a name='L81'> 81  </a>
+<a name='L82'> 82  </a><font color='#A000A0'>/******************************************************************************************************************/</font>
+<a name='L83'> 83  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_69'>TFT_24S_Write_Command</a><font color='#0000FF'>(</font> <font color='#C6264F'>int</font>  command <font color='#0000FF'>)</font>
+<a name='L84'> 84  </a><font color='#0000FF'>{</font>
+<a name='L85'> 85  </a>    GPIO_ResetBit<font color='#0000FF'>(</font> TFT_D_NC_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L86'> 86  </a>    GPIO_Write<font color='#0000FF'>(</font> <span onclick='gotosrc(120);' class='hnd_cls'>command</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L87'> 87  </a>    GPIO_ResetBit<font color='#0000FF'>(</font> TFT_NWR_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L88'> 88  </a>    GPIO_SetBit<font color='#0000FF'>(</font> TFT_NWR_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L89'> 89  </a><font color='#0000FF'>}</font>
+<a name='L90'> 90  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_70'>TFT_24S_Write_Data</a><font color='#0000FF'>(</font> <font color='#C6264F'>int</font>  data <font color='#0000FF'>)</font>
+<a name='L91'> 91  </a><font color='#0000FF'>{</font>
+<a name='L92'> 92  </a>    GPIO_SetBit<font color='#0000FF'>(</font> TFT_D_NC_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L93'> 93  </a>    GPIO_Write<font color='#0000FF'>(</font> <span onclick='gotosrc(133);' class='hnd_cls'>data</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L94'> 94  </a>    GPIO_ResetBit<font color='#0000FF'>(</font> TFT_NWR_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L95'> 95  </a>    GPIO_SetBit<font color='#0000FF'>(</font> TFT_NWR_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L96'> 96  </a><font color='#0000FF'>}</font>
+<a name='L97'> 97  </a>
+<a name='L98'> 98  </a><font color='#A000A0'>/******************************************************************************************************************/</font>
+<a name='L99'> 99  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_25'>TFT_Init</a><font color='#0000FF'>(</font> <font color='#0000FF'>)</font>
+<a name='L100'>100  </a><font color='#0000FF'>{</font>
+<a name='L101'>101  </a>    <span onclick='gotosrc(47);' class='hnd_cls'>TFT_GPIO_Init</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L102'>102  </a>    <span onclick='gotosrc(140);' class='hnd_cls'>TFT_TS_Init</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L103'>103  </a>    <span onclick='gotosrc(104);' class='hnd_cls'>TFT_Init_Backlight</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L104'>104  </a>
+<a name='L105'>105  </a>    GPIO_SetBit<font color='#0000FF'>(</font> TFT_NRD_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L106'>106  </a>    GPIO_ResetBit<font color='#0000FF'>(</font> TFT_NWR_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L107'>107  </a>    GPIO_ResetBit<font color='#0000FF'>(</font> TFT_NRST_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L108'>108  </a>    <span onclick='gotosrc(29);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> 100 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L109'>109  </a>    GPIO_SetBit<font color='#0000FF'>(</font> TFT_NRST_POS <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L110'>110  </a>    <span onclick='gotosrc(29);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> 200 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L111'>111  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x0028 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  display OFF                                   */</font>
+<a name='L112'>112  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x0011 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  exit SLEEP mode                               */</font>
+<a name='L113'>113  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L114'>114  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00CB <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  Power Control A                               */</font>
+<a name='L115'>115  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0039 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  always 0x39                                   */</font>
+<a name='L116'>116  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x002C <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  always 0x2C                                   */</font>
+<a name='L117'>117  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  always 0x00                                   */</font>
+<a name='L118'>118  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0034 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  Vcore = 1.6V                                  */</font>
+<a name='L119'>119  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0002 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  DDVDH = 5.6V                                  */</font>
+<a name='L120'>120  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00CF <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  Power Control B                               */</font>
+<a name='L121'>121  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  always 0x00                                   */</font>
+<a name='L122'>122  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0081 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  PCEQ off                                      */</font>
+<a name='L123'>123  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0030 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  ESD protection                                */</font>
+<a name='L124'>124  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00E8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  Driver timing control A                       */</font>
+<a name='L125'>125  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0085 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  non-overlap                                   */</font>
+<a name='L126'>126  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0001 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  EQ timing                                     */</font>
+<a name='L127'>127  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0079 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  Pre-charge timing                             */</font>
+<a name='L128'>128  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00EA <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  Driver timing control B                       */</font>
+<a name='L129'>129  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  Gate driver timing                            */</font>
+<a name='L130'>130  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  always 0x00                                   */</font>
+<a name='L131'>131  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00ED <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  Power-On sequence control                     */</font>
+<a name='L132'>132  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0064 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  soft start                                    */</font>
+<a name='L133'>133  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0003 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  power on sequence                             */</font>
+<a name='L134'>134  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0012 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  power on sequence                             */</font>
+<a name='L135'>135  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0081 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  DDVDH enhance on                              */</font>
+<a name='L136'>136  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00F7 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  Pump ratio control                            */</font>
+<a name='L137'>137  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0020 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  DDVDH=2xVCI                                   */</font>
+<a name='L138'>138  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00C0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  power control 1                               */</font>
+<a name='L139'>139  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0026 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L140'>140  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0004 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  second parameter for ILI9340 (ignored by      */</font>
+<a name='L141'>141  </a>                                                                <font color='#A000A0'>/*    ILI9341)                                    */</font>
+<a name='L142'>142  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00C1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  power control 2                               */</font>
+<a name='L143'>143  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0011 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L144'>144  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00C5 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  VCOM control 1                                */</font>
+<a name='L145'>145  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0035 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L146'>146  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x003E <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L147'>147  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00C7 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  VCOM control 2                                */</font>
+<a name='L148'>148  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x00BE <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L149'>149  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x0036 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  memory access control = BGR                   */</font>
+<a name='L150'>150  </a>    <font color='#A000A0'>//  TFT_24S_Write_Data(0x0088);</font>
+<a name='L151'>151  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0008 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*   Don't mirror Y axis                          */</font>
+<a name='L152'>152  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00B1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  frame rate control                            */</font>
+<a name='L153'>153  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L154'>154  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0010 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L155'>155  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00B6 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  display function control                      */</font>
+<a name='L156'>156  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x000A <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L157'>157  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x00A2 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L158'>158  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x003A <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  pixel format = 16 bit per pixel               */</font>
+<a name='L159'>159  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0055 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L160'>160  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x00F2 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  3G Gamma control                              */</font>
+<a name='L161'>161  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0002 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  off                                           */</font>
+<a name='L162'>162  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x0026 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  Gamma curve 3                                 */</font>
+<a name='L163'>163  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0001 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L164'>164  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002A <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  column address set                            */</font>
+<a name='L165'>165  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L166'>166  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  start 0x0000                                  */</font>
+<a name='L167'>167  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L168'>168  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x00EF <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  end 0x00EF                                    */</font>
+<a name='L169'>169  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002B <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  page address set                              */</font>
+<a name='L170'>170  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L171'>171  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  start 0x0000                                  */</font>
+<a name='L172'>172  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0001 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L173'>173  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x003F <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  end 0x013F                                    */</font>
+<a name='L174'>174  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x0029 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  Display ON                                    */</font>
+<a name='L175'>175  </a><font color='#0000FF'>}</font>
+<a name='L176'>176  </a>
+<a name='L177'>177  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_10'>TFT_Plot_Pixel</a><font color='#0000FF'>(</font> PT_T  <font color='#0000FF'>*</font>pos<font color='#0000FF'>,</font> COLOR_T  <font color='#0000FF'>*</font>color <font color='#0000FF'>)</font>
+<a name='L178'>178  </a><font color='#0000FF'>{</font>
+<a name='L179'>179  </a>    uint8_t b1<font color='#0000FF'>,</font>
+<a name='L180'>180  </a>            b2<font color='#0000FF'>;</font>
+<a name='L181'>181  </a>
+<a name='L182'>182  </a>    <font color='#A000A0'>// Column address set 0x2a</font>
+<a name='L183'>183  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002A <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  column address set                            */</font>
+<a name='L184'>184  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L185'>185  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(198);' class='hnd_cls'>pos</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                        <font color='#A000A0'>/*  start                                         */</font>
+<a name='L186'>186  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L187'>187  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x00EF <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  end 0x00EF                                    */</font>
+<a name='L188'>188  </a>
+<a name='L189'>189  </a>    <font color='#A000A0'>// Page (row) address set 0x2b</font>
+<a name='L190'>190  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002B <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  page address set                              */</font>
+<a name='L191'>191  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(198);' class='hnd_cls'>pos</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y<font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L192'>192  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(198);' class='hnd_cls'>pos</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                        <font color='#A000A0'>/*  start                                         */</font>
+<a name='L193'>193  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0001 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L194'>194  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x003F <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  end 0x013F                                    */</font>
+<a name='L195'>195  </a>
+<a name='L196'>196  </a>    <font color='#A000A0'>// Memory Write 0x2c</font>
+<a name='L197'>197  </a>    <font color='#A000A0'>// 16 bpp, 5-6-5. Assume color channel data is left-aligned</font>
+<a name='L198'>198  </a>    <span onclick='gotosrc(200);' class='hnd_cls'>b1</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(199);' class='hnd_cls'>color</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>R <font color='#0000FF'>&amp;</font> 0xf8 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> color<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G <font color='#0000FF'>&amp;</font> 0xe0 <font color='#0000FF'>)</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>5 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L199'>199  </a>    <span onclick='gotosrc(201);' class='hnd_cls'>b2</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(199);' class='hnd_cls'>color</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G <font color='#0000FF'>&amp;</font> 0x1c <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>3 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> color<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>B <font color='#0000FF'>&amp;</font> 0xf8 <font color='#0000FF'>)</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>3 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L200'>200  </a>
+<a name='L201'>201  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002c <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L202'>202  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(200);' class='hnd_cls'>b1</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L203'>203  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(201);' class='hnd_cls'>b2</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L204'>204  </a><font color='#0000FF'>}</font>
+<a name='L205'>205  </a>
+<a name='L206'>206  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_71'>TFT_Fill_Buffer</a><font color='#0000FF'>(</font> COLOR_T  <font color='#0000FF'>*</font>color <font color='#0000FF'>)</font>
+<a name='L207'>207  </a><font color='#0000FF'>{</font>
+<a name='L208'>208  </a>    uint32_t x<font color='#0000FF'>,</font>
+<a name='L209'>209  </a>             y<font color='#0000FF'>;</font>
+<a name='L210'>210  </a>    uint8_t  b1<font color='#0000FF'>,</font>
+<a name='L211'>211  </a>             b2<font color='#0000FF'>;</font>
+<a name='L212'>212  </a>
+<a name='L213'>213  </a>    <font color='#A000A0'>// Enable access to full screen, reset write pointer to origin</font>
+<a name='L214'>214  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002A <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  column address set                            */</font>
+<a name='L215'>215  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L216'>216  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  start 0x0000                                  */</font>
+<a name='L217'>217  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L218'>218  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x00EF <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  end 0x00EF                                    */</font>
+<a name='L219'>219  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002B <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  page address set                              */</font>
+<a name='L220'>220  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L221'>221  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0000 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  start 0x0000                                  */</font>
+<a name='L222'>222  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x0001 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L223'>223  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x003F <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                               <font color='#A000A0'>/*  end 0x013F                                    */</font>
+<a name='L224'>224  </a>
+<a name='L225'>225  </a>    <font color='#A000A0'>// Memory Write 0x2c</font>
+<a name='L226'>226  </a>    <font color='#A000A0'>// 16 bpp, 5-6-5. Assume color channel data is left-aligned</font>
+<a name='L227'>227  </a>    <span onclick='gotosrc(221);' class='hnd_cls'>b1</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(218);' class='hnd_cls'>color</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>R <font color='#0000FF'>&amp;</font> 0xf8 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> color<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G <font color='#0000FF'>&amp;</font> 0xe0 <font color='#0000FF'>)</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>5 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L228'>228  </a>    <span onclick='gotosrc(222);' class='hnd_cls'>b2</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(218);' class='hnd_cls'>color</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G <font color='#0000FF'>&amp;</font> 0x1c <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>3 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> color<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>B <font color='#0000FF'>&amp;</font> 0xf8 <font color='#0000FF'>)</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>3 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L229'>229  </a>
+<a name='L230'>230  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002c <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L231'>231  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> y <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> y <font color='#0000FF'>&lt;</font> 320<font color='#0000FF'>;</font> y<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L232'>232  </a>    <font color='#0000FF'>{</font>
+<a name='L233'>233  </a>        <font color='#C6264F'>for</font><font color='#0000FF'>(</font> x <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> x <font color='#0000FF'>&lt;</font> 240<font color='#0000FF'>;</font> x<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L234'>234  </a>        <font color='#0000FF'>{</font>
+<a name='L235'>235  </a>            <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(221);' class='hnd_cls'>b1</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L236'>236  </a>            <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(222);' class='hnd_cls'>b2</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L237'>237  </a>        <font color='#0000FF'>}</font>
+<a name='L238'>238  </a>    <font color='#0000FF'>}</font>
+<a name='L239'>239  </a><font color='#0000FF'>}</font>
+<a name='L240'>240  </a>
+<a name='L241'>241  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_72'>TFT_Fill_Rectangle</a><font color='#0000FF'>(</font> PT_T  <font color='#0000FF'>*</font>p1<font color='#0000FF'>,</font> PT_T  <font color='#0000FF'>*</font>p2<font color='#0000FF'>,</font> COLOR_T  <font color='#0000FF'>*</font>color <font color='#0000FF'>)</font>
+<a name='L242'>242  </a><font color='#0000FF'>{</font>
+<a name='L243'>243  </a>    uint32_t n<font color='#0000FF'>;</font>
+<a name='L244'>244  </a>    uint8_t  b1<font color='#0000FF'>,</font>
+<a name='L245'>245  </a>             b2<font color='#0000FF'>;</font>
+<a name='L246'>246  </a>    uint16_t c_min<font color='#0000FF'>,</font>
+<a name='L247'>247  </a>             c_max<font color='#0000FF'>,</font>
+<a name='L248'>248  </a>             r_min<font color='#0000FF'>,</font>
+<a name='L249'>249  </a>             r_max<font color='#0000FF'>;</font>
+<a name='L250'>250  </a>
+<a name='L251'>251  </a>    <span onclick='gotosrc(235);' class='hnd_cls'>c_min</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(229);' class='hnd_cls'>p1</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X<font color='#0000FF'>,</font> p2<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L252'>252  </a>    <span onclick='gotosrc(236);' class='hnd_cls'>c_max</span> <font color='#0000FF'>=</font> MAX<font color='#0000FF'>(</font> <span onclick='gotosrc(229);' class='hnd_cls'>p1</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X<font color='#0000FF'>,</font> p2<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L253'>253  </a>    <span onclick='gotosrc(236);' class='hnd_cls'>c_max</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(236);' class='hnd_cls'>c_max</span><font color='#0000FF'>,</font> TFT_WIDTH <font color='#0000FF'>-</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L254'>254  </a>
+<a name='L255'>255  </a>    <span onclick='gotosrc(237);' class='hnd_cls'>r_min</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(229);' class='hnd_cls'>p1</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y<font color='#0000FF'>,</font> p2<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L256'>256  </a>    <span onclick='gotosrc(238);' class='hnd_cls'>r_max</span> <font color='#0000FF'>=</font> MAX<font color='#0000FF'>(</font> <span onclick='gotosrc(229);' class='hnd_cls'>p1</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y<font color='#0000FF'>,</font> p2<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L257'>257  </a>    <span onclick='gotosrc(238);' class='hnd_cls'>r_max</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(238);' class='hnd_cls'>r_max</span><font color='#0000FF'>,</font> TFT_HEIGHT <font color='#0000FF'>-</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L258'>258  </a>
+<a name='L259'>259  </a>    <font color='#A000A0'>// Enable access to full screen, reset write pointer to origin</font>
+<a name='L260'>260  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002A <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  column address set                            */</font>
+<a name='L261'>261  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(235);' class='hnd_cls'>c_min</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L262'>262  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(235);' class='hnd_cls'>c_min</span> <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*  start                                         */</font>
+<a name='L263'>263  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(236);' class='hnd_cls'>c_max</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L264'>264  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(236);' class='hnd_cls'>c_max</span> <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*  end                                           */</font>
+<a name='L265'>265  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002B <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  page address set                              */</font>
+<a name='L266'>266  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(237);' class='hnd_cls'>r_min</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L267'>267  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(237);' class='hnd_cls'>r_min</span> <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*  start                                         */</font>
+<a name='L268'>268  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(238);' class='hnd_cls'>r_max</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L269'>269  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(238);' class='hnd_cls'>r_max</span> <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*  end                                           */</font>
+<a name='L270'>270  </a>
+<a name='L271'>271  </a>    <font color='#A000A0'>// Memory Write 0x2c</font>
+<a name='L272'>272  </a>    <font color='#A000A0'>// 16 bpp, 5-6-5. Assume color channel data is left-aligned</font>
+<a name='L273'>273  </a>    <span onclick='gotosrc(233);' class='hnd_cls'>b1</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(231);' class='hnd_cls'>color</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>R <font color='#0000FF'>&amp;</font> 0xf8 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> color<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G <font color='#0000FF'>&amp;</font> 0xe0 <font color='#0000FF'>)</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>5 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L274'>274  </a>    <span onclick='gotosrc(234);' class='hnd_cls'>b2</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(231);' class='hnd_cls'>color</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G <font color='#0000FF'>&amp;</font> 0x1c <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>3 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> color<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>B <font color='#0000FF'>&amp;</font> 0xf8 <font color='#0000FF'>)</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>3 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L275'>275  </a>
+<a name='L276'>276  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002c <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L277'>277  </a>
+<a name='L278'>278  </a>    n <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> c_max <font color='#0000FF'>-</font> c_min <font color='#0000FF'>+</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> r_max <font color='#0000FF'>-</font> r_min <font color='#0000FF'>+</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L279'>279  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> n<font color='#0000FF'>-</font><font color='#0000FF'>-</font> <font color='#0000FF'>&gt;</font> 0 <font color='#0000FF'>)</font>
+<a name='L280'>280  </a>    <font color='#0000FF'>{</font>
+<a name='L281'>281  </a>        <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(233);' class='hnd_cls'>b1</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L282'>282  </a>        <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(234);' class='hnd_cls'>b2</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L283'>283  </a>    <font color='#0000FF'>}</font>
+<a name='L284'>284  </a><font color='#0000FF'>}</font>
+<a name='L285'>285  </a>
+<a name='L286'>286  </a><font color='#A000A0'>/** Prepare LCD controller draw rectange using upcoming pixels. Returns number of pixels expected. </font>
+<a name='L287'>287  </a><font color='#A000A0'>*/</font>
+<a name='L288'>288  </a>uint32_t <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_116'>TFT_Start_Rectangle</a><font color='#0000FF'>(</font> PT_T  <font color='#0000FF'>*</font>p1<font color='#0000FF'>,</font> PT_T  <font color='#0000FF'>*</font>p2 <font color='#0000FF'>)</font>
+<a name='L289'>289  </a><font color='#0000FF'>{</font>
+<a name='L290'>290  </a>    uint16_t c_min<font color='#0000FF'>,</font>
+<a name='L291'>291  </a>             c_max<font color='#0000FF'>,</font>
+<a name='L292'>292  </a>             r_min<font color='#0000FF'>,</font>
+<a name='L293'>293  </a>             r_max<font color='#0000FF'>;</font>
+<a name='L294'>294  </a>
+<a name='L295'>295  </a>    <font color='#A000A0'>// Find bounds of rectangle</font>
+<a name='L296'>296  </a>    <span onclick='gotosrc(248);' class='hnd_cls'>c_min</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(246);' class='hnd_cls'>p1</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X<font color='#0000FF'>,</font> p2<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L297'>297  </a>    <span onclick='gotosrc(249);' class='hnd_cls'>c_max</span> <font color='#0000FF'>=</font> MAX<font color='#0000FF'>(</font> <span onclick='gotosrc(246);' class='hnd_cls'>p1</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X<font color='#0000FF'>,</font> p2<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L298'>298  </a>
+<a name='L299'>299  </a>    <span onclick='gotosrc(250);' class='hnd_cls'>r_min</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(246);' class='hnd_cls'>p1</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y<font color='#0000FF'>,</font> p2<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L300'>300  </a>    <span onclick='gotosrc(251);' class='hnd_cls'>r_max</span> <font color='#0000FF'>=</font> MAX<font color='#0000FF'>(</font> <span onclick='gotosrc(246);' class='hnd_cls'>p1</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y<font color='#0000FF'>,</font> p2<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L301'>301  </a>
+<a name='L302'>302  </a>    <font color='#A000A0'>// Clip to display size</font>
+<a name='L303'>303  </a>    <span onclick='gotosrc(249);' class='hnd_cls'>c_max</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(249);' class='hnd_cls'>c_max</span><font color='#0000FF'>,</font> TFT_WIDTH <font color='#0000FF'>-</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L304'>304  </a>    <span onclick='gotosrc(251);' class='hnd_cls'>r_max</span> <font color='#0000FF'>=</font> MIN<font color='#0000FF'>(</font> <span onclick='gotosrc(251);' class='hnd_cls'>r_max</span><font color='#0000FF'>,</font> TFT_HEIGHT <font color='#0000FF'>-</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L305'>305  </a>
+<a name='L306'>306  </a>    <font color='#A000A0'>// Enable access to full screen, reset write pointer to origin</font>
+<a name='L307'>307  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002A <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  column address set                            */</font>
+<a name='L308'>308  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(248);' class='hnd_cls'>c_min</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L309'>309  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(248);' class='hnd_cls'>c_min</span> <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*  start                                         */</font>
+<a name='L310'>310  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(249);' class='hnd_cls'>c_max</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L311'>311  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(249);' class='hnd_cls'>c_max</span> <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*  end                                           */</font>
+<a name='L312'>312  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002B <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                            <font color='#A000A0'>/*  page address set                              */</font>
+<a name='L313'>313  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(250);' class='hnd_cls'>r_min</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L314'>314  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(250);' class='hnd_cls'>r_min</span> <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*  start                                         */</font>
+<a name='L315'>315  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(251);' class='hnd_cls'>r_max</span><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>8 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L316'>316  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(251);' class='hnd_cls'>r_max</span> <font color='#0000FF'>&amp;</font> 0xff <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                         <font color='#A000A0'>/*  end                                           */</font>
+<a name='L317'>317  </a>
+<a name='L318'>318  </a>    <font color='#A000A0'>// Memory Write 0x2c</font>
+<a name='L319'>319  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x002c <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L320'>320  </a>
+<a name='L321'>321  </a>    <font color='#C6264F'>return</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(249);' class='hnd_cls'>c_max</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(248);' class='hnd_cls'>c_min</span> <font color='#0000FF'>+</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>*</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(251);' class='hnd_cls'>r_max</span> <font color='#0000FF'>-</font> <span onclick='gotosrc(250);' class='hnd_cls'>r_min</span> <font color='#0000FF'>+</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L322'>322  </a><font color='#0000FF'>}</font>
+<a name='L323'>323  </a>
+<a name='L324'>324  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_117'>TFT_Write_Rectangle_Pixel</a><font color='#0000FF'>(</font> COLOR_T  <font color='#0000FF'>*</font>color<font color='#0000FF'>,</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font>  count <font color='#0000FF'>)</font>
+<a name='L325'>325  </a><font color='#0000FF'>{</font>
+<a name='L326'>326  </a>    uint8_t b1<font color='#0000FF'>,</font>
+<a name='L327'>327  </a>            b2<font color='#0000FF'>;</font>
+<a name='L328'>328  </a>
+<a name='L329'>329  </a>    <font color='#A000A0'>// 16 bpp, 5-6-5. Assume color channel data is left-aligned</font>
+<a name='L330'>330  </a>    <span onclick='gotosrc(257);' class='hnd_cls'>b1</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(255);' class='hnd_cls'>color</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>R <font color='#0000FF'>&amp;</font> 0xf8 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> color<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G <font color='#0000FF'>&amp;</font> 0xe0 <font color='#0000FF'>)</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>5 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L331'>331  </a>    <span onclick='gotosrc(258);' class='hnd_cls'>b2</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(255);' class='hnd_cls'>color</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>G <font color='#0000FF'>&amp;</font> 0x1c <font color='#0000FF'>)</font><font color='#0000FF'>&lt;</font><font color='#0000FF'>&lt;</font>3 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <font color='#0000FF'>(</font> color<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>B <font color='#0000FF'>&amp;</font> 0xf8 <font color='#0000FF'>)</font><font color='#0000FF'>&gt;</font><font color='#0000FF'>&gt;</font>3 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L332'>332  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <span onclick='gotosrc(256);' class='hnd_cls'>count</span><font color='#0000FF'>-</font><font color='#0000FF'>-</font> <font color='#0000FF'>)</font>
+<a name='L333'>333  </a>    <font color='#0000FF'>{</font>
+<a name='L334'>334  </a>        <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(257);' class='hnd_cls'>b1</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L335'>335  </a>        <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(258);' class='hnd_cls'>b2</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L336'>336  </a>    <font color='#0000FF'>}</font>
+<a name='L337'>337  </a><font color='#0000FF'>}</font>
+<a name='L338'>338  </a>
+<a name='L339'>339  </a><font color='#A000A0'>/***********************************************/</font>
+<a name='L340'>340  </a>
+<a name='L341'>341  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_75'>TFT_Set_BL</a><font color='#0000FF'>(</font> uint8_t  on <font color='#0000FF'>)</font>
+<a name='L342'>342  </a><font color='#0000FF'>{</font>
+<a name='L343'>343  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x53 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L344'>344  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> 0x28 <font color='#0000FF'>|</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(261);' class='hnd_cls'>on</span><font color='#0000FF'>?</font> 4<font color='#0000FF'>:</font>0 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L345'>345  </a><font color='#0000FF'>}</font>
+<a name='L346'>346  </a>
+<a name='L347'>347  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_77'>TFT_Set_Brightness</a><font color='#0000FF'>(</font> uint8_t  brightness <font color='#0000FF'>)</font>
+<a name='L348'>348  </a><font color='#0000FF'>{</font>
+<a name='L349'>349  </a>    <span onclick='gotosrc(119);' class='hnd_cls'>TFT_24S_Write_Command</span><font color='#0000FF'>(</font> 0x51 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L350'>350  </a>    <span onclick='gotosrc(132);' class='hnd_cls'>TFT_24S_Write_Data</span><font color='#0000FF'>(</font> <span onclick='gotosrc(267);' class='hnd_cls'>brightness</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L351'>351  </a><font color='#0000FF'>}</font>
+<a name='L352'>352  </a><font color='#A000A0'>/***************************************************/</font>
+<a name='L353'>353  </a>
+<a name='L354'>354  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_66'>Init_ADC</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L355'>355  </a><font color='#0000FF'>{</font>
+<a name='L356'>356  </a>
+<a name='L357'>357  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC6_ADC0_MASK<font color='#0000FF'>;</font>
+<a name='L358'>358  </a>    ADC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CFG1  <font color='#0000FF'>=</font> 0x9C<font color='#0000FF'>;</font>                                         <font color='#A000A0'>/*   16 bit                                       */</font>
+<a name='L359'>359  </a>    ADC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC2   <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L360'>360  </a><font color='#0000FF'>}</font>
+<a name='L361'>361  </a>
+<a name='L362'>362  </a>
+<a name='L363'>363  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_79'>TFT_TS_Init</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L364'>364  </a><font color='#0000FF'>{</font>
+<a name='L365'>365  </a> <font color='#A000A0'>// Configure ADC</font>
+<a name='L366'>366  </a>    <span onclick='gotosrc(270);' class='hnd_cls'>Init_ADC</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L367'>367  </a>
+<a name='L368'>368  </a>    <font color='#A000A0'>// Configure GPIO? Done in Read function</font>
+<a name='L369'>369  </a><font color='#0000FF'>}</font>
+<a name='L370'>370  </a>
+<a name='L371'>371  </a>
+<a name='L372'>372  </a><font color='#C6264F'>static</font>  uint16_t xl <font color='#0000FF'>=</font> 0<font color='#0000FF'>,</font>
+<a name='L373'>373  </a>                 yu <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L374'>374  </a>
+<a name='L375'>375  </a>uint32_t <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_54'>TFT_TS_Read</a><font color='#0000FF'>(</font> PT_T  <font color='#0000FF'>*</font>position <font color='#0000FF'>)</font>
+<a name='L376'>376  </a><font color='#0000FF'>{</font>
+<a name='L377'>377  </a> <font color='#A000A0'>// Return 1 if valid touch, update position. Else return 0</font>
+<a name='L378'>378  </a>    uint32_t x<font color='#0000FF'>,</font>
+<a name='L379'>379  </a>             y<font color='#0000FF'>;</font>
+<a name='L380'>380  </a>    uint32_t b<font color='#0000FF'>;</font>
+<a name='L381'>381  </a>
+<a name='L382'>382  </a>    <font color='#A000A0'>// Determine if screen was pressed.</font>
+<a name='L383'>383  </a>    <font color='#A000A0'>// Set YU digital output at ground, </font>
+<a name='L384'>384  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YU_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L385'>385  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YU_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L386'>386  </a>    PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                   <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_TS_YU_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L387'>387  </a>    PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR                    <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_TS_YU_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>       <font color='#A000A0'>/*   Clear YU to 0                                */</font>
+<a name='L388'>388  </a>
+<a name='L389'>389  </a>    <font color='#A000A0'>// Set YD + XL to open</font>
+<a name='L390'>390  </a>    <font color='#A000A0'>// Set YD as ADC input</font>
+<a name='L391'>391  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YD_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L392'>392  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YD_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L393'>393  </a>
+<a name='L394'>394  </a>    <font color='#A000A0'>// Set XL as digital input</font>
+<a name='L395'>395  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XL_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L396'>396  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XL_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L397'>397  </a>    PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                   <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>MASK<font color='#0000FF'>(</font> TFT_TS_XL_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>      <font color='#A000A0'>/*   Input                                        */</font>
+<a name='L398'>398  </a>
+<a name='L399'>399  </a>    <font color='#A000A0'>// Set XR as digital input with pull-up</font>
+<a name='L400'>400  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XR_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L401'>401  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XR_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L402'>402  </a>    PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XR_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_PE_MASK<font color='#0000FF'>;</font>            <font color='#A000A0'>/*   Enable pull-up                               */</font>
+<a name='L403'>403  </a>    PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR                   <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>MASK<font color='#0000FF'>(</font> TFT_TS_XR_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>      <font color='#A000A0'>/*   Input                                        */</font>
+<a name='L404'>404  </a>
+<a name='L405'>405  </a>    <font color='#A000A0'>// Wait for the inputs to settle</font>
+<a name='L406'>406  </a>    <span onclick='gotosrc(29);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> TS_DELAY <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L407'>407  </a>    <font color='#A000A0'>// Read XR input via digital</font>
+<a name='L408'>408  </a>    <font color='#A000A0'>// if XR is 0, then screen is pressed</font>
+<a name='L409'>409  </a>    b <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDIR <font color='#0000FF'>)</font> <font color='#0000FF'>&amp;</font> MASK<font color='#0000FF'>(</font> TFT_TS_XR_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L410'>410  </a>
+<a name='L411'>411  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> b <font color='#0000FF'>&gt;</font> 0 <font color='#0000FF'>)</font>
+<a name='L412'>412  </a>    <font color='#0000FF'>{</font>
+<a name='L413'>413  </a>    <font color='#A000A0'>// Screen not pressed</font>
+<a name='L414'>414  </a>        <font color='#C6264F'>return</font> 0<font color='#0000FF'>;</font>
+<a name='L415'>415  </a>    <font color='#0000FF'>}</font>
+<a name='L416'>416  </a>    <font color='#C6264F'>else</font>
+<a name='L417'>417  </a>    <font color='#0000FF'>{</font>
+<a name='L418'>418  </a>    <font color='#A000A0'>// Read X Position</font>
+<a name='L419'>419  </a>    <font color='#A000A0'>// Configure inputs to ADC</font>
+<a name='L420'>420  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YU_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L421'>421  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YU_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L422'>422  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YD_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L423'>423  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YD_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L424'>424  </a>
+<a name='L425'>425  </a>
+<a name='L426'>426  </a>        <font color='#A000A0'>// Configure outputs to GPIO</font>
+<a name='L427'>427  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XL_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L428'>428  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XL_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L429'>429  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XR_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L430'>430  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XR_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L431'>431  </a>        PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_TS_XL_BIT <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> MASK<font color='#0000FF'>(</font> TFT_TS_XR_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L432'>432  </a>        PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR                    <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_TS_XR_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>   <font color='#A000A0'>/*     Set XR to 1                                */</font>
+<a name='L433'>433  </a>        PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR                    <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_TS_XL_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>   <font color='#A000A0'>/*     Clear XL to 0                              */</font>
+<a name='L434'>434  </a>        <font color='#A000A0'>// Wait for inputs to settle</font>
+<a name='L435'>435  </a>        <span onclick='gotosrc(29);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> TS_DELAY <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L436'>436  </a>
+<a name='L437'>437  </a>        <font color='#A000A0'>// Read inputs</font>
+<a name='L438'>438  </a>        ADC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC1<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font> <font color='#0000FF'>=</font> TFT_TS_YU_CHANNEL<font color='#0000FF'>;</font>                     <font color='#A000A0'>/*     start conversion on channel YU             */</font>
+<a name='L439'>439  </a>        <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <font color='#0000FF'>!</font><font color='#0000FF'>(</font> ADC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC1<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font> ADC_SC1_COCO_MASK <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L440'>440  </a>        <span onclick='gotosrc(286);' class='hnd_cls'>yu</span>                           <font color='#0000FF'>=</font> ADC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>R<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L441'>441  </a>        x                            <font color='#0000FF'>=</font> yu<font color='#0000FF'>;</font>
+<a name='L442'>442  </a>
+<a name='L443'>443  </a>        <font color='#A000A0'>// Read Y Position</font>
+<a name='L444'>444  </a>        <font color='#A000A0'>// Configure inputs to ADC</font>
+<a name='L445'>445  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XL_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L446'>446  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XL_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L447'>447  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XR_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L448'>448  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XR_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L449'>449  </a>        <font color='#A000A0'>// Disable pull-up - just to be sure</font>
+<a name='L450'>450  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_XR_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_PE_MASK<font color='#0000FF'>;</font>
+<a name='L451'>451  </a>
+<a name='L452'>452  </a>        <font color='#A000A0'>// Configure outputs to GPIO</font>
+<a name='L453'>453  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YU_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L454'>454  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YU_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L455'>455  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YD_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L456'>456  </a>        PORTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> TFT_TS_YD_BIT <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L457'>457  </a>        PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PDDR <font color='#0000FF'>|</font><font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_TS_YU_BIT <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> MASK<font color='#0000FF'>(</font> TFT_TS_YD_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L458'>458  </a>        PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PSOR                    <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_TS_YD_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>   <font color='#A000A0'>/*     Set YD to 1                                */</font>
+<a name='L459'>459  </a>        PTE<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCOR                    <font color='#0000FF'>=</font> MASK<font color='#0000FF'>(</font> TFT_TS_YU_BIT <font color='#0000FF'>)</font><font color='#0000FF'>;</font>   <font color='#A000A0'>/*     Clear YU to 0                              */</font>
+<a name='L460'>460  </a>        <font color='#A000A0'>// Wait for the inputs to settle</font>
+<a name='L461'>461  </a>        <span onclick='gotosrc(29);' class='hnd_cls'>Delay</span><font color='#0000FF'>(</font> TS_DELAY <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L462'>462  </a>
+<a name='L463'>463  </a>        <font color='#A000A0'>// Read inputs</font>
+<a name='L464'>464  </a>        ADC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC1<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font> <font color='#0000FF'>=</font> TFT_TS_XL_CHANNEL<font color='#0000FF'>;</font>                     <font color='#A000A0'>/*     start conversion on channel XL             */</font>
+<a name='L465'>465  </a>        <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <font color='#0000FF'>!</font><font color='#0000FF'>(</font> ADC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC1<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font> ADC_SC1_COCO_MASK <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L466'>466  </a>        <span onclick='gotosrc(285);' class='hnd_cls'>xl</span> <font color='#0000FF'>=</font> ADC0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>R<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L467'>467  </a>        y  <font color='#0000FF'>=</font> xl<font color='#0000FF'>;</font>
+<a name='L468'>468  </a>
+<a name='L469'>469  </a>        <font color='#A000A0'>// Apply calibration factors to raw position information</font>
+<a name='L470'>470  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(31);' class='hnd_cls'>TFT_TS_Calibrated</span> <font color='#0000FF'>)</font>
+<a name='L471'>471  </a>        <font color='#0000FF'>{</font>
+<a name='L472'>472  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> x <font color='#0000FF'>&lt;</font> TFT_TS_X_Offset <font color='#0000FF'>)</font>
+<a name='L473'>473  </a>            <font color='#0000FF'>{</font>
+<a name='L474'>474  </a>                <span onclick='gotosrc(289);' class='hnd_cls'>position</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L475'>475  </a>            <font color='#0000FF'>}</font>
+<a name='L476'>476  </a>            <font color='#C6264F'>else</font>
+<a name='L477'>477  </a>            <font color='#0000FF'>{</font>
+<a name='L478'>478  </a>                <span onclick='gotosrc(289);' class='hnd_cls'>position</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> x <font color='#0000FF'>-</font> TFT_TS_X_Offset <font color='#0000FF'>)</font> <font color='#0000FF'>/</font> TFT_TS_X_Scale<font color='#0000FF'>;</font>
+<a name='L479'>479  </a>            <font color='#0000FF'>}</font>
+<a name='L480'>480  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> y <font color='#0000FF'>&lt;</font> TFT_TS_Y_Offset <font color='#0000FF'>)</font>
+<a name='L481'>481  </a>            <font color='#0000FF'>{</font>
+<a name='L482'>482  </a>                <span onclick='gotosrc(289);' class='hnd_cls'>position</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L483'>483  </a>            <font color='#0000FF'>}</font>
+<a name='L484'>484  </a>            <font color='#C6264F'>else</font>
+<a name='L485'>485  </a>            <font color='#0000FF'>{</font>
+<a name='L486'>486  </a>                <span onclick='gotosrc(289);' class='hnd_cls'>position</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> y <font color='#0000FF'>-</font> TFT_TS_Y_Offset <font color='#0000FF'>)</font> <font color='#0000FF'>/</font> TFT_TS_Y_Scale<font color='#0000FF'>;</font>
+<a name='L487'>487  </a>            <font color='#0000FF'>}</font>
+<a name='L488'>488  </a>        <font color='#0000FF'>}</font>
+<a name='L489'>489  </a>        <font color='#C6264F'>else</font>
+<a name='L490'>490  </a>        <font color='#0000FF'>{</font>
+<a name='L491'>491  </a>            <span onclick='gotosrc(289);' class='hnd_cls'>position</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>X <font color='#0000FF'>=</font> x<font color='#0000FF'>;</font>
+<a name='L492'>492  </a>            <span onclick='gotosrc(289);' class='hnd_cls'>position</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>Y <font color='#0000FF'>=</font> y<font color='#0000FF'>;</font>
+<a name='L493'>493  </a>        <font color='#0000FF'>}</font>
+<a name='L494'>494  </a>        <font color='#C6264F'>return</font> 1<font color='#0000FF'>;</font>
+<a name='L495'>495  </a>    <font color='#0000FF'>}</font>
+<a name='L496'>496  </a><font color='#0000FF'>}</font>
+<a name='L497'>497  </a>
+<a name='L498'>498  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_80'>TFT_TS_Test</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L499'>499  </a><font color='#0000FF'>{</font>
+<a name='L500'>500  </a>    PT_T    p<font color='#0000FF'>,</font>
+<a name='L501'>501  </a>            bp<font color='#0000FF'>,</font>
+<a name='L502'>502  </a>            pp<font color='#0000FF'>;</font>
+<a name='L503'>503  </a>    COLOR_T c<font color='#0000FF'>;</font>
+<a name='L504'>504  </a>    <font color='#C6264F'>char</font>    buffer<font color='#0000FF'>[</font> 32 <font color='#0000FF'>]</font><font color='#0000FF'>;</font>
+<a name='L505'>505  </a>
+<a name='L506'>506  </a>    <span onclick='gotosrc(360);' class='hnd_cls'>TFT_Erase</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L507'>507  </a>
+<a name='L508'>508  </a>    <span onclick='gotosrc(356);' class='hnd_cls'>pp</span>.X <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L509'>509  </a>    <span onclick='gotosrc(356);' class='hnd_cls'>pp</span>.Y <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L510'>510  </a>
+<a name='L511'>511  </a>    <span onclick='gotosrc(355);' class='hnd_cls'>bp</span>.X <font color='#0000FF'>=</font> COL_TO_X<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L512'>512  </a>    <span onclick='gotosrc(355);' class='hnd_cls'>bp</span>.Y <font color='#0000FF'>=</font> ROW_TO_Y<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L513'>513  </a>    c.R  <font color='#0000FF'>=</font> 255<font color='#0000FF'>;</font>
+<a name='L514'>514  </a>    c.G  <font color='#0000FF'>=</font> 100<font color='#0000FF'>;</font>
+<a name='L515'>515  </a>    c.B  <font color='#0000FF'>=</font> 100<font color='#0000FF'>;</font>
+<a name='L516'>516  </a>
+<a name='L517'>517  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font>
+<a name='L518'>518  </a>    <font color='#0000FF'>{</font>
+<a name='L519'>519  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(288);' class='hnd_cls'>TFT_TS_Read</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font>p <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L520'>520  </a>        <font color='#0000FF'>{</font>
+<a name='L521'>521  </a>            <span onclick='gotosrc(355);' class='hnd_cls'>bp</span>.X <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L522'>522  </a>            sprintf<font color='#0000FF'>(</font> <span onclick='gotosrc(359);' class='hnd_cls'>buffer</span><font color='#0000FF'>,</font> <font color='#008000'>&quot;X:%5d Y:%5d&quot;</font><font color='#0000FF'>,</font> p.X<font color='#0000FF'>,</font> p.Y <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L523'>523  </a>            <span onclick='gotosrc(368);' class='hnd_cls'>TFT_Text_PrintStr</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(355);' class='hnd_cls'>bp</span><font color='#0000FF'>,</font> <span onclick='gotosrc(359);' class='hnd_cls'>buffer</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L524'>524  </a>
+<a name='L525'>525  </a><font color='#C6264F'>#if</font> 0
+<a name='L526'>526  </a>            <span onclick='gotosrc(197);' class='hnd_cls'>TFT_Plot_Pixel</span><font color='#408080'>(</font> <font color='#408080'>&amp;</font>p<font color='#408080'>,</font> <font color='#408080'>&amp;</font>c <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L527'>527  </a>            p.X<font color='#408080'>+</font><font color='#408080'>+</font><font color='#408080'>;</font>
+<a name='L528'>528  </a>            <span onclick='gotosrc(197);' class='hnd_cls'>TFT_Plot_Pixel</span><font color='#408080'>(</font> <font color='#408080'>&amp;</font>p<font color='#408080'>,</font> <font color='#408080'>&amp;</font>c <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L529'>529  </a>            p.X <font color='#408080'>-</font><font color='#408080'>=</font> 2<font color='#408080'>;</font>
+<a name='L530'>530  </a>            <span onclick='gotosrc(197);' class='hnd_cls'>TFT_Plot_Pixel</span><font color='#408080'>(</font> <font color='#408080'>&amp;</font>p<font color='#408080'>,</font> <font color='#408080'>&amp;</font>c <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L531'>531  </a>            p.X<font color='#408080'>+</font><font color='#408080'>+</font><font color='#408080'>;</font>
+<a name='L532'>532  </a>
+<a name='L533'>533  </a>            p.Y<font color='#408080'>+</font><font color='#408080'>+</font><font color='#408080'>;</font>
+<a name='L534'>534  </a>            <span onclick='gotosrc(197);' class='hnd_cls'>TFT_Plot_Pixel</span><font color='#408080'>(</font> <font color='#408080'>&amp;</font>p<font color='#408080'>,</font> <font color='#408080'>&amp;</font>c <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L535'>535  </a>            p.Y <font color='#408080'>-</font><font color='#408080'>=</font> 2<font color='#408080'>;</font>
+<a name='L536'>536  </a>            <span onclick='gotosrc(197);' class='hnd_cls'>TFT_Plot_Pixel</span><font color='#408080'>(</font> <font color='#408080'>&amp;</font>p<font color='#408080'>,</font> <font color='#408080'>&amp;</font>c <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L537'>537  </a><font color='#C6264F'>#else</font>
+<a name='L538'>538  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(356);' class='hnd_cls'>pp</span>.X <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>&amp;</font> <font color='#0000FF'>(</font> pp.Y <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L539'>539  </a>            <font color='#0000FF'>{</font>
+<a name='L540'>540  </a>                <span onclick='gotosrc(356);' class='hnd_cls'>pp</span> <font color='#0000FF'>=</font> p<font color='#0000FF'>;</font>
+<a name='L541'>541  </a>            <font color='#0000FF'>}</font>
+<a name='L542'>542  </a>            TFT_Draw_Line<font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font>p<font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font>pp<font color='#0000FF'>,</font> <font color='#0000FF'>&amp;</font>c <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L543'>543  </a>            <span onclick='gotosrc(356);' class='hnd_cls'>pp</span> <font color='#0000FF'>=</font> p<font color='#0000FF'>;</font>
+<a name='L544'>544  </a><font color='#C6264F'>#endif</font>
+<a name='L545'>545  </a>        <font color='#0000FF'>}</font>
+<a name='L546'>546  </a>        <font color='#C6264F'>else</font>
+<a name='L547'>547  </a>        <font color='#0000FF'>{</font>
+<a name='L548'>548  </a>            <span onclick='gotosrc(356);' class='hnd_cls'>pp</span>.X <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L549'>549  </a>            <span onclick='gotosrc(356);' class='hnd_cls'>pp</span>.Y <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L550'>550  </a>
+<a name='L551'>551  </a>            <span onclick='gotosrc(355);' class='hnd_cls'>bp</span>.X <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L552'>552  </a>            <span onclick='gotosrc(368);' class='hnd_cls'>TFT_Text_PrintStr</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(355);' class='hnd_cls'>bp</span><font color='#0000FF'>,</font> <font color='#008000'>&quot;Not Pressed    &quot;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L553'>553  </a>        <font color='#0000FF'>}</font>
+<a name='L554'>554  </a>    <font color='#0000FF'>}</font>
+<a name='L555'>555  </a><font color='#0000FF'>}</font>
+<a name='L556'>556  </a>
+<a name='L557'>557  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_17.html#OD0_3_78'>TFT_TS_Calibrate</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L558'>558  </a><font color='#0000FF'>{</font>
+<a name='L559'>559  </a>    PT_T     p<font color='#0000FF'>,</font>
+<a name='L560'>560  </a>             bp<font color='#0000FF'>,</font>
+<a name='L561'>561  </a>             p_bound<font color='#0000FF'>;</font>
+<a name='L562'>562  </a>    uint32_t i<font color='#0000FF'>;</font>
+<a name='L563'>563  </a>
+<a name='L564'>564  </a>    <span onclick='gotosrc(375);' class='hnd_cls'>bp</span>.X <font color='#0000FF'>=</font> COL_TO_X<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L565'>565  </a>    <span onclick='gotosrc(375);' class='hnd_cls'>bp</span>.Y <font color='#0000FF'>=</font> ROW_TO_Y<font color='#0000FF'>(</font> 3 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L566'>566  </a>
+<a name='L567'>567  </a>    <span onclick='gotosrc(368);' class='hnd_cls'>TFT_Text_PrintStr</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(375);' class='hnd_cls'>bp</span><font color='#0000FF'>,</font> <font color='#008000'>&quot;Calibrate TS&quot;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L568'>568  </a>    <span onclick='gotosrc(375);' class='hnd_cls'>bp</span>.X <font color='#0000FF'>=</font> COL_TO_X<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L569'>569  </a>    <span onclick='gotosrc(375);' class='hnd_cls'>bp</span>.Y <font color='#0000FF'>=</font> ROW_TO_Y<font color='#0000FF'>(</font> 4 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L570'>570  </a>    <span onclick='gotosrc(368);' class='hnd_cls'>TFT_Text_PrintStr</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(375);' class='hnd_cls'>bp</span><font color='#0000FF'>,</font> <font color='#008000'>&quot;by pressing each +&quot;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L571'>571  </a>
+<a name='L572'>572  </a>    <span onclick='gotosrc(375);' class='hnd_cls'>bp</span>.X <font color='#0000FF'>=</font> COL_TO_X<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L573'>573  </a>    <span onclick='gotosrc(375);' class='hnd_cls'>bp</span>.Y <font color='#0000FF'>=</font> ROW_TO_Y<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L574'>574  </a>    <span onclick='gotosrc(368);' class='hnd_cls'>TFT_Text_PrintStr</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(375);' class='hnd_cls'>bp</span><font color='#0000FF'>,</font> <font color='#008000'>&quot;+&quot;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L575'>575  </a>
+<a name='L576'>576  </a>    <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.X <font color='#0000FF'>=</font> 0xffff<font color='#0000FF'>;</font>
+<a name='L577'>577  </a>    <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.Y <font color='#0000FF'>=</font> 0xffff<font color='#0000FF'>;</font>
+<a name='L578'>578  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> i <font color='#0000FF'>&lt;</font> TS_CALIB_SAMPLES<font color='#0000FF'>;</font> i<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L579'>579  </a>    <font color='#0000FF'>{</font>
+<a name='L580'>580  </a>        <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <font color='#0000FF'>!</font><span onclick='gotosrc(288);' class='hnd_cls'>TFT_TS_Read</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font>p <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L581'>581  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> p.X <font color='#0000FF'>&lt;</font> p_bound.X <font color='#0000FF'>)</font>
+<a name='L582'>582  </a>            <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.X <font color='#0000FF'>=</font> p.X<font color='#0000FF'>;</font>
+<a name='L583'>583  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> p.Y <font color='#0000FF'>&lt;</font> p_bound.Y <font color='#0000FF'>)</font>
+<a name='L584'>584  </a>            <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.Y <font color='#0000FF'>=</font> p.Y<font color='#0000FF'>;</font>
+<a name='L585'>585  </a>    <font color='#0000FF'>}</font>
+<a name='L586'>586  </a>
+<a name='L587'>587  </a>    <span onclick='gotosrc(35);' class='hnd_cls'>TFT_TS_X_Offset</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.X<font color='#0000FF'>;</font>
+<a name='L588'>588  </a>    <span onclick='gotosrc(39);' class='hnd_cls'>TFT_TS_Y_Offset</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.Y<font color='#0000FF'>;</font>
+<a name='L589'>589  </a>
+<a name='L590'>590  </a>    <span onclick='gotosrc(44);' class='hnd_cls'>TS_Min</span>          <font color='#0000FF'>=</font> <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span><font color='#0000FF'>;</font>
+<a name='L591'>591  </a>
+<a name='L592'>592  </a>    <font color='#A000A0'>// Wait for release</font>
+<a name='L593'>593  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <span onclick='gotosrc(288);' class='hnd_cls'>TFT_TS_Read</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font>p <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L594'>594  </a>
+<a name='L595'>595  </a>    <span onclick='gotosrc(360);' class='hnd_cls'>TFT_Erase</span><font color='#0000FF'>(</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L596'>596  </a>
+<a name='L597'>597  </a>    <font color='#A000A0'>/*</font>
+<a name='L598'>598  </a><font color='#A000A0'>    bp.X = COL_TO_X(TFT_MAX_COLS-1);</font>
+<a name='L599'>599  </a><font color='#A000A0'>    bp.Y = ROW_TO_Y(TFT_MAX_ROWS-1);</font>
+<a name='L600'>600  </a><font color='#A000A0'>    */</font>
+<a name='L601'>601  </a>    <span onclick='gotosrc(375);' class='hnd_cls'>bp</span>.X <font color='#0000FF'>=</font> TFT_WIDTH <font color='#0000FF'>-</font> CHAR_WIDTH <font color='#0000FF'>-</font> 1<font color='#0000FF'>;</font>
+<a name='L602'>602  </a>    <span onclick='gotosrc(375);' class='hnd_cls'>bp</span>.Y <font color='#0000FF'>=</font> TFT_HEIGHT <font color='#0000FF'>-</font> CHAR_HEIGHT <font color='#0000FF'>-</font> 1<font color='#0000FF'>;</font>
+<a name='L603'>603  </a>    <span onclick='gotosrc(368);' class='hnd_cls'>TFT_Text_PrintStr</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font><span onclick='gotosrc(375);' class='hnd_cls'>bp</span><font color='#0000FF'>,</font> <font color='#008000'>&quot;+&quot;</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L604'>604  </a>
+<a name='L605'>605  </a>    <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.X <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L606'>606  </a>    <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.Y <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L607'>607  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> i <font color='#0000FF'>&lt;</font> TS_CALIB_SAMPLES<font color='#0000FF'>;</font> i<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L608'>608  </a>    <font color='#0000FF'>{</font>
+<a name='L609'>609  </a>        <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <font color='#0000FF'>!</font><span onclick='gotosrc(288);' class='hnd_cls'>TFT_TS_Read</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font>p <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L610'>610  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> p.X <font color='#0000FF'>&gt;</font> p_bound.X <font color='#0000FF'>)</font>
+<a name='L611'>611  </a>            <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.X <font color='#0000FF'>=</font> p.X<font color='#0000FF'>;</font>
+<a name='L612'>612  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> p.Y <font color='#0000FF'>&gt;</font> p_bound.Y <font color='#0000FF'>)</font>
+<a name='L613'>613  </a>            <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.Y <font color='#0000FF'>=</font> p.Y<font color='#0000FF'>;</font>
+<a name='L614'>614  </a>    <font color='#0000FF'>}</font>
+<a name='L615'>615  </a>
+<a name='L616'>616  </a>    <span onclick='gotosrc(45);' class='hnd_cls'>TS_Max</span>         <font color='#0000FF'>=</font> <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span><font color='#0000FF'>;</font>
+<a name='L617'>617  </a>
+<a name='L618'>618  </a>    <span onclick='gotosrc(33);' class='hnd_cls'>TFT_TS_X_Scale</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.X <font color='#0000FF'>-</font> TFT_TS_X_Offset <font color='#0000FF'>)</font> <font color='#0000FF'>/</font> TFT_WIDTH<font color='#0000FF'>;</font>
+<a name='L619'>619  </a>    <span onclick='gotosrc(37);' class='hnd_cls'>TFT_TS_Y_Scale</span> <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(376);' class='hnd_cls'>p_bound</span>.Y <font color='#0000FF'>-</font> TFT_TS_Y_Offset <font color='#0000FF'>)</font> <font color='#0000FF'>/</font> TFT_HEIGHT<font color='#0000FF'>;</font>
+<a name='L620'>620  </a>
+<a name='L621'>621  </a>    <font color='#A000A0'>// Wait for release</font>
+<a name='L622'>622  </a>    <font color='#C6264F'>while</font><font color='#0000FF'>(</font> <span onclick='gotosrc(288);' class='hnd_cls'>TFT_TS_Read</span><font color='#0000FF'>(</font> <font color='#0000FF'>&amp;</font>p <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L623'>623  </a>
+<a name='L624'>624  </a>    <span onclick='gotosrc(31);' class='hnd_cls'>TFT_TS_Calibrated</span> <font color='#0000FF'>=</font> 1<font color='#0000FF'>;</font>
+<a name='L625'>625  </a>
+<a name='L626'>626  </a><font color='#0000FF'>}</font>
+<a name='L627'>627  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

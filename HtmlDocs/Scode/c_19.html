@@ -1,0 +1,237 @@
+﻿<html><head><title>Source Code - timers.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_19.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; timers.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>timers.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_19.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'>  1  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;timers.h&quot;</font>
+<a name='L2'>  2  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;MKL25Z4.h&quot;</font>
+<a name='L3'>  3  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;region.h&quot;</font>
+<a name='L4'>  4  </a><font color='#C6264F'>#include</font>     <font color='#008000'>&quot;profile.h&quot;</font>
+<a name='L5'>  5  </a>
+<a name='L6'>  6  </a><font color='#C6264F'>volatile</font>  <font color='#C6264F'>unsigned</font>      PIT_interrupt_counter <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L7'>  7  </a><font color='#C6264F'>volatile</font>  <font color='#C6264F'>unsigned</font>      LCD_update_requested  <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L8'>  8  </a>          <font color='#C6264F'>unsigned</font>  <font color='#C6264F'>int</font> PC_val                <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L9'>  9  </a>
+<a name='L10'> 10  </a><font color='#C6264F'>extern</font>            <font color='#C6264F'>unsigned</font>       profile_ticks<font color='#0000FF'>;</font>
+<a name='L11'> 11  </a><font color='#C6264F'>extern</font>  <font color='#C6264F'>volatile</font>            <font color='#C6264F'>char</font> profiling_enabled<font color='#0000FF'>;</font>
+<a name='L12'> 12  </a>
+<a name='L13'> 13  </a><font color='#C6264F'>extern</font>  <font color='#C6264F'>volatile</font>  <font color='#C6264F'>unsigned</font>  <font color='#C6264F'>int</font> adx_lost<font color='#0000FF'>,</font>
+<a name='L14'> 14  </a>                                num_lost<font color='#0000FF'>;</font>
+<a name='L15'> 15  </a>
+<a name='L16'> 16  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_87'>PIT_IRQHandler</a><font color='#0000FF'>(</font> <font color='#0000FF'>)</font>
+<a name='L17'> 17  </a><font color='#0000FF'>{</font>
+<a name='L18'> 18  </a>    <font color='#C6264F'>unsigned</font>  <font color='#C6264F'>int</font> s<font color='#0000FF'>,</font>
+<a name='L19'> 19  </a>                  e<font color='#0000FF'>;</font>
+<a name='L20'> 20  </a>    <font color='#C6264F'>unsigned</font>  <font color='#C6264F'>int</font> i<font color='#0000FF'>;</font>
+<a name='L21'> 21  </a>
+<a name='L22'> 22  </a>    <font color='#A000A0'>//clear pending IRQ</font>
+<a name='L23'> 23  </a>    NVIC_ClearPendingIRQ<font color='#0000FF'>(</font> PIT_IRQn <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L24'> 24  </a>
+<a name='L25'> 25  </a>    <font color='#A000A0'>// check to see which channel triggered interrupt </font>
+<a name='L26'> 26  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.TFLG <font color='#0000FF'>&amp;</font> PIT_TFLG_TIF_MASK <font color='#0000FF'>)</font>
+<a name='L27'> 27  </a>    <font color='#0000FF'>{</font>
+<a name='L28'> 28  </a>    <font color='#A000A0'>// clear status flag for timer channel 0</font>
+<a name='L29'> 29  </a>        PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.TFLG <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> PIT_TFLG_TIF_MASK<font color='#0000FF'>;</font>
+<a name='L30'> 30  </a>
+<a name='L31'> 31  </a>        <font color='#A000A0'>// Do ISR work</font>
+<a name='L32'> 32  </a>        <font color='#A000A0'>// Profiler</font>
+<a name='L33'> 33  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(32);' class='hnd_cls'>profiling_enabled</span> <font color='#0000FF'>&gt;</font> 0 <font color='#0000FF'>)</font>
+<a name='L34'> 34  </a>        <font color='#0000FF'>{</font>
+<a name='L35'> 35  </a>            <span onclick='gotosrc(30);' class='hnd_cls'>PC_val</span>
+<a name='L36'> 36  </a>            <font color='#0000FF'>=</font> <font color='#0000FF'>*</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <font color='#C6264F'>unsigned</font> <font color='#C6264F'>int</font> <font color='#0000FF'>*</font> <font color='#0000FF'>)</font><font color='#0000FF'>(</font> __current_sp<font color='#0000FF'>(</font> <font color='#0000FF'>)</font> <font color='#0000FF'>+</font> CUR_FRAME_SIZE <font color='#0000FF'>+</font> RET_ADX_OFFSET <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L37'> 37  </a>            <span onclick='gotosrc(31);' class='hnd_cls'>profile_ticks</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font><font color='#0000FF'>;</font>
+<a name='L38'> 38  </a>
+<a name='L39'> 39  </a>            <font color='#A000A0'>/* look up function in table and increment counter  */</font>
+<a name='L40'> 40  </a>            <font color='#C6264F'>for</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font> i <font color='#0000FF'>&lt;</font> NumProfileRegions<font color='#0000FF'>;</font> i<font color='#0000FF'>+</font><font color='#0000FF'>+</font> <font color='#0000FF'>)</font>
+<a name='L41'> 41  </a>            <font color='#0000FF'>{</font>
+<a name='L42'> 42  </a>                s <font color='#0000FF'>=</font> RegionTable<font color='#0000FF'>[</font> i <font color='#0000FF'>]</font>.Start<font color='#0000FF'>;</font>
+<a name='L43'> 43  </a>                e <font color='#0000FF'>=</font> RegionTable<font color='#0000FF'>[</font> i <font color='#0000FF'>]</font>.End<font color='#0000FF'>;</font>
+<a name='L44'> 44  </a>                <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <span onclick='gotosrc(30);' class='hnd_cls'>PC_val</span> <font color='#0000FF'>&gt;</font><font color='#0000FF'>=</font> s <font color='#0000FF'>)</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>&amp;</font> <font color='#0000FF'>(</font> PC_val <font color='#0000FF'>&lt;</font><font color='#0000FF'>=</font> e <font color='#0000FF'>)</font> <font color='#0000FF'>)</font>
+<a name='L45'> 45  </a>                <font color='#0000FF'>{</font>
+<a name='L46'> 46  </a>                    <span onclick='gotosrc(63);' class='hnd_cls'>RegionCount</span><font color='#0000FF'>[</font> i <font color='#0000FF'>]</font><font color='#0000FF'>+</font><font color='#0000FF'>+</font><font color='#0000FF'>;</font>
+<a name='L47'> 47  </a>                    <font color='#C6264F'>break</font><font color='#0000FF'>;</font>                                      <font color='#A000A0'>/*           break out of the for loop            */</font>
+<a name='L48'> 48  </a>                <font color='#0000FF'>}</font>
+<a name='L49'> 49  </a>            <font color='#0000FF'>}</font>
+<a name='L50'> 50  </a>            <font color='#C6264F'>if</font><font color='#0000FF'>(</font> i <font color='#0000FF'>=</font><font color='#0000FF'>=</font> NumProfileRegions <font color='#0000FF'>)</font>
+<a name='L51'> 51  </a>            <font color='#0000FF'>{</font>
+<a name='L52'> 52  </a>                <span onclick='gotosrc(33);' class='hnd_cls'>adx_lost</span> <font color='#0000FF'>=</font> <span onclick='gotosrc(30);' class='hnd_cls'>PC_val</span><font color='#0000FF'>;</font>
+<a name='L53'> 53  </a>                <span onclick='gotosrc(34);' class='hnd_cls'>num_lost</span><font color='#0000FF'>+</font><font color='#0000FF'>+</font><font color='#0000FF'>;</font>
+<a name='L54'> 54  </a>            <font color='#0000FF'>}</font>
+<a name='L55'> 55  </a>        <font color='#0000FF'>}</font>
+<a name='L56'> 56  </a>    <font color='#0000FF'>}</font>
+<a name='L57'> 57  </a>    <font color='#C6264F'>else</font>
+<a name='L58'> 58  </a>        <font color='#C6264F'>if</font><font color='#0000FF'>(</font> PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 1 <font color='#0000FF'>]</font>.TFLG <font color='#0000FF'>&amp;</font> PIT_TFLG_TIF_MASK <font color='#0000FF'>)</font>
+<a name='L59'> 59  </a>        <font color='#0000FF'>{</font>
+<a name='L60'> 60  </a>        <font color='#A000A0'>// clear status flag for timer channel 1</font>
+<a name='L61'> 61  </a>            PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 1 <font color='#0000FF'>]</font>.TFLG <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> PIT_TFLG_TIF_MASK<font color='#0000FF'>;</font>
+<a name='L62'> 62  </a>        <font color='#0000FF'>}</font>
+<a name='L63'> 63  </a><font color='#0000FF'>}</font>
+<a name='L64'> 64  </a>
+<a name='L65'> 65  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_94'>PIT_Init</a><font color='#0000FF'>(</font> <font color='#C6264F'>unsigned</font>  period <font color='#0000FF'>)</font>
+<a name='L66'> 66  </a><font color='#0000FF'>{</font>
+<a name='L67'> 67  </a> <font color='#A000A0'>// Enable clock to PIT module</font>
+<a name='L68'> 68  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6              <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC6_PIT_MASK<font color='#0000FF'>;</font>
+<a name='L69'> 69  </a>
+<a name='L70'> 70  </a>    <font color='#A000A0'>// Enable module, freeze timers in debug mode</font>
+<a name='L71'> 71  </a>    PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>MCR                <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PIT_MCR_MDIS_MASK<font color='#0000FF'>;</font>
+<a name='L72'> 72  </a>    PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>MCR                <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PIT_MCR_FRZ_MASK<font color='#0000FF'>;</font>
+<a name='L73'> 73  </a>
+<a name='L74'> 74  </a>    <font color='#A000A0'>// Initialize PIT0 to count down from argument </font>
+<a name='L75'> 75  </a>    PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.LDVAL  <font color='#0000FF'>=</font> PIT_LDVAL_TSV<font color='#0000FF'>(</font> <span onclick='gotosrc(69);' class='hnd_cls'>period</span> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L76'> 76  </a>
+<a name='L77'> 77  </a>    <font color='#A000A0'>// No chaining</font>
+<a name='L78'> 78  </a>    PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.TCTRL <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> PIT_TCTRL_CHN_MASK<font color='#0000FF'>;</font>
+<a name='L79'> 79  </a>
+<a name='L80'> 80  </a>    <font color='#A000A0'>// Generate interrupts</font>
+<a name='L81'> 81  </a>    PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.TCTRL <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PIT_TCTRL_TIE_MASK<font color='#0000FF'>;</font>
+<a name='L82'> 82  </a>
+<a name='L83'> 83  </a>    <font color='#A000A0'>/* Enable Interrupts */</font>
+<a name='L84'> 84  </a>    NVIC_SetPriority<font color='#0000FF'>(</font> PIT_IRQn<font color='#0000FF'>,</font> 128 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>                          <font color='#A000A0'>/*   0, 64, 128 or 192                            */</font>
+<a name='L85'> 85  </a>    NVIC_ClearPendingIRQ<font color='#0000FF'>(</font> PIT_IRQn <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L86'> 86  </a>    NVIC_EnableIRQ<font color='#0000FF'>(</font> PIT_IRQn <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L87'> 87  </a><font color='#0000FF'>}</font>
+<a name='L88'> 88  </a>
+<a name='L89'> 89  </a>
+<a name='L90'> 90  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_95'>PIT_Start</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L91'> 91  </a><font color='#0000FF'>{</font>
+<a name='L92'> 92  </a><font color='#A000A0'>// Enable counter</font>
+<a name='L93'> 93  </a>    PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.TCTRL <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PIT_TCTRL_TEN_MASK<font color='#0000FF'>;</font>
+<a name='L94'> 94  </a><font color='#0000FF'>}</font>
+<a name='L95'> 95  </a>
+<a name='L96'> 96  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_118'>PIT_Stop</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L97'> 97  </a><font color='#0000FF'>{</font>
+<a name='L98'> 98  </a><font color='#A000A0'>// Enable counter</font>
+<a name='L99'> 99  </a>    PIT<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CHANNEL<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.TCTRL <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> <font color='#0000FF'>~</font>PIT_TCTRL_TEN_MASK<font color='#0000FF'>;</font>
+<a name='L100'>100  </a><font color='#0000FF'>}</font>
+<a name='L101'>101  </a>
+<a name='L102'>102  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_83'>Init_PWM</a><font color='#0000FF'>(</font> TPM_Type  <font color='#0000FF'>*</font>TPM<font color='#0000FF'>,</font> uint8_t  channel_num<font color='#0000FF'>,</font> uint16_t  period<font color='#0000FF'>,</font> uint16_t  duty <font color='#0000FF'>)</font>
+<a name='L103'>103  </a><font color='#0000FF'>{</font>
+<a name='L104'>104  </a> <font color='#A000A0'>//turn on clock to TPM </font>
+<a name='L105'>105  </a>    <font color='#C6264F'>switch</font><font color='#0000FF'>(</font> <font color='#0000FF'>(</font> <font color='#C6264F'>int</font> <font color='#0000FF'>)</font><span onclick='gotosrc(110);' class='hnd_cls'>TPM</span> <font color='#0000FF'>)</font>
+<a name='L106'>106  </a>    <font color='#0000FF'>{</font>
+<a name='L107'>107  </a>        <font color='#C6264F'>case</font> <font color='#0000FF'>(</font> <font color='#C6264F'>int</font> <font color='#0000FF'>)</font>TPM0<font color='#0000FF'>:</font>
+<a name='L108'>108  </a>            SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC6_TPM0_MASK<font color='#0000FF'>;</font>
+<a name='L109'>109  </a>            <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L110'>110  </a>        <font color='#C6264F'>case</font> <font color='#0000FF'>(</font> <font color='#C6264F'>int</font> <font color='#0000FF'>)</font>TPM1<font color='#0000FF'>:</font>
+<a name='L111'>111  </a>            SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC6_TPM1_MASK<font color='#0000FF'>;</font>
+<a name='L112'>112  </a>            <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L113'>113  </a>        <font color='#C6264F'>case</font> <font color='#0000FF'>(</font> <font color='#C6264F'>int</font> <font color='#0000FF'>)</font>TPM2<font color='#0000FF'>:</font>
+<a name='L114'>114  </a>            SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC6_TPM2_MASK<font color='#0000FF'>;</font>
+<a name='L115'>115  </a>            <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L116'>116  </a>        <font color='#C6264F'>default</font><font color='#0000FF'>:</font>
+<a name='L117'>117  </a>            <font color='#C6264F'>break</font><font color='#0000FF'>;</font>
+<a name='L118'>118  </a>    <font color='#0000FF'>}</font>
+<a name='L119'>119  </a>    <font color='#A000A0'>//set clock source for tpm</font>
+<a name='L120'>120  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SOPT2 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> SIM_SOPT2_TPMSRC<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> SIM_SOPT2_PLLFLLSEL_MASK <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L121'>121  </a>
+<a name='L122'>122  </a>    <font color='#C6264F'>if</font><font color='#0000FF'>(</font> <span onclick='gotosrc(111);' class='hnd_cls'>channel_num</span> <font color='#0000FF'>=</font><font color='#0000FF'>=</font> 0 <font color='#0000FF'>)</font>
+<a name='L123'>123  </a>    <font color='#0000FF'>{</font>
+<a name='L124'>124  </a>    <font color='#A000A0'>//set multiplexer to connect TPM1 Ch 0 to PTA12</font>
+<a name='L125'>125  </a>        PORTA<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> 12 <font color='#0000FF'>]</font> <font color='#0000FF'>&amp;</font><font color='#0000FF'>=</font> PORT_PCR_MUX_MASK<font color='#0000FF'>;</font>
+<a name='L126'>126  </a>        PORTA<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> 12 <font color='#0000FF'>]</font> <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 3 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L127'>127  </a>    <font color='#0000FF'>}</font>
+<a name='L128'>128  </a>
+<a name='L129'>129  </a>    <font color='#A000A0'>//load the counter and mod</font>
+<a name='L130'>130  </a>    <span onclick='gotosrc(110);' class='hnd_cls'>TPM</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>MOD                           <font color='#0000FF'>=</font> <span onclick='gotosrc(112);' class='hnd_cls'>period</span><font color='#0000FF'>;</font>
+<a name='L131'>131  </a>
+<a name='L132'>132  </a>    <font color='#A000A0'>//set channels to center-aligned high-true PWM</font>
+<a name='L133'>133  </a>    <span onclick='gotosrc(110);' class='hnd_cls'>TPM</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CONTROLS<font color='#0000FF'>[</font> <span onclick='gotosrc(111);' class='hnd_cls'>channel_num</span> <font color='#0000FF'>]</font>.CnSC <font color='#0000FF'>=</font> TPM_CnSC_MSB_MASK <font color='#0000FF'>|</font> TPM_CnSC_ELSB_MASK<font color='#0000FF'>;</font>
+<a name='L134'>134  </a>
+<a name='L135'>135  </a>    <font color='#A000A0'>//set TPM to up-down and divide by 8 prescaler and clock mode</font>
+<a name='L136'>136  </a>    <span onclick='gotosrc(110);' class='hnd_cls'>TPM</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> TPM_SC_CPWMS_MASK <font color='#0000FF'>|</font> TPM_SC_CMOD<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> TPM_SC_PS<font color='#0000FF'>(</font> 3 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L137'>137  </a>
+<a name='L138'>138  </a>    <font color='#A000A0'>//set trigger mode</font>
+<a name='L139'>139  </a>    <span onclick='gotosrc(110);' class='hnd_cls'>TPM</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CONF                         <font color='#0000FF'>|</font><font color='#0000FF'>=</font> TPM_CONF_TRGSEL<font color='#0000FF'>(</font> 0xA <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L140'>140  </a>
+<a name='L141'>141  </a>    <font color='#A000A0'>// Set initial duty cycle</font>
+<a name='L142'>142  </a>    <span onclick='gotosrc(110);' class='hnd_cls'>TPM</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CONTROLS<font color='#0000FF'>[</font> <span onclick='gotosrc(111);' class='hnd_cls'>channel_num</span> <font color='#0000FF'>]</font>.CnV   <font color='#0000FF'>=</font> <span onclick='gotosrc(113);' class='hnd_cls'>duty</span><font color='#0000FF'>;</font>
+<a name='L143'>143  </a><font color='#0000FF'>}</font>
+<a name='L144'>144  </a>
+<a name='L145'>145  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_67'>Old_Init_PWM</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L146'>146  </a><font color='#0000FF'>{</font>
+<a name='L147'>147  </a> <font color='#A000A0'>//turn on clock to TPM </font>
+<a name='L148'>148  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6               <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC6_TPM1_MASK<font color='#0000FF'>;</font>
+<a name='L149'>149  </a>
+<a name='L150'>150  </a>    <font color='#A000A0'>//set multiplexer to connect TPM1 Ch 0 to PTA12</font>
+<a name='L151'>151  </a>    PORTA<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>PCR<font color='#0000FF'>[</font> 12 <font color='#0000FF'>]</font>         <font color='#0000FF'>|</font><font color='#0000FF'>=</font> PORT_PCR_MUX<font color='#0000FF'>(</font> 3 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L152'>152  </a>
+<a name='L153'>153  </a>    <font color='#A000A0'>//set clock source for tpm</font>
+<a name='L154'>154  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SOPT2 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> SIM_SOPT2_TPMSRC<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> SIM_SOPT2_PLLFLLSEL_MASK <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L155'>155  </a>
+<a name='L156'>156  </a>    <font color='#A000A0'>//load the counter and mod</font>
+<a name='L157'>157  </a>    TPM1<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>MOD                 <font color='#0000FF'>=</font> 10000<font color='#0000FF'>;</font>
+<a name='L158'>158  </a>
+<a name='L159'>159  </a>    <font color='#A000A0'>//set channels to center-aligned high-true PWM</font>
+<a name='L160'>160  </a>    TPM1<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CONTROLS<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.CnSC  <font color='#0000FF'>=</font> TPM_CnSC_MSB_MASK <font color='#0000FF'>|</font> TPM_CnSC_ELSB_MASK<font color='#0000FF'>;</font>
+<a name='L161'>161  </a>
+<a name='L162'>162  </a>    <font color='#A000A0'>//set TPM to up-down and divide by 8 prescaler and clock mode</font>
+<a name='L163'>163  </a>    TPM1<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> TPM_SC_CPWMS_MASK <font color='#0000FF'>|</font> TPM_SC_CMOD<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> TPM_SC_PS<font color='#0000FF'>(</font> 3 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L164'>164  </a>
+<a name='L165'>165  </a>    <font color='#A000A0'>//set trigger mode</font>
+<a name='L166'>166  </a>    TPM1<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CONF               <font color='#0000FF'>|</font><font color='#0000FF'>=</font> TPM_CONF_TRGSEL<font color='#0000FF'>(</font> 0xA <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L167'>167  </a>
+<a name='L168'>168  </a>    <font color='#A000A0'>// Set duty cycle</font>
+<a name='L169'>169  </a>    TPM1<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CONTROLS<font color='#0000FF'>[</font> 0 <font color='#0000FF'>]</font>.CnV   <font color='#0000FF'>=</font> 9000<font color='#0000FF'>;</font>
+<a name='L170'>170  </a><font color='#0000FF'>}</font>
+<a name='L171'>171  </a>
+<a name='L172'>172  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_115'>PWM_Set_Value</a><font color='#0000FF'>(</font> TPM_Type  <font color='#0000FF'>*</font>TPM<font color='#0000FF'>,</font> uint8_t  channel_num<font color='#0000FF'>,</font> uint16_t  value <font color='#0000FF'>)</font>
+<a name='L173'>173  </a><font color='#0000FF'>{</font>
+<a name='L174'>174  </a>    <span onclick='gotosrc(169);' class='hnd_cls'>TPM</span><font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>CONTROLS<font color='#0000FF'>[</font> <span onclick='gotosrc(170);' class='hnd_cls'>channel_num</span> <font color='#0000FF'>]</font>.CnV <font color='#0000FF'>=</font> <span onclick='gotosrc(171);' class='hnd_cls'>value</span><font color='#0000FF'>;</font>
+<a name='L175'>175  </a><font color='#0000FF'>}</font>
+<a name='L176'>176  </a>
+<a name='L177'>177  </a>
+<a name='L178'>178  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_109'>TPM0_Init</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L179'>179  </a><font color='#0000FF'>{</font>
+<a name='L180'>180  </a> <font color='#A000A0'>//turn on clock to TPM </font>
+<a name='L181'>181  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SCGC6 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> SIM_SCGC6_TPM0_MASK<font color='#0000FF'>;</font>
+<a name='L182'>182  </a>
+<a name='L183'>183  </a>    <font color='#A000A0'>//set clock source for tpm</font>
+<a name='L184'>184  </a>    SIM<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SOPT2 <font color='#0000FF'>|</font><font color='#0000FF'>=</font> <font color='#0000FF'>(</font> SIM_SOPT2_TPMSRC<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font> <font color='#0000FF'>|</font> SIM_SOPT2_PLLFLLSEL_MASK <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L185'>185  </a><font color='#0000FF'>}</font>
+<a name='L186'>186  </a>
+<a name='L187'>187  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_97'>Configure_TPM0_for_DMA</a><font color='#0000FF'>(</font> uint32_t  period_us <font color='#0000FF'>)</font>
+<a name='L188'>188  </a><font color='#0000FF'>{</font>
+<a name='L189'>189  </a>
+<a name='L190'>190  </a> <font color='#A000A0'>// disable TPM</font>
+<a name='L191'>191  </a>    TPM0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC  <font color='#0000FF'>=</font> 0<font color='#0000FF'>;</font>
+<a name='L192'>192  </a>
+<a name='L193'>193  </a>    <font color='#A000A0'>//load the counter and mod</font>
+<a name='L194'>194  </a>    TPM0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>MOD <font color='#0000FF'>=</font> TPM_MOD_MOD<font color='#0000FF'>(</font> <span onclick='gotosrc(178);' class='hnd_cls'>period_us</span> <font color='#0000FF'>*</font> 48 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L195'>195  </a>
+<a name='L196'>196  </a>    <font color='#A000A0'>//set TPM to count up and divide by 1 prescaler and clock mode</font>
+<a name='L197'>197  </a>    TPM0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC  <font color='#0000FF'>=</font> <font color='#0000FF'>(</font> TPM_SC_DMA_MASK <font color='#0000FF'>|</font> TPM_SC_PS<font color='#0000FF'>(</font> 0 <font color='#0000FF'>)</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L198'>198  </a>
+<a name='L199'>199  </a><font color='#C6264F'>#if</font> 0                                                           <font color='#A000A0'>/* if using interrupt for debugging Enable TPM    */</font>
+<a name='L200'>200  </a>                                                                <font color='#A000A0'>/*  interrupts for debugging                      */</font>
+<a name='L201'>201  </a>    TPM0<font color='#408080'>-</font><font color='#408080'>&gt;</font>SC <font color='#408080'>|</font><font color='#408080'>=</font> TPM_SC_TOIE_MASK<font color='#408080'>;</font>
+<a name='L202'>202  </a>
+<a name='L203'>203  </a>    <font color='#408080'>// Configure NVIC </font>
+<a name='L204'>204  </a>    NVIC_SetPriority<font color='#408080'>(</font> TPM0_IRQn<font color='#408080'>,</font> 128 <font color='#408080'>)</font><font color='#408080'>;</font>                         <font color='#408080'>/*   0, 64, 128 or 192                            */</font>
+<a name='L205'>205  </a>    NVIC_ClearPendingIRQ<font color='#408080'>(</font> TPM0_IRQn <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L206'>206  </a>    NVIC_EnableIRQ<font color='#408080'>(</font> TPM0_IRQn <font color='#408080'>)</font><font color='#408080'>;</font>
+<a name='L207'>207  </a><font color='#C6264F'>#endif</font>
+<a name='L208'>208  </a>
+<a name='L209'>209  </a><font color='#0000FF'>}</font>
+<a name='L210'>210  </a>
+<a name='L211'>211  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_120'>TPM0_Start</a><font color='#0000FF'>(</font> <font color='#C6264F'>void</font> <font color='#0000FF'>)</font>
+<a name='L212'>212  </a><font color='#0000FF'>{</font>
+<a name='L213'>213  </a><font color='#A000A0'>// Enable counter</font>
+<a name='L214'>214  </a>    TPM0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC <font color='#0000FF'>|</font><font color='#0000FF'>=</font> TPM_SC_CMOD<font color='#0000FF'>(</font> 1 <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L215'>215  </a><font color='#0000FF'>}</font>
+<a name='L216'>216  </a>
+<a name='L217'>217  </a>
+<a name='L218'>218  </a>
+<a name='L219'>219  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_19.html#OD0_3_119'>TPM0_IRQHandler</a><font color='#0000FF'>(</font> <font color='#0000FF'>)</font>
+<a name='L220'>220  </a><font color='#0000FF'>{</font>
+<a name='L221'>221  </a> <font color='#A000A0'>//clear pending IRQ</font>
+<a name='L222'>222  </a>    NVIC_ClearPendingIRQ<font color='#0000FF'>(</font> TPM0_IRQn <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L223'>223  </a>
+<a name='L224'>224  </a>    TPM0<font color='#0000FF'>-</font><font color='#0000FF'>&gt;</font>SC <font color='#0000FF'>|</font><font color='#0000FF'>=</font> TPM_SC_TOF_MASK<font color='#0000FF'>;</font>
+<a name='L225'>225  </a><font color='#0000FF'>}</font>
+<a name='L226'>226  </a><font color='#A000A0'>// *******************************ARM University Program Copyright © ARM Ltd 2013*************************************   </font>
+<a name='L227'>227  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>

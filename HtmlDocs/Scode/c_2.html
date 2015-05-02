@@ -1,0 +1,28 @@
+﻿<html><head><title>Source Code - delay.c  - Crystal FLOW for C Documentation</title>
+<basefont size=2 color=black face=verdana><link rel="stylesheet" type="text/css" href="sgvdoccer.css" TITLE="formal"><script language='javascript' src='../common.js'></script><script language='javascript' src='c_2.js'></script>
+<style>
+.hnd_cls{cursor:hand}
+</style>
+</head>
+<body onmouseup='if(hideall!=null) hideall();' onscroll='if(hideall!=null) hideall();' vlink='blue' onload='if(shwlcnhlpln!=null)shwlcnhlpln("Source &nbsp; >> &nbsp; delay.c");file_doc_starter(false); this.focus();'>
+<script language='javascript'>if ( put_pdmenus != null ) put_pdmenus('../');</script><table border=0 cellspacing=0 width='100%' cellpadding=10><tr><td><h3><a name='TTOP'></a><u>delay.c</u></h3><td width='20%'><a target='sgv_CC_rframe' class='DOC_DFLTLNK' href='../Files/fd_2.html'><b>Documentation</b></a></table><table width=900 border=1 cellspacing=0 cellpadding=5 bgcolor='#f0f0f0'><tr><td nowrap><pre style='{font-size : 10pt}'>
+<font color='#000000'><a name='L1'> 1  </a><font color='#C6264F'>#include</font>     <font color='#0000FF'>&lt;</font>MKL25Z4.H<font color='#0000FF'>&gt;</font>
+<a name='L2'> 2  </a>
+<a name='L3'> 3  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_2.html#OD0_3_5'>Delay</a><font color='#0000FF'>(</font> uint32_t  dly <font color='#0000FF'>)</font>
+<a name='L4'> 4  </a><font color='#0000FF'>{</font>
+<a name='L5'> 5  </a>    <font color='#C6264F'>volatile</font>  uint32_t t<font color='#0000FF'>;</font>
+<a name='L6'> 6  </a>
+<a name='L7'> 7  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> t <font color='#0000FF'>=</font> dly <font color='#0000FF'>*</font> 10000<font color='#0000FF'>;</font> t <font color='#0000FF'>&gt;</font> 0<font color='#0000FF'>;</font> t<font color='#0000FF'>-</font><font color='#0000FF'>-</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L8'> 8  </a><font color='#0000FF'>}</font>
+<a name='L9'> 9  </a>
+<a name='L10'>10  </a><font color='#C6264F'>void</font> <a target='sgv_CC_rframe' class='CODLNK' href='../Files/fd_2.html#OD0_3_90'>ShortDelay</a><font color='#0000FF'>(</font> uint32_t  dly <font color='#0000FF'>)</font>
+<a name='L11'>11  </a><font color='#0000FF'>{</font>
+<a name='L12'>12  </a>    <font color='#C6264F'>volatile</font>  uint32_t t<font color='#0000FF'>;</font>
+<a name='L13'>13  </a>
+<a name='L14'>14  </a>    <font color='#C6264F'>for</font><font color='#0000FF'>(</font> t <font color='#0000FF'>=</font> dly<font color='#0000FF'>;</font> t <font color='#0000FF'>&gt;</font> 0<font color='#0000FF'>;</font> t<font color='#0000FF'>-</font><font color='#0000FF'>-</font> <font color='#0000FF'>)</font><font color='#0000FF'>;</font>
+<a name='L15'>15  </a><font color='#0000FF'>}</font>
+<a name='L16'>16  </a>
+<a name='L17'>17  </a><font color='#A000A0'>// *******************************ARM University Program Copyright © ARM Ltd 2013*************************************   </font>
+<a name='L18'>18  </a>
+</font></pre></table><br><lcenter><p class=CPYRT>&nbsp;Crystal FLOW for C &nbsp;[<a target='_blank' href='http://www.sgvsarc.com'>www.sgvsarc.com</a>] </p></lcenter><br>&nbsp;
+</body></html>
