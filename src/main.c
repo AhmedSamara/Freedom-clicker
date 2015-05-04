@@ -23,11 +23,20 @@
 
 #define USE_GFX_LCD
 
-/*----------------------------------------------------------------------------
-  MAIN function
- *----------------------------------------------------------------------------*/
 int main (void) {
 
+  PT_T tp1;
+  COLOR_T black;
+  
+  Init_colors();
+  
+  black.R=0;
+  black.G=0;
+  black.B=0;
+  
+  tp1.X = 320;
+  tp1.Y = 240;
+  
 	Init_Debug_Signals();
 	Init_RGB_LEDs();
 	Sound_Init();	
@@ -37,7 +46,6 @@ int main (void) {
 	TFT_Init();
 	TFT_Text_Init(1);
 	TFT_Erase();
-	TFT_Text_PrintStr_RC(0,0, "Test Code");
 	
 //	TFT_TS_Calibrate();
 //	TFT_TS_Test();
@@ -56,8 +64,10 @@ int main (void) {
 
 	os_sys_init(&Task_Init);
 
+  TFT_Plot_Pixel(&tp1,&black);
+  
 	while (1)
-		;
+    ;
 }
 
 // *******************************ARM University Program Copyright © ARM Ltd 2013*************************************   

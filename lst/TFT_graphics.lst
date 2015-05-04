@@ -419,7 +419,7 @@ N void TFT_TS_Init(void);
 N uint32_t TFT_TS_Read(PT_T * position);
 N void TFT_TS_Test(void);
 N void TFT_TS_Calibrate(void);
-N
+N void Init_colors(void);
 N extern uint8_t G_TFT_char_width, G_TFT_char_height;
 N
 N
@@ -771,6 +771,9 @@ N#endif
 N      return;
 N    }
 N}
+N
+N
+N
 N
 N
 N

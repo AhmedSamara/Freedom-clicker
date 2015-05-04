@@ -9692,7 +9692,7 @@ N void TFT_TS_Init(void);
 N uint32_t TFT_TS_Read(PT_T * position);
 N void TFT_TS_Test(void);
 N void TFT_TS_Calibrate(void);
-N
+N void Init_colors(void);
 N extern uint8_t G_TFT_char_width, G_TFT_char_height;
 N
 N
@@ -9739,6 +9739,11 @@ N// Game Constants
 N#define PADDLE_WIDTH (40)
 N#define PADDLE_HEIGHT (15)
 N#define PADDLE_Y_POS (TFT_HEIGHT-4-PADDLE_HEIGHT)
+N
+N#define MENU_TILT   (33.0)
+N
+N#define FALSE (0x00)
+N#define TRUE  (0x11)
 N 
 N#endif // TASKS_H
 L 12 "src\sound.c" 2

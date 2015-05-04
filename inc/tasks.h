@@ -7,6 +7,7 @@
 #define TASK_READ_TS_PERIOD_TICKS (20)  // 1 tick/ms
 #define TASK_READ_ACCELEROMETER_PERIOD_TICKS (100)  // 1 tick/ms
 #define TASK_SOUND_PERIOD_TICKS (100)  // 1 tick/ms
+#define TASK_INCREMENT_PERIOD_TICKS (1000) 
 #define TASK_UPDATE_SCREEN_PERIOD_TICKS (100)
 
 // Debug outputs on Port B
@@ -38,5 +39,10 @@ extern OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_S
 #define PADDLE_WIDTH (40)
 #define PADDLE_HEIGHT (15)
 #define PADDLE_Y_POS (TFT_HEIGHT-4-PADDLE_HEIGHT)
+
+#define MENU_TILT   (33.0)
+
+#define FALSE (0x00)
+#define TRUE  (0x11)
  
 #endif // TASKS_H

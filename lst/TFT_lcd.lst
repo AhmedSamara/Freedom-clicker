@@ -8438,7 +8438,7 @@ N void TFT_TS_Init(void);
 N uint32_t TFT_TS_Read(PT_T * position);
 N void TFT_TS_Test(void);
 N void TFT_TS_Calibrate(void);
-N
+N void Init_colors(void);
 N extern uint8_t G_TFT_char_width, G_TFT_char_height;
 N
 N
@@ -9215,3 +9215,21 @@ N
 N	TFT_TS_Calibrated = 1;
 N
 N}
+N
+NCOLOR_T red;
+NCOLOR_T green;
+NCOLOR_T blue;
+N
+NCOLOR_T black;
+NCOLOR_T white;
+N
+Nvoid Init_colors(void){
+N  
+N  red.R = 255; red.G=0; red.B=0;
+N  
+N  blue.R =0; blue.G=0; blue.B=255;
+N  
+N  green.R=0; green.G=255; green.B=0;
+N  
+N}
+N

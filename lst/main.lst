@@ -8453,7 +8453,7 @@ N void TFT_TS_Init(void);
 N uint32_t TFT_TS_Read(PT_T * position);
 N void TFT_TS_Test(void);
 N void TFT_TS_Calibrate(void);
-N
+N void Init_colors(void);
 N extern uint8_t G_TFT_char_width, G_TFT_char_height;
 N
 N
@@ -10953,17 +10953,31 @@ N// Game Constants
 N#define PADDLE_WIDTH (40)
 N#define PADDLE_HEIGHT (15)
 N#define PADDLE_Y_POS (TFT_HEIGHT-4-PADDLE_HEIGHT)
+N
+N#define MENU_TILT   (33.0)
+N
+N#define FALSE (0x00)
+N#define TRUE  (0x11)
 N 
 N#endif // TASKS_H
 L 23 "src\main.c" 2
 N
 N#define USE_GFX_LCD
 N
-N/*----------------------------------------------------------------------------
-N  MAIN function
-N *----------------------------------------------------------------------------*/
 Nint main (void) {
 N
+N  PT_T tp1;
+N  COLOR_T black;
+N  
+N  Init_colors();
+N  
+N  black.R=0;
+N  black.G=0;
+N  black.B=0;
+N  
+N  tp1.X = 320;
+N  tp1.Y = 240;
+N  
 N	Init_Debug_Signals();
 N	Init_RGB_LEDs();
 N	Sound_Init();	
@@ -10973,7 +10987,6 @@ N
 N	TFT_Init();
 N	TFT_Text_Init(1);
 N	TFT_Erase();
-N	TFT_Text_PrintStr_RC(0,0, "Test Code");
 N	
 N//	TFT_TS_Calibrate();
 N//	TFT_TS_Test();
@@ -10993,8 +11006,10 @@ N
 N	os_sys_init(&Task_Init);
 X	os_set_env(); _os_sys_init((U32)rt_sys_init,&Task_Init,0,0);
 N
+N  TFT_Plot_Pixel(&tp1,&black);
+N  
 N	while (1)
-N		;
+N    ;
 N}
 N
 N// *******************************ARM University Program Copyright © ARM Ltd 2013*************************************   

@@ -84,7 +84,7 @@ typedef struct {
  uint32_t TFT_TS_Read(PT_T * position);
  void TFT_TS_Test(void);
  void TFT_TS_Calibrate(void);
-
+ void Init_colors(void);
  extern uint8_t G_TFT_char_width, G_TFT_char_height;
 
 

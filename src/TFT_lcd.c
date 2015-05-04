@@ -585,3 +585,21 @@ void TFT_TS_Calibrate(void) {
 	TFT_TS_Calibrated = 1;
 
 }
+
+COLOR_T red;
+COLOR_T green;
+COLOR_T blue;
+
+COLOR_T black;
+COLOR_T white;
+
+void Init_colors(void){
+  
+  red.R = 255; red.G=0; red.B=0;
+  
+  blue.R =0; blue.G=0; blue.B=255;
+  
+  green.R=0; green.G=255; green.B=0;
+  
+}
+
