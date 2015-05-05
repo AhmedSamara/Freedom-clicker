@@ -9723,6 +9723,7 @@ N
 N#define EV_REFILL_SOUND (1)
 N
 N#define WAIT_FOREVER (0xffff)
+N#define WAIT_MEH     (0x00FF)
 N
 N __task void Task_Init(void);
 X __declspec(noreturn) void Task_Init(void);
@@ -9761,6 +9762,10 @@ N
 N#define IRON_BONUS   (3)
 N#define MITH_BONUS   (5)
 N#define RUNE_BONUS   (10)
+N
+N#define IRON_COST    (10)
+N#define MITH_COST    (50)
+N#define RUNE_COST    (100)
 N 
 N#endif // TASKS_H
 L 12 "src\sound.c" 2

@@ -10701,6 +10701,7 @@ N
 N#define EV_REFILL_SOUND (1)
 N
 N#define WAIT_FOREVER (0xffff)
+N#define WAIT_MEH     (0x00FF)
 N
 N __task void Task_Init(void);
 X __declspec(noreturn) void Task_Init(void);
@@ -10739,6 +10740,10 @@ N
 N#define IRON_BONUS   (3)
 N#define MITH_BONUS   (5)
 N#define RUNE_BONUS   (10)
+N
+N#define IRON_COST    (10)
+N#define MITH_COST    (50)
+N#define RUNE_COST    (100)
 N 
 N#endif // TASKS_H
 L 11 "src\tasks.c" 2
@@ -10870,6 +10875,9 @@ N
 NOS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer,t_Update_Count;
 NOS_MUT LCD_mutex;
 NOS_MUT TS_mutex;
+N
+NOS_MUT count_mutex;
+NOS_MUT increment_mutex;
 N
 Nint rune_count=0;
 Nint rune_increment = 0;
@@ -11034,7 +11042,7 @@ N			// os_evt_set(EV_PLAYSOUND, t_Sound);
 N      
 N      //Check if buying item from the menu
 N
-N      if(menu_mode)
+N      if(menu_mode && tap_flg)
 N      {
 N        /*
 N        tp1.X = 0;
@@ -11045,35 +11053,56 @@ N        tp2.Y = ROW_TO_Y(IRON_POS)+CHAR_HEIGHT;
 N        
 N        TFT_Fill_Rectangle(&tp1,&tp2,&c);
 N        */
-N        if( p.Y > ROW_TO_Y(IRON_POS) && p.Y < ROW_TO_Y(IRON_POS)+ CHAR_HEIGHT)
-X        if( p.Y > (((5))*G_TFT_char_height) && p.Y < (((5))*G_TFT_char_height)+ G_TFT_char_height)
+N        
+N        if( p.Y > ROW_TO_Y(IRON_POS) && p.Y < ROW_TO_Y(IRON_POS)+ CHAR_HEIGHT && (rune_count  > IRON_COST))
+X        if( p.Y > (((5))*G_TFT_char_height) && p.Y < (((5))*G_TFT_char_height)+ G_TFT_char_height && (rune_count  > (10)))
 N        {
+N          os_mut_wait(&increment_mutex, WAIT_MEH);
+X          _os_mut_wait((U32)rt_mut_wait,&increment_mutex,(0x00FF));
+N          rune_count -= IRON_COST;
+X          rune_count -= (10);
 N          rune_increment += IRON_BONUS;
 X          rune_increment += (3);
 N          tap_flg=FALSE;
 X          tap_flg=(0x00);
+N          os_mut_release(&increment_mutex);
+X          _os_mut_release((U32)rt_mut_release,&increment_mutex);
+N
 N        }
-N        if( p.Y > ROW_TO_Y(MITH_POS) && p.Y < ROW_TO_Y(MITH_POS)+ CHAR_HEIGHT)
-X        if( p.Y > (((7))*G_TFT_char_height) && p.Y < (((7))*G_TFT_char_height)+ G_TFT_char_height)
+N        if( p.Y > ROW_TO_Y(MITH_POS) && p.Y < ROW_TO_Y(MITH_POS)+ CHAR_HEIGHT && rune_count > MITH_COST)
+X        if( p.Y > (((7))*G_TFT_char_height) && p.Y < (((7))*G_TFT_char_height)+ G_TFT_char_height && rune_count > (50))
 N        {
+N          os_mut_wait(&increment_mutex, WAIT_MEH);
+X          _os_mut_wait((U32)rt_mut_wait,&increment_mutex,(0x00FF));
+N          rune_count -= MITH_COST;
+X          rune_count -= (50);
 N          rune_increment += MITH_BONUS;
 X          rune_increment += (5);
 N          tap_flg=FALSE;
 X          tap_flg=(0x00);
+N          os_mut_release(&increment_mutex);
+X          _os_mut_release((U32)rt_mut_release,&increment_mutex);
+N
 N        }
-N        if( p.Y > ROW_TO_Y(RUNE_POS) && p.Y < ROW_TO_Y(RUNE_POS)+ CHAR_HEIGHT)
-X        if( p.Y > (((9))*G_TFT_char_height) && p.Y < (((9))*G_TFT_char_height)+ G_TFT_char_height)
+N        if( p.Y > ROW_TO_Y(RUNE_POS) && p.Y < ROW_TO_Y(RUNE_POS)+ CHAR_HEIGHT && rune_count > RUNE_COST)
+X        if( p.Y > (((9))*G_TFT_char_height) && p.Y < (((9))*G_TFT_char_height)+ G_TFT_char_height && rune_count > (100))
 N        {
+N          os_mut_wait(&increment_mutex, WAIT_MEH);
+X          _os_mut_wait((U32)rt_mut_wait,&increment_mutex,(0x00FF));
+N          rune_count -= RUNE_COST;
+X          rune_count -= (100);
 N          rune_increment += IRON_BONUS;
 X          rune_increment += (3);
 N          tap_flg=FALSE;
 X          tap_flg=(0x00);
+N          os_mut_release(&increment_mutex);
+X          _os_mut_release((U32)rt_mut_release,&increment_mutex);
 N        }
+N        
 N        sprintf(buffer,"speed: %d rps",rune_increment);
 N       
-N
-N				os_mut_wait(&LCD_mutex, WAIT_FOREVER);
-X				_os_mut_wait((U32)rt_mut_wait,&LCD_mutex,(0xffff));
+N				os_mut_wait(&LCD_mutex, WAIT_MEH);
+X				_os_mut_wait((U32)rt_mut_wait,&LCD_mutex,(0x00FF));
 N        TFT_Text_PrintStr_RC(1,0,buffer);
 N        os_mut_release(&LCD_mutex);
 X        _os_mut_release((U32)rt_mut_release,&LCD_mutex);
@@ -11123,8 +11152,8 @@ N		}
 N		PTB->PCOR = MASK(DEBUG_T1_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (1));
 N	}
-W "src\tasks.c" 111 14 variable "tp1" was declared but never referenced
-W "src\tasks.c" 111 19 variable "tp2" was declared but never referenced
+W "src\tasks.c" 114 14 variable "tp1" was declared but never referenced
+W "src\tasks.c" 114 19 variable "tp2" was declared but never referenced
 N}
 N
 N
@@ -11239,7 +11268,7 @@ N		PTB->PCOR = MASK(DEBUG_T3_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (3));
 N
 N	}
-W "src\tasks.c" 246 22 variable "black" was declared but never referenced
+W "src\tasks.c" 261 22 variable "black" was declared but never referenced
 N}
 N
 N

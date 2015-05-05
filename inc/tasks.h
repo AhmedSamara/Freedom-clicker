@@ -26,6 +26,7 @@
 #define EV_REFILL_SOUND (1)
 
 #define WAIT_FOREVER (0xffff)
+#define WAIT_MEH     (0x00FF)
 
  __task void Task_Init(void);
  __task void Task_Read_TS(void);
@@ -59,5 +60,9 @@ extern OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_S
 #define IRON_BONUS   (3)
 #define MITH_BONUS   (5)
 #define RUNE_BONUS   (10)
+
+#define IRON_COST    (10)
+#define MITH_COST    (50)
+#define RUNE_COST    (100)
  
 #endif // TASKS_H

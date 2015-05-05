@@ -20,6 +20,9 @@ OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Bu
 OS_MUT LCD_mutex;
 OS_MUT TS_mutex;
 
+OS_MUT count_mutex;
+OS_MUT increment_mutex;
+
 int rune_count=0;
 int rune_increment = 0;
 
@@ -136,7 +139,7 @@ __task void Task_Read_TS(void) {
       
       //Check if buying item from the menu
 
-      if(menu_mode)
+      if(menu_mode && tap_flg)
       {
         /*
         tp1.X = 0;
@@ -147,25 +150,37 @@ __task void Task_Read_TS(void) {
         
         TFT_Fill_Rectangle(&tp1,&tp2,&c);
         */
-        if( p.Y > ROW_TO_Y(IRON_POS) && p.Y < ROW_TO_Y(IRON_POS)+ CHAR_HEIGHT)
+        
+        if( p.Y > ROW_TO_Y(IRON_POS) && p.Y < ROW_TO_Y(IRON_POS)+ CHAR_HEIGHT && (rune_count  > IRON_COST))
         {
+          os_mut_wait(&increment_mutex, WAIT_MEH);
+          rune_count -= IRON_COST;
           rune_increment += IRON_BONUS;
           tap_flg=FALSE;
+          os_mut_release(&increment_mutex);
+
         }
-        if( p.Y > ROW_TO_Y(MITH_POS) && p.Y < ROW_TO_Y(MITH_POS)+ CHAR_HEIGHT)
+        if( p.Y > ROW_TO_Y(MITH_POS) && p.Y < ROW_TO_Y(MITH_POS)+ CHAR_HEIGHT && rune_count > MITH_COST)
         {
+          os_mut_wait(&increment_mutex, WAIT_MEH);
+          rune_count -= MITH_COST;
           rune_increment += MITH_BONUS;
           tap_flg=FALSE;
+          os_mut_release(&increment_mutex);
+
         }
-        if( p.Y > ROW_TO_Y(RUNE_POS) && p.Y < ROW_TO_Y(RUNE_POS)+ CHAR_HEIGHT)
+        if( p.Y > ROW_TO_Y(RUNE_POS) && p.Y < ROW_TO_Y(RUNE_POS)+ CHAR_HEIGHT && rune_count > RUNE_COST)
         {
+          os_mut_wait(&increment_mutex, WAIT_MEH);
+          rune_count -= RUNE_COST;
           rune_increment += IRON_BONUS;
           tap_flg=FALSE;
+          os_mut_release(&increment_mutex);
         }
+        
         sprintf(buffer,"speed: %d rps",rune_increment);
        
-
-				os_mut_wait(&LCD_mutex, WAIT_FOREVER);
+				os_mut_wait(&LCD_mutex, WAIT_MEH);
         TFT_Text_PrintStr_RC(1,0,buffer);
         os_mut_release(&LCD_mutex);
         

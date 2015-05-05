@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <RTL.h>
+
 #include "MKL25Z4.h"
 #include "TFT_LCD.h"
 #include "gpio_defs.h"
