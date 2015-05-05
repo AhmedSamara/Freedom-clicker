@@ -199,23 +199,14 @@ __task void Task_Read_TS(void) {
         }
       } 
     
-			if (p.Y > 260) { 
+			if (p.Y > 270) { 
 				if (p.X < TFT_WIDTH/2) {
 					Sound_Disable_Amp();
 				} else {
 					Sound_Enable_Amp();
 				}
 			} 
-      else {
-				// Now draw on screen
-				if ((pp.X == 0) && (pp.Y == 0)) {
-					pp = p;
-				}
-				os_mut_wait(&LCD_mutex, WAIT_FOREVER);
-				TFT_Draw_Line(&p, &pp, &c);
-				os_mut_release(&LCD_mutex);
-				pp = p;
-			} 
+
 		} else {
 			pp.X = 0;
 			pp.Y = 0;
