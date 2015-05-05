@@ -10974,6 +10974,7 @@ N#define USE_GFX_LCD
 N
 Nextern int rune_increment;
 N
+N
 Nint main (void) {
 N
 N  PT_T tp1;

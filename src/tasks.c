@@ -179,25 +179,32 @@ __task void Task_Read_Accelerometer(void) {
 
 
 __task void Task_Update_Screen(void) {
-	int16_t paddle_pos=TFT_WIDTH/2;
-  int16_t paddle_y_pos = TFT_HEIGHT-4-PADDLE_HEIGHT;
+	//int16_t paddle_pos=TFT_WIDTH/2;
+  //int16_t paddle_y_pos = TFT_HEIGHT-4-PADDLE_HEIGHT;
   
-	PT_T p1, p2;
-	COLOR_T paddle_color, black;
+  //corners of rune ore.
+	PT_T rp1, rp2;
+	COLOR_T rune_color, black;
   char clr_flg = FALSE;
 
 	
-	paddle_color.R = 100;
-	paddle_color.G = 200;
-	paddle_color.B = 50;
-
-	black.R = 0;
-	black.G = 0;
-	black.B = 0;
+  //build rune square.
+  rp1.X = TFT_WIDTH * 1/4;
+  rp1.Y = TFT_HEIGHT * 3/4;
+  
+  rp2.X = TFT_WIDTH * 3/4;
+  rp2.Y = TFT_HEIGHT * 1/4;
+  
+  rune_color.R=10;
+  rune_color.B=200;
+  rune_color.G=100;
+  
+  TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
 	
 	os_itv_set(TASK_UPDATE_SCREEN_PERIOD_TICKS);
   
   //flg used to insure only clears screen once.
+  
 
 	while (1) {
 		os_itv_wait();
@@ -212,17 +219,18 @@ __task void Task_Update_Screen(void) {
        TFT_Text_PrintStr_RC(5,0,"Iron pick.......10");
        TFT_Text_PrintStr_RC(7,0,"Mithril pick....50");
        TFT_Text_PrintStr_RC(9,0,"Rune pick.......100");
-       clr_flg=TRUE;
+       clr_flg = TRUE;
 		}
     else if (clr_flg)
     {
-       clr_flg=FALSE;
+       clr_flg = FALSE;
        TFT_Text_PrintStr_RC(5,0,"                   ");
        TFT_Text_PrintStr_RC(7,0,"                   ");
        TFT_Text_PrintStr_RC(9,0,"                   ");
-      
+       TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
+
     }  
-		
+
 		PTB->PCOR = MASK(DEBUG_T3_POS);
 	}
 }

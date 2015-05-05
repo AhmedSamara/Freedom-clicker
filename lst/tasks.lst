@@ -9408,8 +9408,11 @@ N
 NOS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer,t_Update_Count;
 NOS_MUT LCD_mutex;
 NOS_MUT TS_mutex;
+N
 Nint rune_count=0;
 Nint rune_increment = 1;
+N
+N
 N
 Nextern COLOR_T red,green,blue;
 N
@@ -9501,8 +9504,8 @@ N    sprintf(buffer,"runes: %d", rune_count);
 N    TFT_Text_PrintStr_RC(0,0,buffer);
 N    
 N  }
-W "src\tasks.c" 63 8 variable "rp1" was set but never used
-W "src\tasks.c" 63 13 variable "rp2" was set but never used
+W "src\tasks.c" 66 8 variable "rp1" was set but never used
+W "src\tasks.c" 66 13 variable "rp2" was set but never used
 N}
 N
 N
@@ -9626,29 +9629,38 @@ N
 N
 N__task void Task_Update_Screen(void) {
 X__declspec(noreturn) void Task_Update_Screen(void) {
-N	int16_t paddle_pos=TFT_WIDTH/2;
-X	int16_t paddle_pos=(240)/2;
-N  int16_t paddle_y_pos = TFT_HEIGHT-4-PADDLE_HEIGHT;
-X  int16_t paddle_y_pos = (320)-4-(15);
+N	//int16_t paddle_pos=TFT_WIDTH/2;
+N  //int16_t paddle_y_pos = TFT_HEIGHT-4-PADDLE_HEIGHT;
 N  
-N	PT_T p1, p2;
-N	COLOR_T paddle_color, black;
+N  //corners of rune ore.
+N	PT_T rp1, rp2;
+N	COLOR_T rune_color, black;
 N  char clr_flg = FALSE;
 X  char clr_flg = (0x00);
 N
 N	
-N	paddle_color.R = 100;
-N	paddle_color.G = 200;
-N	paddle_color.B = 50;
-N
-N	black.R = 0;
-N	black.G = 0;
-N	black.B = 0;
+N  //build rune square.
+N  rp1.X = TFT_WIDTH * 1/4;
+X  rp1.X = (240) * 1/4;
+N  rp1.Y = TFT_HEIGHT * 3/4;
+X  rp1.Y = (320) * 3/4;
+N  
+N  rp2.X = TFT_WIDTH * 3/4;
+X  rp2.X = (240) * 3/4;
+N  rp2.Y = TFT_HEIGHT * 1/4;
+X  rp2.Y = (320) * 1/4;
+N  
+N  rune_color.R=10;
+N  rune_color.B=200;
+N  rune_color.G=100;
+N  
+N  TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
 N	
 N	os_itv_set(TASK_UPDATE_SCREEN_PERIOD_TICKS);
 X	_os_itv_set((U32)rt_itv_set,(100));
 N  
 N  //flg used to insure only clears screen once.
+N  
 N
 N	while (1) {
 N		os_itv_wait();
@@ -9667,28 +9679,24 @@ N       //bring up menu when screen is tilted.
 N       TFT_Text_PrintStr_RC(5,0,"Iron pick.......10");
 N       TFT_Text_PrintStr_RC(7,0,"Mithril pick....50");
 N       TFT_Text_PrintStr_RC(9,0,"Rune pick.......100");
-N       clr_flg=TRUE;
-X       clr_flg=(0x11);
+N       clr_flg = TRUE;
+X       clr_flg = (0x11);
 N		}
 N    else if (clr_flg)
 N    {
-N       clr_flg=FALSE;
-X       clr_flg=(0x00);
+N       clr_flg = FALSE;
+X       clr_flg = (0x00);
 N       TFT_Text_PrintStr_RC(5,0,"                   ");
 N       TFT_Text_PrintStr_RC(7,0,"                   ");
 N       TFT_Text_PrintStr_RC(9,0,"                   ");
-N      
+N       TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
+N
 N    }  
-N		
+N
 N		PTB->PCOR = MASK(DEBUG_T3_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (3));
 N	}
-W "src\tasks.c" 179 10 variable "paddle_pos" was declared but never referenced
-W "src\tasks.c" 180 11 variable "paddle_y_pos" was declared but never referenced
-W "src\tasks.c" 182 7 variable "p1" was declared but never referenced
-W "src\tasks.c" 182 11 variable "p2" was declared but never referenced
-W "src\tasks.c" 183 10 variable "paddle_color" was set but never used
-W "src\tasks.c" 183 24 variable "black" was set but never used
+W "src\tasks.c" 187 22 variable "black" was declared but never referenced
 N}
 N
 N
