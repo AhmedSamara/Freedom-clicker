@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+
 #include <RTL.h>
 #include <MKL25Z4.h>
 
@@ -19,8 +20,11 @@ OS_MUT LCD_mutex;
 OS_MUT TS_mutex;
 
 int rune_count=0;
-int rune_increment = 1;
+int rune_increment = 0;
 
+char menu_mode = FALSE;
+//corners of rune ore.
+PT_T rp1, rp2;
 
 
 extern COLOR_T red,green,blue;
@@ -63,26 +67,18 @@ void Init_Debug_Signals(void) {
 
 __task void Task_Increment_runes(void)
 {
-  PT_T rp1, rp2;
   char buffer[16];
 
   os_itv_set(TASK_INCREMENT_PERIOD_TICKS);
   
   TFT_Text_PrintStr_RC(0,0,"aaaa");
 
-  rp1.X = RUNE_POS_X;
-  rp1.Y = RUNE_POS_Y;
-
-  rp2.X = RUNE_POS_X + RUNE_SIZE;
-  rp2.Y = RUNE_POS_Y + RUNE_SIZE;
-
   //TFT_Fill_Rectangle
   while(1){
     os_itv_wait();
     rune_count += rune_increment;
     
-    sprintf(buffer,"runes: %d", rune_count);
-    TFT_Text_PrintStr_RC(0,0,buffer);
+
     
   }
 }
@@ -102,10 +98,15 @@ __task void Task_Init(void) {
   os_tsk_delete_self ();
 }
 
+char tap_flg = TRUE;
+char touch_flg = TRUE;
+
+char first_touch = TRUE;
 
 __task void Task_Read_TS(void) {
 	PT_T p, pp;
 	COLOR_T c;
+  char buffer[16];
 	
 	c.R = 150;
 	c.G = 200;
@@ -120,11 +121,24 @@ __task void Task_Read_TS(void) {
 	while (1) {
 		os_itv_wait();
 		PTB->PSOR = MASK(DEBUG_T1_POS);
+
 		if (TFT_TS_Read(&p)) { 
 			// Send message indicating screen was pressed
 			// os_evt_set(EV_PLAYSOUND, t_Sound);
 
-			if (p.Y > 240) { 
+      //Check if rune click
+      if(p.X > rp1.X && p.Y > rp1.Y
+        && p.X < rp2.X && p.Y < rp2.Y)
+      {
+        if(tap_flg){
+          rune_count++;
+          sprintf(buffer,"runes: %d", rune_count);
+          TFT_Text_PrintStr_RC(0,0,buffer);
+          tap_flg=FALSE; //be sure to not update more than once.
+        }
+      } 
+   
+			if (p.Y > 260) { 
 				if (p.X < TFT_WIDTH/2) {
 					Sound_Disable_Amp();
 				} else {
@@ -144,6 +158,7 @@ __task void Task_Read_TS(void) {
 		} else {
 			pp.X = 0;
 			pp.Y = 0;
+      tap_flg=TRUE;
 		}
 		PTB->PCOR = MASK(DEBUG_T1_POS);
 	}
@@ -182,36 +197,34 @@ __task void Task_Update_Screen(void) {
 	//int16_t paddle_pos=TFT_WIDTH/2;
   //int16_t paddle_y_pos = TFT_HEIGHT-4-PADDLE_HEIGHT;
   
-  //corners of rune ore.
-	PT_T rp1, rp2;
 	COLOR_T rune_color, black;
   char clr_flg = FALSE;
 
 	
   //build rune square.
   rp1.X = TFT_WIDTH * 1/4;
-  rp1.Y = TFT_HEIGHT * 3/4;
-  
-  rp2.X = TFT_WIDTH * 3/4;
-  rp2.Y = TFT_HEIGHT * 1/4;
-  
+  rp1.Y = TFT_HEIGHT * 1/4;
+
+  rp2.X = TFT_WIDTH * 3/4 ;
+  rp2.Y = TFT_HEIGHT * 3/4;
+
   rune_color.R=10;
   rune_color.B=200;
-  rune_color.G=100;
-  
+  rune_color.G=200;
+
   TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
 	
 	os_itv_set(TASK_UPDATE_SCREEN_PERIOD_TICKS);
   
-  //flg used to insure only clears screen once.
+  //flg used to ensure only clears screen once.
   
 
 	while (1) {
 		os_itv_wait();
 		PTB->PSOR = MASK(DEBUG_T3_POS);
-    
-    
-		
+
+
+
 		if ((roll < -MENU_TILT) || (roll > MENU_TILT) 
         || (pitch < -MENU_TILT) || (pitch > MENU_TILT)) {
 
@@ -220,9 +233,11 @@ __task void Task_Update_Screen(void) {
        TFT_Text_PrintStr_RC(7,0,"Mithril pick....50");
        TFT_Text_PrintStr_RC(9,0,"Rune pick.......100");
        clr_flg = TRUE;
+
 		}
     else if (clr_flg)
     {
+
        clr_flg = FALSE;
        TFT_Text_PrintStr_RC(5,0,"                   ");
        TFT_Text_PrintStr_RC(7,0,"                   ");
@@ -232,6 +247,7 @@ __task void Task_Update_Screen(void) {
     }  
 
 		PTB->PCOR = MASK(DEBUG_T3_POS);
+
 	}
 }
 

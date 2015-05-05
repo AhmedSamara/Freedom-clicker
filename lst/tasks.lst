@@ -1400,6 +1400,7 @@ N
 N/* end of stdio.h */
 N
 L 3 "src\tasks.c" 2
+N
 N#include <RTL.h>
 L 1 "C:\Keil_v5\ARM\RV31\INC\RTL.h" 1
 N/*----------------------------------------------------------------------------
@@ -2136,7 +2137,7 @@ N *---------------------------------------------------------------------------*/
 N
 N#endif
 N 
-L 4 "src\tasks.c" 2
+L 5 "src\tasks.c" 2
 N#include <MKL25Z4.h>
 L 1 "C:\Keil_v5\ARM\Inc\Freescale\Kinetis\MKL25Z4.h" 1
 N/*
@@ -9083,7 +9084,7 @@ N
 N#endif  /* #if !defined(MKL25Z4_H_) */
 N
 N/* MKL25Z4.h, eof. */
-L 5 "src\tasks.c" 2
+L 6 "src\tasks.c" 2
 N
 N#include "TFT_LCD.h"
 L 1 ".\inc\TFT_LCD.h" 1
@@ -9181,7 +9182,7 @@ N
 N  
 N
 N#endif
-L 7 "src\tasks.c" 2
+L 8 "src\tasks.c" 2
 N#include "font.h"
 L 1 ".\inc\font.h" 1
 N#ifndef FONT_H
@@ -9217,7 +9218,7 @@ N#define TFT_MAX_ROWS (TFT_HEIGHT/G_TFT_char_height)
 N
 N
 N#endif // #ifndef FONT_H
-L 8 "src\tasks.c" 2
+L 9 "src\tasks.c" 2
 N#include "tasks.h"
 L 1 ".\inc\tasks.h" 1
 N#ifndef TASKS_H
@@ -9279,7 +9280,7 @@ N
 N#define RUNE_SIZE      (60)
 N 
 N#endif // TASKS_H
-L 9 "src\tasks.c" 2
+L 10 "src\tasks.c" 2
 N#include "MMA8451.h"
 L 1 ".\inc\MMA8451.h" 1
 N#ifndef MMA8451_H
@@ -9313,7 +9314,7 @@ Nextern float roll, pitch;
 Nextern int16_t acc_X, acc_Y, acc_Z;
 N
 N#endif
-L 10 "src\tasks.c" 2
+L 11 "src\tasks.c" 2
 N#include "sound.h"
 L 1 ".\inc\sound.h" 1
 N#ifndef SOUND_H
@@ -9371,7 +9372,7 @@ N __task void Task_Refill_Sound_Buffer(void);
 X __declspec(noreturn) void Task_Refill_Sound_Buffer(void);
 N
 N#endif // SOUND_H
-L 11 "src\tasks.c" 2
+L 12 "src\tasks.c" 2
 N#include "DMA.h"
 L 1 ".\inc\DMA.h" 1
 N#ifndef DMA_H
@@ -9385,7 +9386,7 @@ Nvoid Start_DMA_Playback(void);
 N
 N#endif
 N// *******************************ARM University Program Copyright © ARM Ltd 2013*************************************   
-L 12 "src\tasks.c" 2
+L 13 "src\tasks.c" 2
 N#include "gpio_defs.h"
 L 1 ".\inc\gpio_defs.h" 1
 N#ifndef GPIO_DEFS_H
@@ -9400,7 +9401,7 @@ N#define BLUE_LED_POS (1)		// on port D
 N
 N#endif
 N// *******************************ARM University Program Copyright © ARM Ltd 2013*************************************   
-L 13 "src\tasks.c" 2
+L 14 "src\tasks.c" 2
 N
 N
 NU64 RA_Stack[64];
@@ -9410,8 +9411,12 @@ NOS_MUT LCD_mutex;
 NOS_MUT TS_mutex;
 N
 Nint rune_count=0;
-Nint rune_increment = 1;
+Nint rune_increment = 0;
 N
+Nchar menu_mode = FALSE;
+Xchar menu_mode = (0x00);
+N//corners of rune ore.
+NPT_T rp1, rp2;
 N
 N
 Nextern COLOR_T red,green,blue;
@@ -9476,7 +9481,6 @@ N
 N__task void Task_Increment_runes(void)
 X__declspec(noreturn) void Task_Increment_runes(void)
 N{
-N  PT_T rp1, rp2;
 N  char buffer[16];
 N
 N  os_itv_set(TASK_INCREMENT_PERIOD_TICKS);
@@ -9484,28 +9488,16 @@ X  _os_itv_set((U32)rt_itv_set,(1000));
 N  
 N  TFT_Text_PrintStr_RC(0,0,"aaaa");
 N
-N  rp1.X = RUNE_POS_X;
-X  rp1.X = ((320)*2/3);
-N  rp1.Y = RUNE_POS_Y;
-X  rp1.Y = ((320)*2/3);
-N
-N  rp2.X = RUNE_POS_X + RUNE_SIZE;
-X  rp2.X = ((320)*2/3) + (60);
-N  rp2.Y = RUNE_POS_Y + RUNE_SIZE;
-X  rp2.Y = ((320)*2/3) + (60);
-N
 N  //TFT_Fill_Rectangle
 N  while(1){
 N    os_itv_wait();
 X    _os_itv_wait((U32)rt_itv_wait);
 N    rune_count += rune_increment;
 N    
-N    sprintf(buffer,"runes: %d", rune_count);
-N    TFT_Text_PrintStr_RC(0,0,buffer);
+N
 N    
 N  }
-W "src\tasks.c" 66 8 variable "rp1" was set but never used
-W "src\tasks.c" 66 13 variable "rp2" was set but never used
+W "src\tasks.c" 70 8 variable "buffer" was declared but never referenced
 N}
 N
 N
@@ -9532,11 +9524,19 @@ N  os_tsk_delete_self ();
 X  { _os_tsk_delete((U32)rt_tsk_delete, 0); for(;;); };
 N}
 N
+Nchar tap_flg = TRUE;
+Xchar tap_flg = (0x11);
+Nchar touch_flg = TRUE;
+Xchar touch_flg = (0x11);
+N
+Nchar first_touch = TRUE;
+Xchar first_touch = (0x11);
 N
 N__task void Task_Read_TS(void) {
 X__declspec(noreturn) void Task_Read_TS(void) {
 N	PT_T p, pp;
 N	COLOR_T c;
+N  char buffer[16];
 N	
 N	c.R = 150;
 N	c.G = 200;
@@ -9556,11 +9556,25 @@ N		os_itv_wait();
 X		_os_itv_wait((U32)rt_itv_wait);
 N		PTB->PSOR = MASK(DEBUG_T1_POS);
 X		((GPIO_Type *)(0x400FF040u))->PSOR = (1UL << (1));
+N
 N		if (TFT_TS_Read(&p)) { 
 N			// Send message indicating screen was pressed
 N			// os_evt_set(EV_PLAYSOUND, t_Sound);
 N
-N			if (p.Y > 240) { 
+N      //Check if rune click
+N      if(p.X > rp1.X && p.Y > rp1.Y
+N        && p.X < rp2.X && p.Y < rp2.Y)
+N      {
+N        if(tap_flg){
+N          rune_count++;
+N          sprintf(buffer,"runes: %d", rune_count);
+N          TFT_Text_PrintStr_RC(0,0,buffer);
+N          tap_flg=FALSE; //be sure to not update more than once.
+X          tap_flg=(0x00); 
+N        }
+N      } 
+N   
+N			if (p.Y > 260) { 
 N				if (p.X < TFT_WIDTH/2) {
 X				if (p.X < (240)/2) {
 N					Sound_Disable_Amp();
@@ -9583,6 +9597,8 @@ N			}
 N		} else {
 N			pp.X = 0;
 N			pp.Y = 0;
+N      tap_flg=TRUE;
+X      tap_flg=(0x11);
 N		}
 N		PTB->PCOR = MASK(DEBUG_T1_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (1));
@@ -9632,8 +9648,6 @@ X__declspec(noreturn) void Task_Update_Screen(void) {
 N	//int16_t paddle_pos=TFT_WIDTH/2;
 N  //int16_t paddle_y_pos = TFT_HEIGHT-4-PADDLE_HEIGHT;
 N  
-N  //corners of rune ore.
-N	PT_T rp1, rp2;
 N	COLOR_T rune_color, black;
 N  char clr_flg = FALSE;
 X  char clr_flg = (0x00);
@@ -9642,24 +9656,24 @@ N
 N  //build rune square.
 N  rp1.X = TFT_WIDTH * 1/4;
 X  rp1.X = (240) * 1/4;
-N  rp1.Y = TFT_HEIGHT * 3/4;
-X  rp1.Y = (320) * 3/4;
-N  
-N  rp2.X = TFT_WIDTH * 3/4;
-X  rp2.X = (240) * 3/4;
-N  rp2.Y = TFT_HEIGHT * 1/4;
-X  rp2.Y = (320) * 1/4;
-N  
+N  rp1.Y = TFT_HEIGHT * 1/4;
+X  rp1.Y = (320) * 1/4;
+N
+N  rp2.X = TFT_WIDTH * 3/4 ;
+X  rp2.X = (240) * 3/4 ;
+N  rp2.Y = TFT_HEIGHT * 3/4;
+X  rp2.Y = (320) * 3/4;
+N
 N  rune_color.R=10;
 N  rune_color.B=200;
-N  rune_color.G=100;
-N  
+N  rune_color.G=200;
+N
 N  TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
 N	
 N	os_itv_set(TASK_UPDATE_SCREEN_PERIOD_TICKS);
 X	_os_itv_set((U32)rt_itv_set,(100));
 N  
-N  //flg used to insure only clears screen once.
+N  //flg used to ensure only clears screen once.
 N  
 N
 N	while (1) {
@@ -9667,9 +9681,9 @@ N		os_itv_wait();
 X		_os_itv_wait((U32)rt_itv_wait);
 N		PTB->PSOR = MASK(DEBUG_T3_POS);
 X		((GPIO_Type *)(0x400FF040u))->PSOR = (1UL << (3));
-N    
-N    
-N		
+N
+N
+N
 N		if ((roll < -MENU_TILT) || (roll > MENU_TILT) 
 X		if ((roll < -(33.0)) || (roll > (33.0)) 
 N        || (pitch < -MENU_TILT) || (pitch > MENU_TILT)) {
@@ -9681,9 +9695,11 @@ N       TFT_Text_PrintStr_RC(7,0,"Mithril pick....50");
 N       TFT_Text_PrintStr_RC(9,0,"Rune pick.......100");
 N       clr_flg = TRUE;
 X       clr_flg = (0x11);
+N
 N		}
 N    else if (clr_flg)
 N    {
+N
 N       clr_flg = FALSE;
 X       clr_flg = (0x00);
 N       TFT_Text_PrintStr_RC(5,0,"                   ");
@@ -9695,8 +9711,9 @@ N    }
 N
 N		PTB->PCOR = MASK(DEBUG_T3_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (3));
+N
 N	}
-W "src\tasks.c" 187 22 variable "black" was declared but never referenced
+W "src\tasks.c" 200 22 variable "black" was declared but never referenced
 N}
 N
 N
