@@ -10962,10 +10962,19 @@ N
 N#define FALSE (0x00)
 N#define TRUE  (0x11)
 N
+N#define IRON_POS (5)
+N#define MITH_POS (7)
+N#define RUNE_POS (9)
+N
 N#define RUNE_POS_X  (TFT_HEIGHT*2/3)
 N#define RUNE_POS_Y   (TFT_HEIGHT*2/3)
 N
 N#define RUNE_SIZE      (60)
+N
+N
+N#define IRON_BONUS   (3)
+N#define MITH_BONUS   (5)
+N#define RUNE_BONUS   (10)
 N 
 N#endif // TASKS_H
 L 23 "src\main.c" 2

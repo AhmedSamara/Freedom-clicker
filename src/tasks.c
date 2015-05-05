@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <math.h>
 
 #include <RTL.h>
 #include <MKL25Z4.h>
@@ -71,14 +72,14 @@ __task void Task_Increment_runes(void)
 
   os_itv_set(TASK_INCREMENT_PERIOD_TICKS);
   
-  TFT_Text_PrintStr_RC(0,0,"aaaa");
+  
 
   //TFT_Fill_Rectangle
   while(1){
     os_itv_wait();
     rune_count += rune_increment;
-    
-
+    sprintf(buffer,"runes: %d",rune_count);
+    TFT_Text_PrintStr_RC(0,0,buffer);
     
   }
 }
@@ -104,7 +105,7 @@ char touch_flg = TRUE;
 char first_touch = TRUE;
 
 __task void Task_Read_TS(void) {
-	PT_T p, pp;
+	PT_T p, pp, tp1, tp2;
 	COLOR_T c;
   char buffer[16];
 	
@@ -114,8 +115,8 @@ __task void Task_Read_TS(void) {
 	
 	os_itv_set(TASK_READ_TS_PERIOD_TICKS);
 
-	TFT_Text_PrintStr_RC(TFT_MAX_ROWS-3, 0, "Mute");
-	TFT_Text_PrintStr_RC(TFT_MAX_ROWS-3, 12, "Unmute");
+	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 0, "Mute");
+	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 12, "Unmute");
 	
 
 	while (1) {
@@ -125,10 +126,43 @@ __task void Task_Read_TS(void) {
 		if (TFT_TS_Read(&p)) { 
 			// Send message indicating screen was pressed
 			// os_evt_set(EV_PLAYSOUND, t_Sound);
+      
+      //Check if buying item from the menu
+
+      if(menu_mode)
+      {
+        /*
+        tp1.X = 0;
+        tp1.Y = ROW_TO_Y(IRON_POS);
+        
+        tp2.X = TFT_WIDTH-1;
+        tp2.Y = ROW_TO_Y(IRON_POS)+CHAR_HEIGHT;
+        
+        TFT_Fill_Rectangle(&tp1,&tp2,&c);
+        */
+        if( p.Y > ROW_TO_Y(IRON_POS) && p.Y < ROW_TO_Y(IRON_POS)+ CHAR_HEIGHT)
+        {
+          rune_increment += IRON_BONUS;
+          tap_flg=FALSE;
+        }
+        if( p.Y > ROW_TO_Y(MITH_POS) && p.Y < ROW_TO_Y(MITH_POS)+ CHAR_HEIGHT)
+        {
+          rune_increment += MITH_BONUS;
+          tap_flg=FALSE;
+        }
+        if( p.Y > ROW_TO_Y(RUNE_POS) && p.Y < ROW_TO_Y(RUNE_POS)+ CHAR_HEIGHT)
+        {
+          rune_increment += IRON_BONUS;
+          tap_flg=FALSE;
+        }
+        sprintf(buffer,"speed: %d rps",rune_increment);
+        TFT_Text_PrintStr_RC(1,0,buffer);
+      }
 
       //Check if rune click
       if(p.X > rp1.X && p.Y > rp1.Y
-        && p.X < rp2.X && p.Y < rp2.Y)
+        && p.X < rp2.X && p.Y < rp2.Y
+        && !menu_mode)
       {
         if(tap_flg){
           rune_count++;
@@ -137,7 +171,7 @@ __task void Task_Read_TS(void) {
           tap_flg=FALSE; //be sure to not update more than once.
         }
       } 
-   
+    
 			if (p.Y > 260) { 
 				if (p.X < TFT_WIDTH/2) {
 					Sound_Disable_Amp();
@@ -223,21 +257,20 @@ __task void Task_Update_Screen(void) {
 		os_itv_wait();
 		PTB->PSOR = MASK(DEBUG_T3_POS);
 
-
-
 		if ((roll < -MENU_TILT) || (roll > MENU_TILT) 
         || (pitch < -MENU_TILT) || (pitch > MENU_TILT)) {
 
+       menu_mode = TRUE;
        //bring up menu when screen is tilted.
-       TFT_Text_PrintStr_RC(5,0,"Iron pick.......10");
-       TFT_Text_PrintStr_RC(7,0,"Mithril pick....50");
-       TFT_Text_PrintStr_RC(9,0,"Rune pick.......100");
+       TFT_Text_PrintStr_RC(IRON_POS,0,"Iron pick.......10");
+       TFT_Text_PrintStr_RC(MITH_POS,0,"Mithril pick....50");
+       TFT_Text_PrintStr_RC(RUNE_POS,0,"Rune pick.......100");
        clr_flg = TRUE;
 
 		}
     else if (clr_flg)
     {
-
+       menu_mode=FALSE;
        clr_flg = FALSE;
        TFT_Text_PrintStr_RC(5,0,"                   ");
        TFT_Text_PrintStr_RC(7,0,"                   ");

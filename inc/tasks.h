@@ -46,9 +46,18 @@ extern OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_S
 #define FALSE (0x00)
 #define TRUE  (0x11)
 
+#define IRON_POS (5)
+#define MITH_POS (7)
+#define RUNE_POS (9)
+
 #define RUNE_POS_X  (TFT_HEIGHT*2/3)
 #define RUNE_POS_Y   (TFT_HEIGHT*2/3)
 
 #define RUNE_SIZE      (60)
+
+
+#define IRON_BONUS   (3)
+#define MITH_BONUS   (5)
+#define RUNE_BONUS   (10)
  
 #endif // TASKS_H
