@@ -14,11 +14,14 @@
 
 U64 RA_Stack[64];
 
-OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer;
+OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer,t_Update_Count;
 OS_MUT LCD_mutex;
 OS_MUT TS_mutex;
+
 int rune_count=0;
 int rune_increment = 1;
+
+
 
 extern COLOR_T red,green,blue;
 
@@ -57,14 +60,33 @@ void Init_Debug_Signals(void) {
 }	
 
 
-__task void Increment_runes(void)
+
+__task void Task_Increment_runes(void)
 {
+  PT_T rp1, rp2;
+  char buffer[16];
+
   os_itv_set(TASK_INCREMENT_PERIOD_TICKS);
   
+  TFT_Text_PrintStr_RC(0,0,"aaaa");
+
+  rp1.X = RUNE_POS_X;
+  rp1.Y = RUNE_POS_Y;
+
+  rp2.X = RUNE_POS_X + RUNE_SIZE;
+  rp2.Y = RUNE_POS_Y + RUNE_SIZE;
+
+  //TFT_Fill_Rectangle
   while(1){
+    os_itv_wait();
+    rune_count += rune_increment;
+    
+    sprintf(buffer,"runes: %d", rune_count);
+    TFT_Text_PrintStr_RC(0,0,buffer);
     
   }
 }
+
 
 __task void Task_Init(void) {
 	os_mut_init(&LCD_mutex);
@@ -74,9 +96,12 @@ __task void Task_Init(void) {
 	t_Sound_Manager = os_tsk_create(Task_Sound_Manager, 2); // Should be lower priority than Refill Sound Buffer
 	t_US = os_tsk_create(Task_Update_Screen, 5);
 	t_Refill_Sound_Buffer = os_tsk_create(Task_Refill_Sound_Buffer, 1);
-
+  
+  t_Update_Count = os_tsk_create(Task_Increment_runes,6);
+  
   os_tsk_delete_self ();
 }
+
 
 __task void Task_Read_TS(void) {
 	PT_T p, pp;
@@ -91,6 +116,7 @@ __task void Task_Read_TS(void) {
 	TFT_Text_PrintStr_RC(TFT_MAX_ROWS-3, 0, "Mute");
 	TFT_Text_PrintStr_RC(TFT_MAX_ROWS-3, 12, "Unmute");
 	
+
 	while (1) {
 		os_itv_wait();
 		PTB->PSOR = MASK(DEBUG_T1_POS);
@@ -104,7 +130,8 @@ __task void Task_Read_TS(void) {
 				} else {
 					Sound_Enable_Amp();
 				}
-			} else {
+			} 
+      else {
 				// Now draw on screen
 				if ((pp.X == 0) && (pp.Y == 0)) {
 					pp = p;
@@ -121,6 +148,8 @@ __task void Task_Read_TS(void) {
 		PTB->PCOR = MASK(DEBUG_T1_POS);
 	}
 }
+
+
 
 __task void Task_Read_Accelerometer(void) {
 	char buffer[16];
@@ -146,10 +175,6 @@ __task void Task_Read_Accelerometer(void) {
 		PTB->PCOR = MASK(DEBUG_T0_POS);
 	}
 }
-
-
-
-
 
 
 
@@ -196,39 +221,11 @@ __task void Task_Update_Screen(void) {
        TFT_Text_PrintStr_RC(7,0,"                   ");
        TFT_Text_PrintStr_RC(9,0,"                   ");
       
-    }
-      /*
-      p1.X = 0;
-      p1.Y = TFT_HEIGHT/4;
-      
-      p2.X = TFT_WIDTH-1;
-      p2.Y = TFT_HEIGHT;
-      
-      TFT_Fill_Rectangle(&p1,&p2,&red);
-    */
-    /*
-    if ((pitch < -2.0) || (pitch > 2.0))
-    {
-      //p1.X = paddle_pos;
-			p1.Y = paddle_y_pos;
-			p2.X = p1.X + PADDLE_WIDTH;
-			p2.Y = p1.Y + PADDLE_HEIGHT;
-			TFT_Fill_Rectangle(&p1, &p2, &black); 		
-			
-			paddle_y_pos += pitch;
-			paddle_y_pos = MAX(0, paddle_y_pos);
-			paddle_y_pos = MIN(paddle_y_pos, TFT_HEIGHT-1);
-			
-			//p1.X = paddle_pos;
-			p1.Y = paddle_y_pos;
-			p2.X = p1.X + PADDLE_WIDTH;
-			p2.Y = p1.Y + PADDLE_HEIGHT;
-			TFT_Fill_Rectangle(&p1, &p2, &red); 	
-      
-    }
-    */
-    
+    }  
 		
 		PTB->PCOR = MASK(DEBUG_T3_POS);
 	}
 }
+
+
+

@@ -9704,14 +9704,15 @@ N
 N#define TASK_READ_TS_PERIOD_TICKS (20)  // 1 tick/ms
 N#define TASK_READ_ACCELEROMETER_PERIOD_TICKS (100)  // 1 tick/ms
 N#define TASK_SOUND_PERIOD_TICKS (100)  // 1 tick/ms
+N#define TASK_INCREMENT_PERIOD_TICKS (1000) 
 N#define TASK_UPDATE_SCREEN_PERIOD_TICKS (100)
 N
 N// Debug outputs on Port B
 N#define DEBUG_T0_POS 	0		// J10 pin 2
 N#define DEBUG_T1_POS 	1 	// J10 pin 4
-N#define DEBUG_T2_POS 2 	// J10 pin 6
+N#define DEBUG_T2_POS  2 	// J10 pin 6
 N#define DEBUG_T3_POS 	3		// J10 pin 8
-N#define DEBUG_I0_POS 8 // J9 Pin 1
+N#define DEBUG_I0_POS  8   // J9 Pin 1
 N
 N void	Init_Debug_Signals(void);
 N
@@ -9731,6 +9732,8 @@ N __task void Task_Read_Accelerometer(void);
 X __declspec(noreturn) void Task_Read_Accelerometer(void);
 N __task void Task_Update_Screen(void);
 X __declspec(noreturn) void Task_Update_Screen(void);
+N __task void Task_Increment_runes(void);
+X __declspec(noreturn) void Task_Increment_runes(void);
 N 
 Nextern OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer;
 N
@@ -9744,6 +9747,11 @@ N#define MENU_TILT   (33.0)
 N
 N#define FALSE (0x00)
 N#define TRUE  (0x11)
+N
+N#define RUNE_POS_X  (TFT_HEIGHT*2/3)
+N#define RUNE_POS_Y   (TFT_HEIGHT*2/3)
+N
+N#define RUNE_SIZE      (60)
 N 
 N#endif // TASKS_H
 L 12 "src\sound.c" 2

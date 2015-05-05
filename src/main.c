@@ -23,10 +23,14 @@
 
 #define USE_GFX_LCD
 
+extern int rune_increment;
+
+
 int main (void) {
 
   PT_T tp1;
   COLOR_T black;
+  char buffer[16];
   
   Init_colors();
   
@@ -58,7 +62,10 @@ int main (void) {
 		while (1)
 			;
 	}
-	TFT_Text_PrintStr_RC(1,9, "Done");
+
+  sprintf(buffer,"speed: %d rps",rune_increment);
+  
+	TFT_Text_PrintStr_RC(1,0, buffer);
 
 	Delay(70);
 

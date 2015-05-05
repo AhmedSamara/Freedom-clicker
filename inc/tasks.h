@@ -13,9 +13,9 @@
 // Debug outputs on Port B
 #define DEBUG_T0_POS 	0		// J10 pin 2
 #define DEBUG_T1_POS 	1 	// J10 pin 4
-#define DEBUG_T2_POS 2 	// J10 pin 6
+#define DEBUG_T2_POS  2 	// J10 pin 6
 #define DEBUG_T3_POS 	3		// J10 pin 8
-#define DEBUG_I0_POS 8 // J9 Pin 1
+#define DEBUG_I0_POS  8   // J9 Pin 1
 
  void	Init_Debug_Signals(void);
 
@@ -31,6 +31,7 @@
  __task void Task_Read_TS(void);
  __task void Task_Read_Accelerometer(void);
  __task void Task_Update_Screen(void);
+ __task void Task_Increment_runes(void);
  
 extern OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer;
 
@@ -44,5 +45,10 @@ extern OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_S
 
 #define FALSE (0x00)
 #define TRUE  (0x11)
+
+#define RUNE_POS_X  (TFT_HEIGHT*2/3)
+#define RUNE_POS_Y   (TFT_HEIGHT*2/3)
+
+#define RUNE_SIZE      (60)
  
 #endif // TASKS_H

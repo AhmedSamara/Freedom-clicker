@@ -9229,14 +9229,15 @@ N
 N#define TASK_READ_TS_PERIOD_TICKS (20)  // 1 tick/ms
 N#define TASK_READ_ACCELEROMETER_PERIOD_TICKS (100)  // 1 tick/ms
 N#define TASK_SOUND_PERIOD_TICKS (100)  // 1 tick/ms
+N#define TASK_INCREMENT_PERIOD_TICKS (1000) 
 N#define TASK_UPDATE_SCREEN_PERIOD_TICKS (100)
 N
 N// Debug outputs on Port B
 N#define DEBUG_T0_POS 	0		// J10 pin 2
 N#define DEBUG_T1_POS 	1 	// J10 pin 4
-N#define DEBUG_T2_POS 2 	// J10 pin 6
+N#define DEBUG_T2_POS  2 	// J10 pin 6
 N#define DEBUG_T3_POS 	3		// J10 pin 8
-N#define DEBUG_I0_POS 8 // J9 Pin 1
+N#define DEBUG_I0_POS  8   // J9 Pin 1
 N
 N void	Init_Debug_Signals(void);
 N
@@ -9256,6 +9257,8 @@ N __task void Task_Read_Accelerometer(void);
 X __declspec(noreturn) void Task_Read_Accelerometer(void);
 N __task void Task_Update_Screen(void);
 X __declspec(noreturn) void Task_Update_Screen(void);
+N __task void Task_Increment_runes(void);
+X __declspec(noreturn) void Task_Increment_runes(void);
 N 
 Nextern OS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer;
 N
@@ -9269,6 +9272,11 @@ N#define MENU_TILT   (33.0)
 N
 N#define FALSE (0x00)
 N#define TRUE  (0x11)
+N
+N#define RUNE_POS_X  (TFT_HEIGHT*2/3)
+N#define RUNE_POS_Y   (TFT_HEIGHT*2/3)
+N
+N#define RUNE_SIZE      (60)
 N 
 N#endif // TASKS_H
 L 9 "src\tasks.c" 2
@@ -9397,9 +9405,11 @@ N
 N
 NU64 RA_Stack[64];
 N
-NOS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer;
+NOS_TID t_Read_TS, t_Read_Accelerometer, t_Sound_Manager, t_US, t_Refill_Sound_Buffer,t_Update_Count;
 NOS_MUT LCD_mutex;
 NOS_MUT TS_mutex;
+Nint rune_count=0;
+Nint rune_increment = 1;
 N
 Nextern COLOR_T red,green,blue;
 N
@@ -9458,6 +9468,44 @@ X	((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (8));
 N
 N}	
 N
+N
+N
+N__task void Task_Increment_runes(void)
+X__declspec(noreturn) void Task_Increment_runes(void)
+N{
+N  PT_T rp1, rp2;
+N  char buffer[16];
+N
+N  os_itv_set(TASK_INCREMENT_PERIOD_TICKS);
+X  _os_itv_set((U32)rt_itv_set,(1000));
+N  
+N  TFT_Text_PrintStr_RC(0,0,"aaaa");
+N
+N  rp1.X = RUNE_POS_X;
+X  rp1.X = ((320)*2/3);
+N  rp1.Y = RUNE_POS_Y;
+X  rp1.Y = ((320)*2/3);
+N
+N  rp2.X = RUNE_POS_X + RUNE_SIZE;
+X  rp2.X = ((320)*2/3) + (60);
+N  rp2.Y = RUNE_POS_Y + RUNE_SIZE;
+X  rp2.Y = ((320)*2/3) + (60);
+N
+N  //TFT_Fill_Rectangle
+N  while(1){
+N    os_itv_wait();
+X    _os_itv_wait((U32)rt_itv_wait);
+N    rune_count += rune_increment;
+N    
+N    sprintf(buffer,"runes: %d", rune_count);
+N    TFT_Text_PrintStr_RC(0,0,buffer);
+N    
+N  }
+W "src\tasks.c" 63 8 variable "rp1" was set but never used
+W "src\tasks.c" 63 13 variable "rp2" was set but never used
+N}
+N
+N
 N__task void Task_Init(void) {
 X__declspec(noreturn) void Task_Init(void) {
 N	os_mut_init(&LCD_mutex);
@@ -9473,10 +9521,14 @@ N	t_US = os_tsk_create(Task_Update_Screen, 5);
 X	t_US = _os_tsk_create((U32)rt_tsk_create,Task_Update_Screen,5,0,0);
 N	t_Refill_Sound_Buffer = os_tsk_create(Task_Refill_Sound_Buffer, 1);
 X	t_Refill_Sound_Buffer = _os_tsk_create((U32)rt_tsk_create,Task_Refill_Sound_Buffer,1,0,0);
-N
+N  
+N  t_Update_Count = os_tsk_create(Task_Increment_runes,6);
+X  t_Update_Count = _os_tsk_create((U32)rt_tsk_create,Task_Increment_runes,6,0,0);
+N  
 N  os_tsk_delete_self ();
 X  { _os_tsk_delete((U32)rt_tsk_delete, 0); for(;;); };
 N}
+N
 N
 N__task void Task_Read_TS(void) {
 X__declspec(noreturn) void Task_Read_TS(void) {
@@ -9495,6 +9547,7 @@ X	TFT_Text_PrintStr_RC(((320)/G_TFT_char_height)-3, 0, "Mute");
 N	TFT_Text_PrintStr_RC(TFT_MAX_ROWS-3, 12, "Unmute");
 X	TFT_Text_PrintStr_RC(((320)/G_TFT_char_height)-3, 12, "Unmute");
 N	
+N
 N	while (1) {
 N		os_itv_wait();
 X		_os_itv_wait((U32)rt_itv_wait);
@@ -9511,7 +9564,8 @@ N					Sound_Disable_Amp();
 N				} else {
 N					Sound_Enable_Amp();
 N				}
-N			} else {
+N			} 
+N      else {
 N				// Now draw on screen
 N				if ((pp.X == 0) && (pp.Y == 0)) {
 N					pp = p;
@@ -9531,6 +9585,8 @@ N		PTB->PCOR = MASK(DEBUG_T1_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (1));
 N	}
 N}
+N
+N
 N
 N__task void Task_Read_Accelerometer(void) {
 X__declspec(noreturn) void Task_Read_Accelerometer(void) {
@@ -9565,10 +9621,6 @@ N		PTB->PCOR = MASK(DEBUG_T0_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (0));
 N	}
 N}
-N
-N
-N
-N
 N
 N
 N
@@ -9626,46 +9678,18 @@ N       TFT_Text_PrintStr_RC(5,0,"                   ");
 N       TFT_Text_PrintStr_RC(7,0,"                   ");
 N       TFT_Text_PrintStr_RC(9,0,"                   ");
 N      
-N    }
-N      /*
-N      p1.X = 0;
-N      p1.Y = TFT_HEIGHT/4;
-N      
-N      p2.X = TFT_WIDTH-1;
-N      p2.Y = TFT_HEIGHT;
-N      
-N      TFT_Fill_Rectangle(&p1,&p2,&red);
-N    */
-N    /*
-N    if ((pitch < -2.0) || (pitch > 2.0))
-N    {
-N      //p1.X = paddle_pos;
-N			p1.Y = paddle_y_pos;
-N			p2.X = p1.X + PADDLE_WIDTH;
-N			p2.Y = p1.Y + PADDLE_HEIGHT;
-N			TFT_Fill_Rectangle(&p1, &p2, &black); 		
-N			
-N			paddle_y_pos += pitch;
-N			paddle_y_pos = MAX(0, paddle_y_pos);
-N			paddle_y_pos = MIN(paddle_y_pos, TFT_HEIGHT-1);
-N			
-N			//p1.X = paddle_pos;
-N			p1.Y = paddle_y_pos;
-N			p2.X = p1.X + PADDLE_WIDTH;
-N			p2.Y = p1.Y + PADDLE_HEIGHT;
-N			TFT_Fill_Rectangle(&p1, &p2, &red); 	
-N      
-N    }
-N    */
-N    
+N    }  
 N		
 N		PTB->PCOR = MASK(DEBUG_T3_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (3));
 N	}
-W "src\tasks.c" 145 10 variable "paddle_pos" was declared but never referenced
-W "src\tasks.c" 146 11 variable "paddle_y_pos" was declared but never referenced
-W "src\tasks.c" 148 7 variable "p1" was declared but never referenced
-W "src\tasks.c" 148 11 variable "p2" was declared but never referenced
-W "src\tasks.c" 149 10 variable "paddle_color" was set but never used
-W "src\tasks.c" 149 24 variable "black" was set but never used
+W "src\tasks.c" 179 10 variable "paddle_pos" was declared but never referenced
+W "src\tasks.c" 180 11 variable "paddle_y_pos" was declared but never referenced
+W "src\tasks.c" 182 7 variable "p1" was declared but never referenced
+W "src\tasks.c" 182 11 variable "p2" was declared but never referenced
+W "src\tasks.c" 183 10 variable "paddle_color" was set but never used
+W "src\tasks.c" 183 24 variable "black" was set but never used
 N}
+N
+N
+N
