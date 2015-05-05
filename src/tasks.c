@@ -79,8 +79,11 @@ __task void Task_Increment_runes(void)
     os_itv_wait();
     rune_count += rune_increment;
     sprintf(buffer,"runes: %d",rune_count);
-    TFT_Text_PrintStr_RC(0,0,buffer);
     
+    os_mut_wait(&LCD_mutex, WAIT_FOREVER);
+    TFT_Text_PrintStr_RC(0,0,buffer);
+    os_mut_release(&LCD_mutex);
+
   }
 }
 
@@ -115,9 +118,13 @@ __task void Task_Read_TS(void) {
 	
 	os_itv_set(TASK_READ_TS_PERIOD_TICKS);
 
+  os_mut_wait(&LCD_mutex, WAIT_FOREVER);
+
 	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 0, "Mute");
 	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 12, "Unmute");
 	
+  os_mut_release(&LCD_mutex);
+
 
 	while (1) {
 		os_itv_wait();
@@ -156,7 +163,12 @@ __task void Task_Read_TS(void) {
           tap_flg=FALSE;
         }
         sprintf(buffer,"speed: %d rps",rune_increment);
+       
+
+				os_mut_wait(&LCD_mutex, WAIT_FOREVER);
         TFT_Text_PrintStr_RC(1,0,buffer);
+        os_mut_release(&LCD_mutex);
+        
       }
 
       //Check if rune click

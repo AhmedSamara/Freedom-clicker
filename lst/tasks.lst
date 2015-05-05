@@ -10955,8 +10955,13 @@ N    os_itv_wait();
 X    _os_itv_wait((U32)rt_itv_wait);
 N    rune_count += rune_increment;
 N    sprintf(buffer,"runes: %d",rune_count);
-N    TFT_Text_PrintStr_RC(0,0,buffer);
 N    
+N    os_mut_wait(&LCD_mutex, WAIT_FOREVER);
+X    _os_mut_wait((U32)rt_mut_wait,&LCD_mutex,(0xffff));
+N    TFT_Text_PrintStr_RC(0,0,buffer);
+N    os_mut_release(&LCD_mutex);
+X    _os_mut_release((U32)rt_mut_release,&LCD_mutex);
+N
 N  }
 N}
 N
@@ -11005,11 +11010,17 @@ N
 N	os_itv_set(TASK_READ_TS_PERIOD_TICKS);
 X	_os_itv_set((U32)rt_itv_set,(20));
 N
+N  os_mut_wait(&LCD_mutex, WAIT_FOREVER);
+X  _os_mut_wait((U32)rt_mut_wait,&LCD_mutex,(0xffff));
+N
 N	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 0, "Mute");
 X	TFT_Text_PrintStr_RC(((320)/G_TFT_char_height), 0, "Mute");
 N	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 12, "Unmute");
 X	TFT_Text_PrintStr_RC(((320)/G_TFT_char_height), 12, "Unmute");
 N	
+N  os_mut_release(&LCD_mutex);
+X  _os_mut_release((U32)rt_mut_release,&LCD_mutex);
+N
 N
 N	while (1) {
 N		os_itv_wait();
@@ -11059,7 +11070,14 @@ N          tap_flg=FALSE;
 X          tap_flg=(0x00);
 N        }
 N        sprintf(buffer,"speed: %d rps",rune_increment);
+N       
+N
+N				os_mut_wait(&LCD_mutex, WAIT_FOREVER);
+X				_os_mut_wait((U32)rt_mut_wait,&LCD_mutex,(0xffff));
 N        TFT_Text_PrintStr_RC(1,0,buffer);
+N        os_mut_release(&LCD_mutex);
+X        _os_mut_release((U32)rt_mut_release,&LCD_mutex);
+N        
 N      }
 N
 N      //Check if rune click
@@ -11105,8 +11123,8 @@ N		}
 N		PTB->PCOR = MASK(DEBUG_T1_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (1));
 N	}
-W "src\tasks.c" 108 14 variable "tp1" was declared but never referenced
-W "src\tasks.c" 108 19 variable "tp2" was declared but never referenced
+W "src\tasks.c" 111 14 variable "tp1" was declared but never referenced
+W "src\tasks.c" 111 19 variable "tp2" was declared but never referenced
 N}
 N
 N
@@ -11221,7 +11239,7 @@ N		PTB->PCOR = MASK(DEBUG_T3_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (3));
 N
 N	}
-W "src\tasks.c" 234 22 variable "black" was declared but never referenced
+W "src\tasks.c" 246 22 variable "black" was declared but never referenced
 N}
 N
 N
