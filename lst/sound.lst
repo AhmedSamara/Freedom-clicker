@@ -9690,6 +9690,7 @@ N
 N
 N void TFT_TS_Init(void);
 N uint32_t TFT_TS_Read(PT_T * position);
+N void draw_pick(PT_T*);
 N void TFT_TS_Test(void);
 N void TFT_TS_Calibrate(void);
 N void Init_colors(void);

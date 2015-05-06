@@ -417,6 +417,7 @@ N
 N
 N void TFT_TS_Init(void);
 N uint32_t TFT_TS_Read(PT_T * position);
+N void draw_pick(PT_T*);
 N void TFT_TS_Test(void);
 N void TFT_TS_Calibrate(void);
 N void Init_colors(void);
@@ -429,6 +430,10 @@ N#endif
 L 2 "src\TFT_graphics.c" 2
 N
 N#define STEP 8
+N
+N#define HANDLE_BLOCK_SIZE  (5)
+N#define HANDLE_SIZE        (5)
+N#define HEAD_SIZE          (4)
 N
 Nvoid Graphics_Test(void) {
 N	int x, y;
@@ -487,6 +492,8 @@ N
 N
 Nvoid TFT_Draw_Line(PT_T * p1, PT_T * p2, COLOR_T * color)
 N{
+N  
+N  
 N  
 N	PT_T p;
 N  int Temp, AdjUp, AdjDown, ErrorTerm, XAdvance, XDelta, YDelta;	 
@@ -777,3 +784,76 @@ N
 N
 N
 N
+N
+Nvoid draw_pick(PT_T* base)
+N{
+N  //PT_T a1, a2, a3,a4,a5;
+N  COLOR_T black;
+N  PT_T a[HANDLE_SIZE];
+X  PT_T a[(5)];
+N  PT_T head_up[HEAD_SIZE];
+X  PT_T head_up[(4)];
+N  PT_T head_down[HEAD_SIZE];
+X  PT_T head_down[(4)];
+N  PT_T end_bit;
+N
+N  int i;
+N  
+N  black.B=10;
+N  black.G=10;
+N  black.R=10;
+N  
+N  //create handle.
+N  for( i=0; i<HANDLE_SIZE; i++){
+X  for( i=0; i<(5); i++){
+N    
+N    a[i].X = base->X + HANDLE_BLOCK_SIZE*i;
+X    a[i].X = base->X + (5)*i;
+N    a[i].Y = base->Y + HANDLE_BLOCK_SIZE*i;
+X    a[i].Y = base->Y + (5)*i;
+N  }
+N  for( i=0; i < HANDLE_SIZE-1; i++)
+X  for( i=0; i < (5)-1; i++)
+N  {
+N    TFT_Fill_Rectangle(&a[i],&a[i+1],&black);
+N  }
+N
+N  //create head. in both dirs.
+N  
+N  for(i=0; i<HEAD_SIZE; i++)
+X  for(i=0; i<(4); i++)
+N  {
+N    //decrease Y, increase X
+N    head_up[i].X = a[0].X + HANDLE_BLOCK_SIZE*i;
+X    head_up[i].X = a[0].X + (5)*i;
+N    head_up[i].Y = a[0].Y - HANDLE_BLOCK_SIZE*i;
+X    head_up[i].Y = a[0].Y - (5)*i;
+N    
+N    head_down[i].X = a[0].X - HANDLE_BLOCK_SIZE*i;
+X    head_down[i].X = a[0].X - (5)*i;
+N    head_down[i].Y = a[0].Y + HANDLE_BLOCK_SIZE*i;
+X    head_down[i].Y = a[0].Y + (5)*i;
+N  }
+N  
+N  for(i=0; i<HEAD_SIZE-1; i++)
+X  for(i=0; i<(4)-1; i++)
+N  {
+N    TFT_Fill_Rectangle(&head_up[i],&head_up[i+1],&black);
+N    TFT_Fill_Rectangle(&head_down[i],&head_down[i+1],&black);
+N  }
+N  
+N  end_bit.X = head_down[HEAD_SIZE-1].X + HANDLE_BLOCK_SIZE*2;
+X  end_bit.X = head_down[(4)-1].X + (5)*2;
+N  end_bit.Y = head_down[HEAD_SIZE-1].Y + HANDLE_BLOCK_SIZE;
+X  end_bit.Y = head_down[(4)-1].Y + (5);
+N  TFT_Fill_Rectangle(&head_down[HEAD_SIZE-1],&end_bit,&black);
+X  TFT_Fill_Rectangle(&head_down[(4)-1],&end_bit,&black);
+N  
+N  end_bit.X = head_up[HEAD_SIZE-1].X + HANDLE_BLOCK_SIZE;
+X  end_bit.X = head_up[(4)-1].X + (5);
+N  end_bit.Y = head_up[HEAD_SIZE-1].Y + HANDLE_BLOCK_SIZE*2;
+X  end_bit.Y = head_up[(4)-1].Y + (5)*2;
+N  TFT_Fill_Rectangle(&head_up[HEAD_SIZE-1],&end_bit,&black);
+X  TFT_Fill_Rectangle(&head_up[(4)-1],&end_bit,&black);
+N
+N}

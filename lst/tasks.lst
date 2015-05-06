@@ -10625,6 +10625,7 @@ N
 N
 N void TFT_TS_Init(void);
 N uint32_t TFT_TS_Read(PT_T * position);
+N void draw_pick(PT_T*);
 N void TFT_TS_Test(void);
 N void TFT_TS_Calibrate(void);
 N void Init_colors(void);
@@ -10879,6 +10880,9 @@ N
 NOS_MUT count_mutex;
 NOS_MUT increment_mutex;
 N
+Nos_mbx_declare(acc_mbx,16);
+XU32 acc_mbx [4 + 16];
+N
 Nint rune_count=0;
 Nint rune_increment = 0;
 N
@@ -11026,6 +11030,10 @@ X	TFT_Text_PrintStr_RC(((320)/G_TFT_char_height), 0, "Mute");
 N	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 12, "Unmute");
 X	TFT_Text_PrintStr_RC(((320)/G_TFT_char_height), 12, "Unmute");
 N	
+N  os_mbx_init(&acc_mbx,sizeof(acc_mbx));
+X  _os_mbx_init((U32)rt_mbx_init,&acc_mbx,sizeof(acc_mbx));
+N  
+N  
 N  os_mut_release(&LCD_mutex);
 X  _os_mut_release((U32)rt_mut_release,&LCD_mutex);
 N
@@ -11123,7 +11131,7 @@ X          tap_flg=(0x00);
 N        }
 N      } 
 N    
-N			if (p.Y > 260) { 
+N			if (p.Y > 270) { 
 N				if (p.X < TFT_WIDTH/2) {
 X				if (p.X < (240)/2) {
 N					Sound_Disable_Amp();
@@ -11131,18 +11139,7 @@ N				} else {
 N					Sound_Enable_Amp();
 N				}
 N			} 
-N      else {
-N				// Now draw on screen
-N				if ((pp.X == 0) && (pp.Y == 0)) {
-N					pp = p;
-N				}
-N				os_mut_wait(&LCD_mutex, WAIT_FOREVER);
-X				_os_mut_wait((U32)rt_mut_wait,&LCD_mutex,(0xffff));
-N				TFT_Draw_Line(&p, &pp, &c);
-N				os_mut_release(&LCD_mutex);
-X				_os_mut_release((U32)rt_mut_release,&LCD_mutex);
-N				pp = p;
-N			} 
+N
 N		} else {
 N			pp.X = 0;
 N			pp.Y = 0;
@@ -11152,8 +11149,10 @@ N		}
 N		PTB->PCOR = MASK(DEBUG_T1_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (1));
 N	}
-W "src\tasks.c" 114 14 variable "tp1" was declared but never referenced
-W "src\tasks.c" 114 19 variable "tp2" was declared but never referenced
+W "src\tasks.c" 116 10 variable "pp" was set but never used
+W "src\tasks.c" 116 14 variable "tp1" was declared but never referenced
+W "src\tasks.c" 116 19 variable "tp2" was declared but never referenced
+W "src\tasks.c" 117 10 variable "c" was set but never used
 N}
 N
 N
@@ -11200,6 +11199,7 @@ N	//int16_t paddle_pos=TFT_WIDTH/2;
 N  //int16_t paddle_y_pos = TFT_HEIGHT-4-PADDLE_HEIGHT;
 N  
 N	COLOR_T rune_color, black;
+N  PT_T center;
 N  char clr_flg = FALSE;
 X  char clr_flg = (0x00);
 N
@@ -11220,6 +11220,13 @@ N  rune_color.B=200;
 N  rune_color.G=200;
 N
 N  TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
+N  
+N  center.X = TFT_WIDTH/2;
+X  center.X = (240)/2;
+N  center.Y = TFT_HEIGHT/2;
+X  center.Y = (320)/2;
+N  
+N  draw_pick(&center);
 N	
 N	os_itv_set(TASK_UPDATE_SCREEN_PERIOD_TICKS);
 X	_os_itv_set((U32)rt_itv_set,(100));
@@ -11261,6 +11268,7 @@ N       TFT_Text_PrintStr_RC(5,0,"                   ");
 N       TFT_Text_PrintStr_RC(7,0,"                   ");
 N       TFT_Text_PrintStr_RC(9,0,"                   ");
 N       TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
+N       draw_pick(&center);
 N
 N    }  
 N
@@ -11268,7 +11276,7 @@ N		PTB->PCOR = MASK(DEBUG_T3_POS);
 X		((GPIO_Type *)(0x400FF040u))->PCOR = (1UL << (3));
 N
 N	}
-W "src\tasks.c" 261 22 variable "black" was declared but never referenced
+W "src\tasks.c" 257 22 variable "black" was declared but never referenced
 N}
 N
 N

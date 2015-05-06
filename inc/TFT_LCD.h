@@ -82,6 +82,7 @@ typedef struct {
 
  void TFT_TS_Init(void);
  uint32_t TFT_TS_Read(PT_T * position);
+ void draw_pick(PT_T*);
  void TFT_TS_Test(void);
  void TFT_TS_Calibrate(void);
  void Init_colors(void);

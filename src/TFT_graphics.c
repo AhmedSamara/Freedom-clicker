@@ -2,6 +2,10 @@
 
 #define STEP 8
 
+#define HANDLE_BLOCK_SIZE  (5)
+#define HANDLE_SIZE        (5)
+#define HEAD_SIZE          (4)
+
 void Graphics_Test(void) {
 	int x, y;
 	PT_T p1, p2;
@@ -51,6 +55,8 @@ void Graphics_Test(void) {
 
 void TFT_Draw_Line(PT_T * p1, PT_T * p2, COLOR_T * color)
 {
+  
+  
   
 	PT_T p;
   int Temp, AdjUp, AdjDown, ErrorTerm, XAdvance, XDelta, YDelta;	 
@@ -341,3 +347,57 @@ void TFT_Draw_Line(PT_T * p1, PT_T * p2, COLOR_T * color)
 
 
 
+
+void draw_pick(PT_T* base)
+{
+  //PT_T a1, a2, a3,a4,a5;
+  COLOR_T black;
+  PT_T a[HANDLE_SIZE];
+  PT_T head_up[HEAD_SIZE];
+  PT_T head_down[HEAD_SIZE];
+  PT_T end_bit;
+
+  int i;
+  
+  black.B=10;
+  black.G=10;
+  black.R=10;
+  
+  //create handle.
+  for( i=0; i<HANDLE_SIZE; i++){
+    
+    a[i].X = base->X + HANDLE_BLOCK_SIZE*i;
+    a[i].Y = base->Y + HANDLE_BLOCK_SIZE*i;
+  }
+  for( i=0; i < HANDLE_SIZE-1; i++)
+  {
+    TFT_Fill_Rectangle(&a[i],&a[i+1],&black);
+  }
+
+  //create head. in both dirs.
+  
+  for(i=0; i<HEAD_SIZE; i++)
+  {
+    //decrease Y, increase X
+    head_up[i].X = a[0].X + HANDLE_BLOCK_SIZE*i;
+    head_up[i].Y = a[0].Y - HANDLE_BLOCK_SIZE*i;
+    
+    head_down[i].X = a[0].X - HANDLE_BLOCK_SIZE*i;
+    head_down[i].Y = a[0].Y + HANDLE_BLOCK_SIZE*i;
+  }
+  
+  for(i=0; i<HEAD_SIZE-1; i++)
+  {
+    TFT_Fill_Rectangle(&head_up[i],&head_up[i+1],&black);
+    TFT_Fill_Rectangle(&head_down[i],&head_down[i+1],&black);
+  }
+  
+  end_bit.X = head_down[HEAD_SIZE-1].X + HANDLE_BLOCK_SIZE*2;
+  end_bit.Y = head_down[HEAD_SIZE-1].Y + HANDLE_BLOCK_SIZE;
+  TFT_Fill_Rectangle(&head_down[HEAD_SIZE-1],&end_bit,&black);
+  
+  end_bit.X = head_up[HEAD_SIZE-1].X + HANDLE_BLOCK_SIZE;
+  end_bit.Y = head_up[HEAD_SIZE-1].Y + HANDLE_BLOCK_SIZE*2;
+  TFT_Fill_Rectangle(&head_up[HEAD_SIZE-1],&end_bit,&black);
+
+}

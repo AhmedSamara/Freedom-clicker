@@ -23,6 +23,8 @@ OS_MUT TS_mutex;
 OS_MUT count_mutex;
 OS_MUT increment_mutex;
 
+os_mbx_declare(acc_mbx,16);
+
 int rune_count=0;
 int rune_increment = 0;
 
@@ -126,6 +128,9 @@ __task void Task_Read_TS(void) {
 	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 0, "Mute");
 	TFT_Text_PrintStr_RC(TFT_MAX_ROWS, 12, "Unmute");
 	
+  os_mbx_init(&acc_mbx,sizeof(acc_mbx));
+  
+  
   os_mut_release(&LCD_mutex);
 
 
@@ -250,6 +255,7 @@ __task void Task_Update_Screen(void) {
   //int16_t paddle_y_pos = TFT_HEIGHT-4-PADDLE_HEIGHT;
   
 	COLOR_T rune_color, black;
+  PT_T center;
   char clr_flg = FALSE;
 
 	
@@ -265,6 +271,11 @@ __task void Task_Update_Screen(void) {
   rune_color.G=200;
 
   TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
+  
+  center.X = TFT_WIDTH/2;
+  center.Y = TFT_HEIGHT/2;
+  
+  draw_pick(&center);
 	
 	os_itv_set(TASK_UPDATE_SCREEN_PERIOD_TICKS);
   
@@ -294,6 +305,7 @@ __task void Task_Update_Screen(void) {
        TFT_Text_PrintStr_RC(7,0,"                   ");
        TFT_Text_PrintStr_RC(9,0,"                   ");
        TFT_Fill_Rectangle(&rp1,&rp2,&rune_color);
+       draw_pick(&center);
 
     }  
 
